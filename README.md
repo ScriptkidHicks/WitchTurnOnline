@@ -1,5 +1,5 @@
 # WitchTurnOnline
-    *The Witch Turn app is a tool for tabletop players and their gms to manage initiative in games, provide the Gm a way to manage clocks, and the players a way to view some / all of those clocks. The dev(s) of this app found that there were a lot of tools online for managing tabletop simulators, or shared dice rolling, but none for visualizing shared clocks, or viewing initiative.*
+   *The Witch Turn app is a tool for tabletop players and their gms to manage initiative in games, provide the Gm a way to manage clocks, and the players a way to view some / all of those clocks. The dev(s) of this app found that there were a lot of tools online for managing tabletop simulators, or shared dice rolling, but none for visualizing shared clocks, or viewing initiative.*
 
 
 ## Rooms
