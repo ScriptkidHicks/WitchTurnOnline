@@ -1,0 +1,31 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "A server for the Witch Turn Online App",
+  "main": "server.js",
+  "scripts": {
+    "test": "testServer",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/ScriptkidHicks/WitchTurnOnline.git"
+  },
+  "keywords": [
+    "App",
+    "WitchTurn",
+    "React"
+  ],
+  "author": "Tammas Hicks",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ScriptkidHicks/WitchTurnOnline/issues"
+  },
+  "homepage": "https://github.com/ScriptkidHicks/WitchTurnOnline#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "nodemon": "^2.0.20",
+    "socket.io": "^4.5.4"
+  }
+}
