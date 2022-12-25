@@ -3,8 +3,6 @@ import { DefaultPageBody } from "../Components/StyledComponents/MainStyledCompon
 
 function LoginLandingPage () {
     return <DefaultPageBody>
-        Hello, and welcome to witch turn online
-        <OptionsBar></OptionsBar>
     </DefaultPageBody>
 }
 
