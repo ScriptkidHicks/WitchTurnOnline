@@ -4,6 +4,7 @@ function BasicToggleButton(props){
     return (
     <BasicToggle 
         onClick={() => {
+            console.log(props.fontColor);
             props.setVariable(!props.variable)}}
         backgroundColor={props.backgroundColor}
         width={props.width}
@@ -21,4 +22,5 @@ const BasicToggle = styled.div`
     width: ${props => props.width? props.width : '40px'};
     height: ${props => props.height? props.height : '40px'};
     border: ${props => props.border? props.border : '2px solid black'};
+    color: ${props => props.fontColor ? props.fontColor : 'black'};
 `;
