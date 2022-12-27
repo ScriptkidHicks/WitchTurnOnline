@@ -13,6 +13,10 @@ const DefaultPageBody = styled.div`
   -ms-overflow-style: none;
   scrollbar-width: none;
   scrollbar-display: none;
+
+  @media screen and (max-width: 800px) {
+    flex-direction: column;
+  }
 `;
 
 const DefaultPageColumn = styled.div`
@@ -27,6 +31,10 @@ const DefaultPageColumn = styled.div`
   background-color: ${(props) =>
     props.backgroundColor ? props.backgroundColor : "none"};
   color: ${(props) => (props.color ? props.color : "black")};
+
+  @media screen and (max-width: 800px) {
+    min-width: 100vw;
+  }
 `;
 
 /* Styled Generics */
