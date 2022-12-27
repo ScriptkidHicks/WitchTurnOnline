@@ -1,13 +1,19 @@
 import { useState } from "react";
-import { BasicIncrementButton } from "../Components/Buttons/BasicButtons";
-import { DefaultPageBody } from "../Components/StyledComponents/MainStyledComponents";
+import {
+  DefaultPageBody,
+  DefaultPageColumn,
+} from "../Components/StyledComponents/MainStyledComponents";
 
-function LoginLandingPage () {
-    const [temp, setTemp] = useState(0);
+function LoginLandingPage() {
+  const [temp, setTemp] = useState(0);
 
-    return <DefaultPageBody>
-        <BasicIncrementButton limit={8} startingValue={3} variable={temp} setVariable={setTemp} hoverBackgroundColor={"pink"} ></BasicIncrementButton>
+  return (
+    <DefaultPageBody>
+      <DefaultPageColumn>A</DefaultPageColumn>
+      <DefaultPageColumn flexGrow={"3"}>B</DefaultPageColumn>
+      <DefaultPageColumn>C</DefaultPageColumn>
     </DefaultPageBody>
+  );
 }
 
 export default LoginLandingPage;
