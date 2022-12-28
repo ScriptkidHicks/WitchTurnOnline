@@ -1,11 +1,26 @@
 import styled from "styled-components";
 
+/* Style Color Components */
+
+const ColorStyles = {
+  DeepBackgroundPurple: "#0B0016",
+  GreyPurpleBackground: "#3C1F66",
+  GreyPurpleBackgroundRGB: "60, 31, 102",
+  DarkPurpleBackground: "#2B0066",
+  GreyPurpleForeground: "#4B00B3",
+  GreyPurpleForegroundRGB: "75, 0, 179",
+  LightPurpleForeground: "#8A46EA",
+  PurpleHighlight: "#6000E6",
+  WhiteText: "#FFFFFF",
+};
+
 /* Main Page Body Components */
 
 const DefaultPageBody = styled.div`
   display: flex;
   flex-direction: row;
-  background-color: white;
+  background-color: ${ColorStyles["DeepBackgroundPurple"]};
+  color: ${ColorStyles["WhiteText"]}
   justify-content: space-between;
   align-items: center;
   min-height: 100vh;
@@ -20,7 +35,7 @@ const DefaultPageBody = styled.div`
 `;
 
 const DefaultPageColumn = styled.div`
-  border: 1px solid black;
+  border: 1px solid ${ColorStyles["GreyPurpleForeground"]};
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -28,16 +43,56 @@ const DefaultPageColumn = styled.div`
   justify-content: ${(props) =>
     props.justifyContent ? props.justifyContent : "center"};
   flex-grow: ${(props) => (props.flexGrow ? props.flexGrow : "1")};
+  max-width: ${(props) => (props.maxWidth ? props.maxWidth : "none")};
   background-color: ${(props) =>
     props.backgroundColor ? props.backgroundColor : "none"};
-  color: ${(props) => (props.color ? props.color : "black")};
+  color: ${(props) => (props.color ? props.color : ColorStyles["WhiteText"])};
 
   @media screen and (max-width: 800px) {
-    min-width: 100vw;
+    min-width: 100%;
+    max-width: none;
   }
 `;
 
-/* Styled Generics */
+/* Styled Labels and Titles */
+
+const MainTitleLabel = styled.label`
+  background-color: rgba(
+    ${(props) =>
+      props.backgroundColor
+        ? props.backgroundColor
+        : ColorStyles.GreyPurpleForegroundRGB},
+    ${(props) => (props.opacity ? props.opacity : `1`)}
+  );
+  padding: ${(props) =>
+    props.padding ? props.padding : "20px 20px 20px 20px"};
+  margin-bottom: 100px;
+  border-radius: ${(props) =>
+    props.borderRadius ? props.borderRadius : "15px"};
+  font-size: ${(props) => (props.fontSize ? props.fontSize : "2em")};
+  color: white;
+`;
+
+/* Styled Input Boxes */
+
+const GenericInputDiv = styled.div`
+  background-color: rgba(
+    ${(props) =>
+      props.backgroundColor
+        ? props.backgroundColor
+        : ColorStyles.GreyPurpleForegroundRGB},
+    ${(props) => (props.opacity ? props.opacity : `1`)}
+  );
+  padding: ${(props) => (props.padding ? props.padding : "5px")};
+  margin: ${(props) => (props.margin ? props.margin : "20px")};
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+`;
+
+/* Styled Generic Buttons */
 
 const StyleableButton = styled.button`
   background-color: ${(props) =>
@@ -61,4 +116,10 @@ const StyleableButton = styled.button`
   }
 `;
 
-export { DefaultPageBody, DefaultPageColumn, StyleableButton };
+export {
+  DefaultPageBody,
+  DefaultPageColumn,
+  StyleableButton,
+  MainTitleLabel,
+  GenericInputDiv,
+};

@@ -2,6 +2,8 @@ import { useState } from "react";
 import {
   DefaultPageBody,
   DefaultPageColumn,
+  MainTitleLabel,
+  GenericInputDiv,
 } from "../Components/StyledComponents/MainStyledComponents";
 
 function LoginLandingPage() {
@@ -9,9 +11,15 @@ function LoginLandingPage() {
 
   return (
     <DefaultPageBody>
-      <DefaultPageColumn>A</DefaultPageColumn>
-      <DefaultPageColumn flexGrow={"3"}>B</DefaultPageColumn>
-      <DefaultPageColumn>C</DefaultPageColumn>
+      <DefaultPageColumn flexGrow={2}>
+        <GenericInputDiv>Start A New Room</GenericInputDiv>
+        <GenericInputDiv>Join A Room</GenericInputDiv>
+      </DefaultPageColumn>
+      <DefaultPageColumn justifyContent={"flex-start"}>
+        <MainTitleLabel flexGrow={1} maxWidth={"40%"} opacity={"0.5"}>
+          Welcome to Witch Turn
+        </MainTitleLabel>
+      </DefaultPageColumn>
     </DefaultPageBody>
   );
 }
