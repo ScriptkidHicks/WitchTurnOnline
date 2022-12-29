@@ -92,6 +92,13 @@ const GenericInputDiv = styled.div`
   justify-content: flex-start;
 `;
 
+/* Styled Generic Inputs */
+
+const StyleableLimitedInput = styled.input`
+  background-color: white;
+  text-align: ${(props) => props.textAlignment};
+`;
+
 /* Styled Generic Buttons */
 
 const StyleableButton = styled.button`
@@ -122,4 +129,5 @@ export {
   StyleableButton,
   MainTitleLabel,
   GenericInputDiv,
+  StyleableLimitedInput,
 };

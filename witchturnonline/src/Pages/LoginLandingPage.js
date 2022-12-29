@@ -5,14 +5,22 @@ import {
   MainTitleLabel,
   GenericInputDiv,
 } from "../Components/StyledComponents/MainStyledComponents";
+import { LimitedInputCombo } from "../Components/SearchBars/GenericInputs";
 
 function LoginLandingPage() {
-  const [temp, setTemp] = useState(0);
-
+  const [inputState, setInputState] = useState("");
   return (
     <DefaultPageBody>
       <DefaultPageColumn flexGrow={2}>
-        <GenericInputDiv>Start A New Room</GenericInputDiv>
+        <GenericInputDiv>
+          Start A New Room
+          <LimitedInputCombo
+            maxLength={10}
+            minLength={10}
+            inputState={inputState}
+            setInputState={setInputState}
+          ></LimitedInputCombo>
+        </GenericInputDiv>
         <GenericInputDiv>Join A Room</GenericInputDiv>
       </DefaultPageColumn>
       <DefaultPageColumn justifyContent={"flex-start"}>
