@@ -1,5 +1,4 @@
 import './App.css';
-import styled from 'styled-components';
 import { Route, Routes } from 'react-router-dom';
 
 import LoginLandingPage from './Pages/LoginLandingPage';
