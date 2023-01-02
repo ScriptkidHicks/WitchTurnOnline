@@ -19,8 +19,10 @@ function LoginLandingPage() {
   const [title, setTitle] = useState("");
 
   function sendMessage() {
-    console.log("hemlo");
-    socket.emit("send_message", { message: message, room: room });
+    if (roomPicked) {
+      console.log("hemlo");
+      socket.emit("send_message", { message: message, room: room });
+    }
   }
 
   useEffect(() => {
@@ -45,6 +47,7 @@ function LoginLandingPage() {
   function disconnectFromRoom(room) {
     setRoomPicked(false);
     socket.emit("leave_room", { room: room });
+    setRoom(null);
   }
 
   return (

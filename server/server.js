@@ -33,7 +33,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("leave_room", (data) => {
-    console.log(data.room);
+    console.log("Leaving room: " + data.room);
     socket.leave(data.room);
   });
 
