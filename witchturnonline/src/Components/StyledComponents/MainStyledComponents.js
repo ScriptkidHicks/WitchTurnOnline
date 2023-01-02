@@ -11,6 +11,8 @@ const ColorStyles = {
   GreyPurpleForegroundRGB: "75, 0, 179",
   LightPurpleForeground: "#8A46EA",
   PurpleHighlight: "#6000E6",
+  inputLavendar: "#D7B4F3",
+  inputLavendarRGB: "120, 85, 190",
   WhiteText: "#FFFFFF",
 };
 
@@ -95,8 +97,21 @@ const GenericInputDiv = styled.div`
 /* Styled Generic Inputs */
 
 const StyleableLimitedInput = styled.input`
-  background-color: white;
-  text-align: ${(props) => props.textAlignment};
+  background-color: ${(props) =>
+    props.backgroundColor
+      ? props.backgroundColor
+      : "rgba(" +
+        ColorStyles.inputLavendarRGB +
+        ", " +
+        (props.opacity ? props.opacity : "1") +
+        ")"};
+  text-align: ${(props) =>
+    props.textAlignment ? props.textAlignment : "center"};
+  color: ${(props) => (props.textColor ? props.textColor : "white")};
+  padding: ${(props) => (props.padding ? props.padding : "5px")};
+  font-size: ${(props) => (props.fontSize ? props.fontSize : "1em")};
+  letter-spacing: ${(props) =>
+    props.letterSpacing ? props.letterSpacing : "1em"};
 `;
 
 /* Styled Generic Buttons */

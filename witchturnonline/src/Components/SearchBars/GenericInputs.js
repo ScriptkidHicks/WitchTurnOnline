@@ -3,8 +3,6 @@ import { StyleableLimitedInput } from "../StyledComponents/MainStyledComponents"
 function LimitedInputCombo(props) {
   function onInputFunction(event) {
     props.setInputState(event.target.value);
-    var content = event.target.value;
-    console.log(content);
   }
   return (
     <StyleableLimitedInput
@@ -13,10 +11,13 @@ function LimitedInputCombo(props) {
       type={props.type ? props.type : "text"}
       minLength={props.minLength ? props.minLength : 0}
       placeholder={props.placeholder ? props.placeholder : ""}
-      textAlignment={props.textAlignment ? props.textAlignment : "center"}
-      onInput={(event) => {
-        onInputFunction(event);
-      }}
+      textAlignment={props.textAlignment}
+      backgroundColor={props.backgroundColor}
+      onInput={
+        props.onInputFunction
+          ? (event) => props.onInputFunction(event)
+          : (event) => onInputFunction(event)
+      }
     ></StyleableLimitedInput>
   );
 }
