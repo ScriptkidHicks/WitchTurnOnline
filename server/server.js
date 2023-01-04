@@ -19,7 +19,6 @@ const io = new Server(server, {
 });
 
 server.listen(process.env.SERVER_PORT, () => {
-  console.log(process.env.SERVER_ORIGIN);
   console.log("SERVER IS RUNNING");
 });
 
