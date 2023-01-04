@@ -26,7 +26,7 @@ function BasicIncrementButton(props) {
                 props.setVariable(props.variable + 1)
             }
         } else {
-            props.setVariable(props.variable.current + 1)
+            props.setVariable(props.variable + 1)
         }
     }} 
         backgroundColor={props.backgroundColor}
