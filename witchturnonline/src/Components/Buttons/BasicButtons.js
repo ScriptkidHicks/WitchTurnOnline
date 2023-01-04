@@ -19,7 +19,6 @@ function BasicButton(props) {
 
 function BasicIncrementButton(props) {
     return <BasicButton onClickFunction={()=> {
-        console.log(props.hoverBackgroundColor)
         if (props.limit && props.startingValue) {
             if (props.variable >= props.limit){
                 props.setVariable(props.startingValue)
