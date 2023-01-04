@@ -9,7 +9,7 @@ import { LimitedInputCombo } from "../Components/SearchBars/GenericInputs";
 
 import { io } from "socket.io-client";
 
-const socket = io.connect("http://localhost:3001");
+const socket = io.connect(process.env.REACT_APP_CLIENT_CONNECTION);
 
 function LoginLandingPage() {
   const [message, setMessage] = useState("");
@@ -19,8 +19,8 @@ function LoginLandingPage() {
   const [title, setTitle] = useState("");
 
   function sendMessage() {
+    console.log(process.env);
     if (roomPicked) {
-      console.log("hemlo");
       socket.emit("send_message", { message: message, room: room });
     }
   }
