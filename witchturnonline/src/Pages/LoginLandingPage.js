@@ -9,7 +9,9 @@ import { LimitedInputCombo } from "../Components/SearchBars/GenericInputs";
 
 import { io } from "socket.io-client";
 
-const socket = io.connect(process.env.REACT_APP_CLIENT_CONNECTION);
+const socket = io(process.env.REACT_APP_CLIENT_CONNECTION, {
+  transports: ["websocket"],
+});
 
 function LoginLandingPage() {
   const [message, setMessage] = useState("");
