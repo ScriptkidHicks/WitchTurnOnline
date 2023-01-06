@@ -16,7 +16,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: ["http://localhost:3000/", "https://witch-turn-l95l.onrender.com/"],
+    origin: [process.env.ORIGIN],
     methods: ["GET", "POST"],
     credentials: true,
     withCredentials: true,
@@ -52,5 +52,7 @@ io.on("connection", (socket) => {
 });
 
 server.listen(process.env.PORT, () => {
+  console.log(process.env.ORIGIN);
+  console.log(process.env.PORT);
   console.log("SERVER IS RUNNING");
 });
