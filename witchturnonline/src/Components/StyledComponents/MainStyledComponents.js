@@ -5,9 +5,9 @@ import { DarkColorStyles } from "./ColorStyles";
 const DefaultPageBody = styled.div`
   display: flex;
   flex-direction: row;
-  background-color: ${DarkColorStyles["DeepBackgroundPurple"]};
-  color: ${DarkColorStyles["WhiteText"]}
-  justify-content: space-between;
+  background-color: ${DarkColorStyles.DeepBackgroundPurple};
+  color: ${DarkColorStyles.WhiteText};
+  justify-content: space-evenly;
   align-items: center;
   min-height: 100vh;
   border: 1px solid black;
@@ -21,7 +21,7 @@ const DefaultPageBody = styled.div`
 `;
 
 const DefaultPageColumn = styled.div`
-  border: 1px solid ${DarkColorStyles["GreyPurpleForeground"]};
+  border: 1px solid ${DarkColorStyles.GreyPurpleForeground};
   min-height: 100vh;
   display: flex;
   flex-direction: column;

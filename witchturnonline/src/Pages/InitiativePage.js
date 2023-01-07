@@ -1,11 +1,19 @@
-import ScrollableTurnOrder from "../Components/Scrolltainers/ScrollableTurnorder";
+import { InitiativeRoll } from "../Components/InitiativeScrollComponents/InitiativeComponents";
+import {
+  DefaultPageBody,
+  DefaultPageColumn,
+} from "../Components/StyledComponents/MainStyledComponents";
 import { CenterAlignedFlexPage } from "../Components/StyledComponents/PageBodies";
 
 function InitiativePage(props) {
   return (
-    <CenterAlignedFlexPage>
-      <ScrollableTurnOrder></ScrollableTurnOrder>
-    </CenterAlignedFlexPage>
+    <DefaultPageBody>
+      <DefaultPageColumn flexGrow={2}></DefaultPageColumn>
+      <DefaultPageColumn>
+        <InitiativeRoll></InitiativeRoll>
+      </DefaultPageColumn>
+      <DefaultPageColumn flexGrow={2}></DefaultPageColumn>
+    </DefaultPageBody>
   );
 }
 

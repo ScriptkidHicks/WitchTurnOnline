@@ -10,6 +10,7 @@ const DarkColorStyles = {
   inputLavendar: "#D7B4F3",
   inputLavendarRGB: "120, 85, 190",
   WhiteText: "#FFFFFF",
+  PurpleBoxShadow: "rgba(27, 07, 74, 1)",
 };
 
 export { DarkColorStyles };
