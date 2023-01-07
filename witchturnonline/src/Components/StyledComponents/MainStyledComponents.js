@@ -1,28 +1,12 @@
 import styled from "styled-components";
-
-/* Style Color Components */
-
-const ColorStyles = {
-  DeepBackgroundPurple: "#0B0016",
-  GreyPurpleBackground: "#3C1F66",
-  GreyPurpleBackgroundRGB: "60, 31, 102",
-  DarkPurpleBackground: "#2B0066",
-  GreyPurpleForeground: "#4B00B3",
-  GreyPurpleForegroundRGB: "75, 0, 179",
-  LightPurpleForeground: "#8A46EA",
-  PurpleHighlight: "#6000E6",
-  inputLavendar: "#D7B4F3",
-  inputLavendarRGB: "120, 85, 190",
-  WhiteText: "#FFFFFF",
-};
-
+import { DarkColorStyles } from "./ColorStyles";
 /* Main Page Body Components */
 
 const DefaultPageBody = styled.div`
   display: flex;
   flex-direction: row;
-  background-color: ${ColorStyles["DeepBackgroundPurple"]};
-  color: ${ColorStyles["WhiteText"]}
+  background-color: ${DarkColorStyles["DeepBackgroundPurple"]};
+  color: ${DarkColorStyles["WhiteText"]}
   justify-content: space-between;
   align-items: center;
   min-height: 100vh;
@@ -37,7 +21,7 @@ const DefaultPageBody = styled.div`
 `;
 
 const DefaultPageColumn = styled.div`
-  border: 1px solid ${ColorStyles["GreyPurpleForeground"]};
+  border: 1px solid ${DarkColorStyles["GreyPurpleForeground"]};
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -48,7 +32,8 @@ const DefaultPageColumn = styled.div`
   max-width: ${(props) => (props.maxWidth ? props.maxWidth : "none")};
   background-color: ${(props) =>
     props.backgroundColor ? props.backgroundColor : "none"};
-  color: ${(props) => (props.color ? props.color : ColorStyles["WhiteText"])};
+  color: ${(props) =>
+    props.color ? props.color : DarkColorStyles["WhiteText"]};
 
   @media screen and (max-width: 800px) {
     min-width: 100%;
@@ -63,7 +48,7 @@ const MainTitleLabel = styled.label`
     ${(props) =>
       props.backgroundColor
         ? props.backgroundColor
-        : ColorStyles.GreyPurpleForegroundRGB},
+        : DarkColorStyles.GreyPurpleForegroundRGB},
     ${(props) => (props.opacity ? props.opacity : `1`)}
   );
   padding: ${(props) =>
@@ -82,7 +67,7 @@ const GenericInputDiv = styled.div`
     ${(props) =>
       props.backgroundColor
         ? props.backgroundColor
-        : ColorStyles.GreyPurpleForegroundRGB},
+        : DarkColorStyles.GreyPurpleForegroundRGB},
     ${(props) => (props.opacity ? props.opacity : `1`)}
   );
   padding: ${(props) => (props.padding ? props.padding : "5px")};
@@ -101,7 +86,7 @@ const StyleableLimitedInput = styled.input`
     props.backgroundColor
       ? props.backgroundColor
       : "rgba(" +
-        ColorStyles.inputLavendarRGB +
+        DarkColorStyles.inputLavendarRGB +
         ", " +
         (props.opacity ? props.opacity : "1") +
         ")"};
