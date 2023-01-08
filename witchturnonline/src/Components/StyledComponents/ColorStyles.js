@@ -13,4 +13,6 @@ const DarkColorStyles = {
   PurpleBoxShadow: "rgba(27, 07, 74, 1)",
 };
 
-export { DarkColorStyles };
+const LightColorStyles = {}; //We're going to add light mode at some point here, then use some useContext hooks with personal stuff yada yada.
+
+export { DarkColorStyles, LightColorStyles };

@@ -123,6 +123,15 @@ const StyleableButton = styled.button`
   }
 `;
 
+const StyledXButton = styled.button`
+  background-color: ${(props) =>
+    props.ButtonColor ? props.ButtonColor : DarkColorStyles.PurpleHighlight};
+  color: white;
+  height: ${(props) => (props.buttonSize ? props.buttonSize : "22px")};
+  width: ${(props) => (props.buttonSize ? props.buttonSize : "22px")};
+  border-radius: 40px;
+`;
+
 export {
   DefaultPageBody,
   DefaultPageColumn,
@@ -130,4 +139,5 @@ export {
   MainTitleLabel,
   GenericInputDiv,
   StyleableLimitedInput,
+  StyledXButton,
 };

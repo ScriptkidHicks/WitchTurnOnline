@@ -6,11 +6,13 @@ import {
 import { CenterAlignedFlexPage } from "../Components/StyledComponents/PageBodies";
 
 function InitiativePage(props) {
+  const participants = [];
+
   return (
     <DefaultPageBody>
       <DefaultPageColumn flexGrow={2}></DefaultPageColumn>
       <DefaultPageColumn>
-        <InitiativeRoll></InitiativeRoll>
+        <InitiativeRoll participants={participants}></InitiativeRoll>
       </DefaultPageColumn>
       <DefaultPageColumn flexGrow={2}></DefaultPageColumn>
     </DefaultPageBody>

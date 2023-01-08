@@ -18,7 +18,7 @@ const StyledTurnContainer = styled.div`
 
   min-height: 300px;
   min-width: 300px;
-  background-color: white;
+  background-color: ${DarkColorStyles.DarkPurpleBackground};
 
   scrollbar-width: none;
   :webkit-scrollbar {

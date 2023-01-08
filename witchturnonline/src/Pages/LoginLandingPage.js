@@ -8,22 +8,24 @@ import {
 import { LimitedInputCombo } from "../Components/SearchBars/GenericInputs";
 
 import { io } from "socket.io-client";
+import { useNavigate } from "react-router-dom";
 
 const socket = io(process.env.REACT_APP_CLIENT_CONNECTION, {
   transports: ["websocket"],
 });
 
-function LoginLandingPage() {
+function LoginLandingPage(props) {
   const [message, setMessage] = useState("");
-  const [room, setRoom] = useState(null);
   const [roomPicked, setRoomPicked] = useState(false);
 
   const [title, setTitle] = useState("");
 
+  const navigate = useNavigate();
+
   function sendMessage() {
     console.log(process.env);
     if (roomPicked) {
-      socket.emit("send_message", { message: message, room: room });
+      socket.emit("send_message", { message: message, room: props.room });
     }
   }
 
@@ -49,7 +51,7 @@ function LoginLandingPage() {
   function disconnectFromRoom(room) {
     setRoomPicked(false);
     socket.emit("leave_room", { room: room });
-    setRoom(null);
+    props.setRoom(null);
   }
 
   return (
@@ -61,12 +63,12 @@ function LoginLandingPage() {
             <LimitedInputCombo
               maxLength={10}
               minLength={10}
-              inputState={room}
-              setInputState={setRoom}
+              inputState={props.room}
+              setInputState={props.setRoom}
             ></LimitedInputCombo>
             <button
               onClick={() => {
-                connectToRoom(room);
+                navigate("/initiative");
               }}
             >
               Join
@@ -76,7 +78,9 @@ function LoginLandingPage() {
         {roomPicked && (
           <GenericInputDiv>
             Disconnect from current room
-            <button onClick={() => disconnectFromRoom(room)}>Disconnect</button>
+            <button onClick={() => disconnectFromRoom(props.room)}>
+              Disconnect
+            </button>
           </GenericInputDiv>
         )}
         <GenericInputDiv>
