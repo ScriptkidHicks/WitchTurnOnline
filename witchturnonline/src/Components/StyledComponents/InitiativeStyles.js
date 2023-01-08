@@ -50,14 +50,21 @@ const StyledTTContentcontainer = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: ${(props) => (props.flexGrow ? props.flexGrow : 1)};
-  align-items: center;
+  align-items: ${(props) => (props.align ? props.align : "center")};
   justify-content: space between;
   margin: 0;
 `;
 
 const StyledTTPicture = styled.img`
-  height: 20px;
-  width: 20px;
+  height: 50px;
+  width: 50px;
+  border-radius: 10px;
+`;
+
+const StyledInfoLabel = styled.label`
+  color: white;
+  font-weight: bold;
+  margin: 5px;
 `;
 
 export {
@@ -65,4 +72,5 @@ export {
   StyledTurnTaker,
   StyledTTContentcontainer,
   StyledTTPicture,
+  StyledInfoLabel,
 };

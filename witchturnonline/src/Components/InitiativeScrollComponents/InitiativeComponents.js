@@ -1,4 +1,5 @@
 import {
+  StyledInfoLabel,
   StyledTTContentcontainer,
   StyledTTPicture,
   StyledTurnContainer,
@@ -7,32 +8,14 @@ import {
 
 import wizard from "../../Assets/Wizard.png";
 import {
-  BasicDecrementButton,
-  BasicIncrementButton,
-} from "../Buttons/BasicButtons";
-import { StyledXButton } from "../StyledComponents/MainStyledComponents";
+  StyledMoveTurnPositionButton,
+  StyledXButton,
+} from "../StyledComponents/MainStyledComponents";
 
 function InitiativeRoll(props) {
   return (
     <StyledTurnContainer>
-      <TurnTaker img={wizard}></TurnTaker>
-      <TurnTaker img={wizard}></TurnTaker>
-      <TurnTaker img={wizard}></TurnTaker>
-      <TurnTaker img={wizard}></TurnTaker>
-      <TurnTaker img={wizard}></TurnTaker>
-      <TurnTaker img={wizard}></TurnTaker>
-      <TurnTaker img={wizard}></TurnTaker>
-      <TurnTaker img={wizard}></TurnTaker>
-      <TurnTaker img={wizard}></TurnTaker>
-      <TurnTaker img={wizard}></TurnTaker>
-      <TurnTaker img={wizard}></TurnTaker>
-      <TurnTaker img={wizard}></TurnTaker>
-      <TurnTaker img={wizard}></TurnTaker>
-      <TurnTaker img={wizard}></TurnTaker>
-      <TurnTaker img={wizard}></TurnTaker>
-      <TurnTaker img={wizard}></TurnTaker>
-      <TurnTaker img={wizard}></TurnTaker>
-      <TurnTaker img={wizard}></TurnTaker>
+      <TurnTaker img={wizard} bonus={-3}></TurnTaker>
     </StyledTurnContainer>
   );
 }
@@ -42,19 +25,39 @@ function TurnTaker(props) {
     <StyledTurnTaker>
       <StyledTTContentcontainer>
         <StyledTTPicture src={props.img} />
-        {props.name ? props.name : "johnathan"}
+        <StyledInfoLabel>
+          {props.name ? props.name : "Johnathan"}
+        </StyledInfoLabel>
       </StyledTTContentcontainer>
       <StyledTTContentcontainer>
-        {props.initiative ? props.initiative : "initiative"}
+        <StyledInfoLabel>
+          {"Initiative: " + (props.initiative ? props.initiative : "")}
+        </StyledInfoLabel>
+        <StyledInfoLabel>
+          {"Bonus: " +
+            (props.bonus
+              ? props.bonus >= 0
+                ? "+" + props.bonus
+                : props.bonus
+              : "")}
+        </StyledInfoLabel>
       </StyledTTContentcontainer>
       <StyledTTContentcontainer>
-        <BasicIncrementButton />
-        <BasicDecrementButton />
+        <ChangePositionButton>Increase Position</ChangePositionButton>
+        <ChangePositionButton>Decreate Position</ChangePositionButton>
       </StyledTTContentcontainer>
       <StyledTTContentcontainer>
         <StyledXButton buttonSize={"40px"}>X</StyledXButton>
       </StyledTTContentcontainer>
     </StyledTurnTaker>
+  );
+}
+
+function ChangePositionButton(props) {
+  return (
+    <StyledMoveTurnPositionButton>
+      {props.children}
+    </StyledMoveTurnPositionButton>
   );
 }
 

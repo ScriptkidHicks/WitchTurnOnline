@@ -21,7 +21,6 @@ const DefaultPageBody = styled.div`
 `;
 
 const DefaultPageColumn = styled.div`
-  border: 1px solid ${DarkColorStyles.GreyPurpleForeground};
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -132,6 +131,14 @@ const StyledXButton = styled.button`
   border-radius: 40px;
 `;
 
+const StyledMoveTurnPositionButton = styled.button`
+  background-color: ${(props) =>
+    props.ButtonColor ? props.ButtonColor : DarkColorStyles.PurpleHighlight};
+  color: white;
+  border-radius: 5px;
+  margin: 5px;
+`;
+
 export {
   DefaultPageBody,
   DefaultPageColumn,
@@ -140,4 +147,5 @@ export {
   GenericInputDiv,
   StyleableLimitedInput,
   StyledXButton,
+  StyledMoveTurnPositionButton,
 };
