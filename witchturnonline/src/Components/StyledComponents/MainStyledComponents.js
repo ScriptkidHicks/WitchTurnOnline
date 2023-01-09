@@ -129,14 +129,43 @@ const StyledXButton = styled.button`
   height: ${(props) => (props.buttonSize ? props.buttonSize : "22px")};
   width: ${(props) => (props.buttonSize ? props.buttonSize : "22px")};
   border-radius: 40px;
+  border: 2px solid;
+  border-color: white ${DarkColorStyles.LightPurpleForeground}
+    ${DarkColorStyles.LightPurpleForeground} white;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 2px;
+  font-weight: bolder;
+  font-size: 1em;
+
+  box-shadow: 1px 1px 1px black;
+
+  transition: ease all 0.4s;
+
+  :hover {
+    border-color: ${DarkColorStyles.LightPurpleForeground} white white
+      ${DarkColorStyles.LightPurpleForeground};
+    box-shadow: -1px -1px 1px black;
+  }
 `;
 
 const StyledMoveTurnPositionButton = styled.button`
   background-color: ${(props) =>
     props.ButtonColor ? props.ButtonColor : DarkColorStyles.PurpleHighlight};
   color: white;
+  border: 1px solid white;
   border-radius: 5px;
   margin: 5px;
+`;
+
+const StyledFormInformationRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 export {
@@ -148,4 +177,5 @@ export {
   StyleableLimitedInput,
   StyledXButton,
   StyledMoveTurnPositionButton,
+  StyledFormInformationRow,
 };

@@ -8,6 +8,7 @@ import {
   StyledTurnTaker,
 } from "../StyledComponents/InitiativeStyles";
 import {
+  StyledFormInformationRow,
   StyledMoveTurnPositionButton,
   StyledXButton,
 } from "../StyledComponents/MainStyledComponents";
@@ -91,6 +92,18 @@ function AddModal(props) {
         >
           X
         </StyledXButton>
+        <StyledFormInformationRow>
+          <StyledInfoLabel>Name: </StyledInfoLabel>
+          hdmlo
+        </StyledFormInformationRow>
+        <StyledFormInformationRow>
+          <StyledInfoLabel>Initiative: </StyledInfoLabel>
+          hdmlo
+        </StyledFormInformationRow>
+        <StyledFormInformationRow>
+          <StyledInfoLabel>Bonus: </StyledInfoLabel>
+          hdmlo
+        </StyledFormInformationRow>
       </StyledModalInterfaceDiv>
     </StyledModalBackground>
   );
