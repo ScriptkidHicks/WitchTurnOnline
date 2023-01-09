@@ -5,8 +5,6 @@ import {
   StyledTurnContainer,
   StyledTurnTaker,
 } from "../StyledComponents/InitiativeStyles";
-
-import wizard from "../../Assets/Wizard.png";
 import {
   StyledMoveTurnPositionButton,
   StyledXButton,
@@ -15,7 +13,19 @@ import {
 function InitiativeRoll(props) {
   return (
     <StyledTurnContainer>
-      <TurnTaker img={wizard} bonus={-3}></TurnTaker>
+      {props.participants.map((character, index) => {
+        return (
+          <TurnTaker
+            name={character.name}
+            img={character.img}
+            initiative={character.initiative}
+            bonus={character.bonus}
+            placement={index}
+            RemoveParticipant={props.RemoveParticipant}
+            key={(character.initiative, character.bonus, character.name, index)}
+          />
+        );
+      })}
     </StyledTurnContainer>
   );
 }
@@ -47,7 +57,14 @@ function TurnTaker(props) {
         <ChangePositionButton>Decreate Position</ChangePositionButton>
       </StyledTTContentcontainer>
       <StyledTTContentcontainer>
-        <StyledXButton buttonSize={"40px"}>X</StyledXButton>
+        <StyledXButton
+          buttonSize={"40px"}
+          onClick={() => {
+            props.RemoveParticipant(props.placement);
+          }}
+        >
+          X
+        </StyledXButton>
       </StyledTTContentcontainer>
     </StyledTurnTaker>
   );

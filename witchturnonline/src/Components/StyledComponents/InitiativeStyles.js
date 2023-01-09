@@ -49,7 +49,7 @@ const StyledTTContentcontainer = styled.div`
   background-color: none;
   display: flex;
   flex-direction: column;
-  flex-grow: ${(props) => (props.flexGrow ? props.flexGrow : 1)};
+  width: 25%;
   align-items: ${(props) => (props.align ? props.align : "center")};
   justify-content: space between;
   margin: 0;
