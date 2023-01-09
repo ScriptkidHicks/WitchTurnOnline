@@ -1,4 +1,7 @@
-import { InitiativeRoll } from "../Components/InitiativeScrollComponents/InitiativeComponents";
+import {
+  AddModal,
+  InitiativeRoll,
+} from "../Components/InitiativeScrollComponents/InitiativeComponents";
 import {
   DefaultPageBody,
   DefaultPageColumn,
@@ -6,6 +9,7 @@ import {
 import wizard from "../Assets/Wizard.png";
 import gobo from "../Assets/GoboTest.png";
 import { useState } from "react";
+import { StyledModalBackground } from "../Components/StyledComponents/InitiativeStyles";
 
 function InitiativePage(props) {
   const [participants, setParticipants] = useState([
@@ -14,6 +18,8 @@ function InitiativePage(props) {
   ]);
 
   const [offset, setOffset] = useState(0);
+
+  const [addModalVisible, setAddModalVisible] = useState(true);
 
   function RemoveParticipant(participantIndex) {
     let updatedParticipants = [...participants];
@@ -28,10 +34,16 @@ function InitiativePage(props) {
     }
   }
 
+  function AdvanceTurn() {}
+
   return (
     <DefaultPageBody>
-      <DefaultPageColumn flexGrow={2}></DefaultPageColumn>
-      <DefaultPageColumn>
+      {addModalVisible && <AddModal SetVisible={setAddModalVisible} />}
+      <DefaultPageColumn
+        flexGrow={2}
+        modalOn={addModalVisible}
+      ></DefaultPageColumn>
+      <DefaultPageColumn modalOn={addModalVisible}>
         <InitiativeRoll
           participants={participants}
           RemoveParticipant={RemoveParticipant}
@@ -39,7 +51,15 @@ function InitiativePage(props) {
         <button>Advance turn</button>
         <button>reduce turn</button>
       </DefaultPageColumn>
-      <DefaultPageColumn flexGrow={2}></DefaultPageColumn>
+      <DefaultPageColumn flexGrow={2} modalOn={addModalVisible}>
+        <button
+          onClick={() => {
+            setAddModalVisible(true);
+          }}
+        >
+          Add Participant
+        </button>
+      </DefaultPageColumn>
     </DefaultPageBody>
   );
 }

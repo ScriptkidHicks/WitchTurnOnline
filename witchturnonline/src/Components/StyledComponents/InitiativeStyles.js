@@ -67,10 +67,35 @@ const StyledInfoLabel = styled.label`
   margin: 5px;
 `;
 
+const StyledModalBackground = styled.div`
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.4);
+`;
+
+const StyledModalInterfaceDiv = styled.div`
+  background-color: ${DarkColorStyles.GreyPurpleForeground};
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+`;
+
 export {
   StyledTurnContainer,
   StyledTurnTaker,
   StyledTTContentcontainer,
   StyledTTPicture,
   StyledInfoLabel,
+  StyledModalBackground,
+  StyledModalInterfaceDiv,
 };

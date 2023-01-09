@@ -1,5 +1,7 @@
 import {
   StyledInfoLabel,
+  StyledModalBackground,
+  StyledModalInterfaceDiv,
   StyledTTContentcontainer,
   StyledTTPicture,
   StyledTurnContainer,
@@ -78,4 +80,20 @@ function ChangePositionButton(props) {
   );
 }
 
-export { InitiativeRoll };
+function AddModal(props) {
+  return (
+    <StyledModalBackground>
+      <StyledModalInterfaceDiv>
+        <StyledXButton
+          onClick={() => {
+            props.SetVisible(false);
+          }}
+        >
+          X
+        </StyledXButton>
+      </StyledModalInterfaceDiv>
+    </StyledModalBackground>
+  );
+}
+
+export { InitiativeRoll, AddModal };
