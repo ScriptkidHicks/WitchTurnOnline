@@ -13,6 +13,7 @@ function LimitedInputCombo(props) {
       placeholder={props.placeholder ? props.placeholder : ""}
       textAlignment={props.textAlignment}
       backgroundColor={props.backgroundColor}
+      letterSpacing={props.letterSpacing}
       onInput={
         props.onInputFunction
           ? (event) => props.onInputFunction(event)

@@ -96,6 +96,15 @@ const StyleableLimitedInput = styled.input`
   font-size: ${(props) => (props.fontSize ? props.fontSize : "1em")};
   letter-spacing: ${(props) =>
     props.letterSpacing ? props.letterSpacing : "1em"};
+
+  border-radius: 8px;
+
+  transition: ease all 0.4s;
+
+  :focus {
+    box-shadow: inset 1px 1px 1px black;
+    outline: none;
+  }
 `;
 
 /* Styled Generic Buttons */
@@ -151,7 +160,7 @@ const StyledXButton = styled.button`
   }
 `;
 
-const StyledMoveTurnPositionButton = styled.button`
+const StyledGenericButton = styled.button`
   background-color: ${(props) =>
     props.ButtonColor ? props.ButtonColor : DarkColorStyles.PurpleHighlight};
   color: white;
@@ -165,7 +174,9 @@ const StyledFormInformationRow = styled.div`
   flex-direction: row;
   width: 100%;
   align-items: center;
-  justify-content: space-between;
+  justify-content: ${(props) =>
+    props.justify ? props.justify : "space-between"};
+  padding-bottom: 10px;
 `;
 
 export {
@@ -176,6 +187,6 @@ export {
   GenericInputDiv,
   StyleableLimitedInput,
   StyledXButton,
-  StyledMoveTurnPositionButton,
+  StyledGenericButton,
   StyledFormInformationRow,
 };

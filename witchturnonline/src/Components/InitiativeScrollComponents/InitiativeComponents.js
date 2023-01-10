@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { BasicXCloseButton } from "../Buttons/BasicButtons";
+import { LimitedInputCombo } from "../SearchBars/GenericInputs";
 import {
   StyledInfoLabel,
   StyledModalBackground,
@@ -9,7 +12,7 @@ import {
 } from "../StyledComponents/InitiativeStyles";
 import {
   StyledFormInformationRow,
-  StyledMoveTurnPositionButton,
+  StyledGenericButton,
   StyledXButton,
 } from "../StyledComponents/MainStyledComponents";
 
@@ -75,35 +78,78 @@ function TurnTaker(props) {
 
 function ChangePositionButton(props) {
   return (
-    <StyledMoveTurnPositionButton>
+    <StyledGenericButton
+      onClick={() => {
+        props.SetPositionFunction(props.position + props.increment);
+      }}
+    >
       {props.children}
-    </StyledMoveTurnPositionButton>
+    </StyledGenericButton>
+  );
+}
+
+function CompleteModalButton(props) {
+  return (
+    <StyledGenericButton
+      onClick={() => {
+        props.CompleteModalFunction(props.inputs);
+        props.SetVisible(false);
+      }}
+    >
+      {props.children}
+    </StyledGenericButton>
   );
 }
 
 function AddModal(props) {
+  const [name, setName] = useState("");
+  const [bonus, setBonus] = useState(undefined);
+  const [initiative, setInitiative] = useState(undefined);
   return (
     <StyledModalBackground>
       <StyledModalInterfaceDiv>
-        <StyledXButton
-          onClick={() => {
-            props.SetVisible(false);
-          }}
-        >
-          X
-        </StyledXButton>
+        <StyledFormInformationRow justify={"center"}>
+          <BasicXCloseButton SetVisible={props.SetVisible} />
+        </StyledFormInformationRow>
+
         <StyledFormInformationRow>
           <StyledInfoLabel>Name: </StyledInfoLabel>
-          hdmlo
+          <LimitedInputCombo
+            setInputState={setName}
+            letterSpacing={"0.1em"}
+            maxLength={2}
+          />
         </StyledFormInformationRow>
         <StyledFormInformationRow>
           <StyledInfoLabel>Initiative: </StyledInfoLabel>
-          hdmlo
+          <LimitedInputCombo
+            setInputState={setInitiative}
+            letterSpacing={"0.1em"}
+            maxLength={2}
+            placeholder={"random"}
+          />
         </StyledFormInformationRow>
         <StyledFormInformationRow>
           <StyledInfoLabel>Bonus: </StyledInfoLabel>
-          hdmlo
+          <LimitedInputCombo
+            setInputState={setBonus}
+            letterSpacing={"0.1em"}
+            maxLength={2}
+            placeholder={"+0"}
+          />
         </StyledFormInformationRow>
+        <CompleteModalButton
+          CompleteModalFunction={props.AddParticipant}
+          inputs={{
+            picture: null,
+            name: name,
+            initiative: initiative,
+            bonus: bonus,
+          }}
+          SetVisible={props.SetVisible}
+        >
+          Add Participant
+        </CompleteModalButton>
       </StyledModalInterfaceDiv>
     </StyledModalBackground>
   );

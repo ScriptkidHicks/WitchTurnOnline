@@ -89,6 +89,8 @@ const StyledModalInterfaceDiv = styled.div`
   align-items: center;
   padding: 20px;
   min-width: max(30vw, 300px);
+  border-radius: 20px;
+  box-shadow: -5px 5px 8px rgba(0, 0, 0, 0.7);
 `;
 
 export {
