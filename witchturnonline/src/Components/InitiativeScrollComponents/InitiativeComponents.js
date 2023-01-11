@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { BasicXCloseButton } from "../Buttons/BasicButtons";
 import { LimitedInputCombo } from "../SearchBars/GenericInputs";
+import { PictureChooser } from "./Scrolls";
 import {
   StyledInfoLabel,
   StyledModalBackground,
@@ -182,25 +183,6 @@ function AddModal(props) {
         </CompleteModalButton>
       </StyledModalInterfaceDiv>
     </StyledModalBackground>
-  );
-}
-
-function PictureChooser(props) {
-  return (
-    <StyledPictureSelectorRoll>
-      {props.pictures.map((picture, index) => {
-        return (
-          <StyledTTPictureOption
-            src={picture}
-            key={index}
-            onClick={() => {
-              props.selector(picture);
-              props.toggleVisible(false);
-            }}
-          />
-        );
-      })}
-    </StyledPictureSelectorRoll>
   );
 }
 

@@ -110,11 +110,14 @@ const StyledPictureSelectorRoll = styled.div`
   padding: 0;
   display: flex;
   flex-direction: row;
-  max-width: 40%;
   padding-left: 20px;
-  overflow: scroll;
   justify-content: center;
   align-center;
+  position: fixed;
+`;
+
+const StyledLeftRightButton = styled.button`
+  background-image: ${(props) => (props.image ? props.image : "none")};
 `;
 
 export {
@@ -128,4 +131,5 @@ export {
   StyledTTPictureSelectorButton,
   StyledPictureSelectorRoll,
   StyledTTPictureOption,
+  StyledLeftRightButton,
 };

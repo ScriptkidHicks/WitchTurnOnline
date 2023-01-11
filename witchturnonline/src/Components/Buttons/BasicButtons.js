@@ -1,3 +1,4 @@
+import { StyledLeftRightButton } from "../StyledComponents/InitiativeStyles";
 import {
   StyleableButton,
   StyledXButton,
@@ -115,6 +116,24 @@ function BasicXCloseButton(props) {
   );
 }
 
+function LeftRightButton(props) {
+  return (
+    <StyledLeftRightButton
+      onClick={() => {
+        let temp = props.variable + props.increment;
+        if (temp < 0) {
+          temp = props.limit + temp;
+        } else if (temp > props.limit) {
+          temp = temp - props.limit;
+        }
+        props.setVariable(temp);
+      }}
+    >
+      {props.children}
+    </StyledLeftRightButton>
+  );
+}
+
 export {
   BasicButton,
   BasicIncrementButton,
@@ -122,4 +141,5 @@ export {
   BasicToggleButton,
   BasicResetButton,
   BasicXCloseButton,
+  LeftRightButton,
 };
