@@ -9,12 +9,11 @@ import {
 import wizard from "../Assets/Wizard.png";
 import gobo from "../Assets/GoboTest.png";
 import { useState } from "react";
-import { StyledModalBackground } from "../Components/StyledComponents/InitiativeStyles";
 
 function InitiativePage(props) {
   const [participants, setParticipants] = useState([
-    { name: "momo", img: gobo, initiative: 13, bonus: 2 },
     { name: "Bianchi", img: wizard, initiative: 1, bonus: 3 },
+    { name: "momo", img: gobo, initiative: 13, bonus: 2 },
   ]);
 
   const [offset, setOffset] = useState(0);
@@ -34,17 +33,23 @@ function InitiativePage(props) {
     }
   }
 
-  function SortParticipants(toBeSorted) {
+  function SortParticipantsHelper(toBeSorted) {
     toBeSorted.sort((a, b) => {
-      return a.initiative == b.initiative
+      return a.initiative === b.initiative
         ? b.bonus - a.bonus
         : b.initiative - a.initiative;
     });
     return toBeSorted;
   }
 
-  function AddParticipant({ picture, name, initiative, bonus }) {
-    console.log("I am being called");
+  function SortParticipants() {
+    let updatedParticipants = [...participants];
+    updatedParticipants = SortParticipantsHelper(updatedParticipants);
+    setParticipants(updatedParticipants);
+  }
+
+  function AddParticipant(picture, name, initiative, bonus) {
+    console.log("name: " + name + " init: " + initiative + " bonus " + bonus);
     let updatedParticipants = [...participants];
     let newParticipant = {
       name: name,
@@ -52,39 +57,49 @@ function InitiativePage(props) {
       initiative: initiative,
       bonus: bonus,
     };
-    if (bonus == undefined) {
+    if (bonus === undefined) {
       newParticipant.bonus = 0;
     }
-    if (initiative == undefined) {
+    if (initiative === undefined) {
       newParticipant.initiative =
         Math.floor(Math.random() * 19 + 1) + Number(bonus);
     }
     updatedParticipants.push(newParticipant);
-    console.log("new " + newParticipant);
-    console.log(updatedParticipants);
-    updatedParticipants = SortParticipants(updatedParticipants);
+    updatedParticipants = SortParticipantsHelper(updatedParticipants);
 
     let insertIndex = updatedParticipants.findIndex((obj) => {
-      return obj == newParticipant;
+      return obj === newParticipant;
     });
 
-    if (insertIndex > participants.length - 1 - offset) {
+    if (insertIndex > updatedParticipants.length - 1 - offset) {
       setOffset(offset + 1);
     }
-
-    console.log(...participants.slice(offset, participants.length));
-    console.log(...participants.slice(0, offset));
-
     updatedParticipants = [
-      ...participants.slice(offset, participants.length),
-      ...participants.slice(0, offset),
+      ...updatedParticipants.slice(offset, updatedParticipants.length),
+      ...updatedParticipants.slice(0, offset),
     ];
-    console.log(updatedParticipants + "1");
     setParticipants(updatedParticipants);
-    console.log(participants);
   }
 
-  function AdvanceTurn() {}
+  function AdvanceTurn() {
+    let updatedParticipants = [...participants];
+
+    //Iris always told me, fail early
+    if (updatedParticipants.length === 0) {
+      return;
+    }
+    let heldParticipant = updatedParticipants.splice(0, 1)[0];
+    updatedParticipants.push(heldParticipant);
+
+    let newOffset = 0;
+    if (offset >= updatedParticipants.length) {
+      newOffset = offset + 1;
+    }
+
+    setOffset(newOffset);
+
+    setParticipants(updatedParticipants);
+  }
 
   return (
     <DefaultPageBody>
@@ -103,8 +118,9 @@ function InitiativePage(props) {
           participants={participants}
           RemoveParticipant={RemoveParticipant}
         ></InitiativeRoll>
-        <button>Advance turn</button>
+        <button onClick={AdvanceTurn}>Advance turn</button>
         <button>reduce turn</button>
+        <button onClick={SortParticipants}>sort</button>
       </DefaultPageColumn>
       <DefaultPageColumn flexGrow={2} modalOn={addModalVisible}>
         <button

@@ -61,6 +61,18 @@ const StyledTTPicture = styled.img`
   border-radius: 10px;
 `;
 
+const StyledTTPictureOption = styled(StyledTTPicture)`
+  margin-right: 10px;
+`;
+
+const StyledTTPictureSelectorButton = styled(StyledTTPicture)`
+  box-shadow: 2px 2px 2px black;
+  transition: ease all 0.4s;
+  :hover {
+    box-shadow: 4px 4px 4px black;
+  }
+`;
+
 const StyledInfoLabel = styled.label`
   color: white;
   font-weight: bold;
@@ -93,6 +105,18 @@ const StyledModalInterfaceDiv = styled.div`
   box-shadow: -5px 5px 8px rgba(0, 0, 0, 0.7);
 `;
 
+const StyledPictureSelectorRoll = styled.div`
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  max-width: 40%;
+  padding-left: 20px;
+  overflow: scroll;
+  justify-content: center;
+  align-center;
+`;
+
 export {
   StyledTurnContainer,
   StyledTurnTaker,
@@ -101,4 +125,7 @@ export {
   StyledInfoLabel,
   StyledModalBackground,
   StyledModalInterfaceDiv,
+  StyledTTPictureSelectorButton,
+  StyledPictureSelectorRoll,
+  StyledTTPictureOption,
 };

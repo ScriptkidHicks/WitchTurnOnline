@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { BasicXCloseButton } from "../Buttons/BasicButtons";
 import { LimitedInputCombo } from "../SearchBars/GenericInputs";
 import {
@@ -7,14 +7,19 @@ import {
   StyledModalInterfaceDiv,
   StyledTTContentcontainer,
   StyledTTPicture,
+  StyledTTPictureOption,
   StyledTurnContainer,
   StyledTurnTaker,
+  StyledTTPictureSelectorButton,
+  StyledPictureSelectorRoll,
 } from "../StyledComponents/InitiativeStyles";
 import {
   StyledFormInformationRow,
   StyledGenericButton,
   StyledXButton,
 } from "../StyledComponents/MainStyledComponents";
+
+import { picturesList } from "../../Assets/Pictures";
 
 function InitiativeRoll(props) {
   return (
@@ -92,7 +97,7 @@ function CompleteModalButton(props) {
   return (
     <StyledGenericButton
       onClick={() => {
-        props.CompleteModalFunction(props.inputs);
+        props.CompleteModalFunction();
         props.SetVisible(false);
       }}
     >
@@ -102,28 +107,50 @@ function CompleteModalButton(props) {
 }
 
 function AddModal(props) {
-  const [name, setName] = useState("");
-  const [bonus, setBonus] = useState(undefined);
-  const [initiative, setInitiative] = useState(undefined);
+  const name = useRef("");
+  const bonus = useRef(0);
+  const initiative = useRef(0);
+  const [picture, setPicture] = useState(picturesList[0]);
+  const [picScrollVisible, setPicScrollVisible] = useState(false);
   return (
     <StyledModalBackground>
       <StyledModalInterfaceDiv>
         <StyledFormInformationRow justify={"center"}>
           <BasicXCloseButton SetVisible={props.SetVisible} />
         </StyledFormInformationRow>
-
+        <StyledFormInformationRow>
+          <StyledInfoLabel>Picture: </StyledInfoLabel>
+          {picScrollVisible && (
+            <PictureChooser
+              pictures={picturesList}
+              selector={setPicture}
+              toggleVisible={setPicScrollVisible}
+            />
+          )}
+          {!picScrollVisible && (
+            <StyledTTPictureSelectorButton
+              src={picture}
+              onClick={() => {
+                setPicScrollVisible(true);
+              }}
+            />
+          )}
+        </StyledFormInformationRow>
         <StyledFormInformationRow>
           <StyledInfoLabel>Name: </StyledInfoLabel>
           <LimitedInputCombo
-            setInputState={setName}
+            setInputState={(value) => (name.current = value)}
             letterSpacing={"0.1em"}
-            maxLength={2}
+            maxLength={30}
           />
         </StyledFormInformationRow>
         <StyledFormInformationRow>
           <StyledInfoLabel>Initiative: </StyledInfoLabel>
           <LimitedInputCombo
-            setInputState={setInitiative}
+            setInputState={(value) => {
+              console.log("init value: " + value);
+              initiative.current = value;
+            }}
             letterSpacing={"0.1em"}
             maxLength={2}
             placeholder={"random"}
@@ -132,26 +159,48 @@ function AddModal(props) {
         <StyledFormInformationRow>
           <StyledInfoLabel>Bonus: </StyledInfoLabel>
           <LimitedInputCombo
-            setInputState={setBonus}
+            setInputState={(value) => {
+              bonus.current = value;
+            }}
             letterSpacing={"0.1em"}
             maxLength={2}
             placeholder={"+0"}
           />
         </StyledFormInformationRow>
         <CompleteModalButton
-          CompleteModalFunction={props.AddParticipant}
-          inputs={{
-            picture: null,
-            name: name,
-            initiative: initiative,
-            bonus: bonus,
-          }}
+          CompleteModalFunction={() =>
+            props.AddParticipant(
+              picture,
+              name.current,
+              initiative.current,
+              bonus.current
+            )
+          }
           SetVisible={props.SetVisible}
         >
           Add Participant
         </CompleteModalButton>
       </StyledModalInterfaceDiv>
     </StyledModalBackground>
+  );
+}
+
+function PictureChooser(props) {
+  return (
+    <StyledPictureSelectorRoll>
+      {props.pictures.map((picture, index) => {
+        return (
+          <StyledTTPictureOption
+            src={picture}
+            key={index}
+            onClick={() => {
+              props.selector(picture);
+              props.toggleVisible(false);
+            }}
+          />
+        );
+      })}
+    </StyledPictureSelectorRoll>
   );
 }
 
