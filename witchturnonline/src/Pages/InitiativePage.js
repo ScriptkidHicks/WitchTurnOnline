@@ -53,7 +53,7 @@ function InitiativePage(props) {
     let updatedParticipants = [...participants];
     let newParticipant = {
       name: name,
-      img: wizard,
+      img: picture,
       initiative: initiative,
       bonus: bonus,
     };

@@ -109,7 +109,7 @@ function CompleteModalButton(props) {
 function AddModal(props) {
   const name = useRef("");
   const bonus = useRef(0);
-  const initiative = useRef(0);
+  const initiative = useRef(undefined);
   const [picture, setPicture] = useState(picturesList[0]);
   const [picScrollVisible, setPicScrollVisible] = useState(false);
   return (
