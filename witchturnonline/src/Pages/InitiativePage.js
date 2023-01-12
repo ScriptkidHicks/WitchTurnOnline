@@ -101,6 +101,25 @@ function InitiativePage(props) {
     setParticipants(updatedParticipants);
   }
 
+  function ReduceTurn() {
+    let updatedParticipants = [...participants];
+    if (updatedParticipants.length === 0) {
+      return;
+    }
+
+    let heldParticipant = updatedParticipants.pop();
+    updatedParticipants = [heldParticipant, ...updatedParticipants];
+    setParticipants(updatedParticipants);
+
+    let newOffset = 0;
+    if (offset == 0) {
+      newOffset = updatedParticipants.length - 1;
+    } else {
+      newOffset = offset - 1;
+    }
+    setOffset(newOffset);
+  }
+
   return (
     <DefaultPageBody>
       {addModalVisible && (
