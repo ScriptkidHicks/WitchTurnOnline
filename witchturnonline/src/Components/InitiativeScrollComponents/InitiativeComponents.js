@@ -150,7 +150,6 @@ function AddModal(props) {
           <StyledInfoLabel>Initiative: </StyledInfoLabel>
           <LimitedInputCombo
             setInputState={(value) => {
-              console.log("init value: " + value);
               initiative.current = value;
             }}
             letterSpacing={"0.1em"}

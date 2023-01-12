@@ -29,6 +29,7 @@ function InitiativePage(props) {
       setOffset(offset - 1);
     }
     if (offset > updatedParticipants.length) {
+      console.log("should be 0");
       setOffset(0);
     }
   }
@@ -46,10 +47,10 @@ function InitiativePage(props) {
     let updatedParticipants = [...participants];
     updatedParticipants = SortParticipantsHelper(updatedParticipants);
     setParticipants(updatedParticipants);
+    setOffset(0);
   }
 
   function AddParticipant(picture, name, initiative, bonus) {
-    console.log("name: " + name + " init: " + initiative + " bonus " + bonus);
     let updatedParticipants = [...participants];
     let newParticipant = {
       name: name,
@@ -71,7 +72,10 @@ function InitiativePage(props) {
       return obj === newParticipant;
     });
 
-    if (insertIndex > updatedParticipants.length - 1 - offset) {
+    console.log("insert " + insertIndex);
+
+    if (insertIndex > participants.length - offset) {
+      console.log("my offset " + offset + 1);
       setOffset(offset + 1);
     }
     updatedParticipants = [
@@ -91,12 +95,14 @@ function InitiativePage(props) {
     let heldParticipant = updatedParticipants.splice(0, 1)[0];
     updatedParticipants.push(heldParticipant);
 
-    let newOffset = 0;
-    if (offset >= updatedParticipants.length) {
-      newOffset = offset + 1;
+    let newOffset = offset - 1;
+    if (newOffset < 0) {
+      newOffset = updatedParticipants.length + newOffset;
     }
 
+    console.log("adv " + newOffset);
     setOffset(newOffset);
+    console.log(newOffset);
 
     setParticipants(updatedParticipants);
   }
@@ -111,12 +117,11 @@ function InitiativePage(props) {
     updatedParticipants = [heldParticipant, ...updatedParticipants];
     setParticipants(updatedParticipants);
 
-    let newOffset = 0;
-    if (offset == 0) {
-      newOffset = updatedParticipants.length - 1;
-    } else {
-      newOffset = offset - 1;
+    let newOffset = offset + 1;
+    if (newOffset >= updatedParticipants.length) {
+      newOffset = 0;
     }
+    console.log(newOffset);
     setOffset(newOffset);
   }
 
@@ -138,7 +143,7 @@ function InitiativePage(props) {
           RemoveParticipant={RemoveParticipant}
         ></InitiativeRoll>
         <button onClick={AdvanceTurn}>Advance turn</button>
-        <button>reduce turn</button>
+        <button onClick={ReduceTurn}>reduce turn</button>
         <button onClick={SortParticipants}>sort</button>
       </DefaultPageColumn>
       <DefaultPageColumn flexGrow={2} modalOn={addModalVisible}>
