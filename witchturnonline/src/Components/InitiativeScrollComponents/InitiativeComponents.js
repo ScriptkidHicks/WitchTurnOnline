@@ -123,6 +123,7 @@ function AddModal(props) {
           <StyledInfoLabel>Picture: </StyledInfoLabel>
           {picScrollVisible && (
             <PictureChooser
+              displaySize={3}
               pictures={picturesList}
               selector={setPicture}
               toggleVisible={setPicScrollVisible}

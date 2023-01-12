@@ -120,13 +120,13 @@ function LeftRightButton(props) {
   return (
     <StyledLeftRightButton
       onClick={() => {
-        let temp = props.variable + props.increment;
-        if (temp < 0) {
-          temp = props.limit + temp;
-        } else if (temp > props.limit) {
-          temp = temp - props.limit;
-        }
-        props.setVariable(temp);
+        let startIndex = props.displayIndecies.start;
+        let endIndex = props.displayIndecies.end;
+        startIndex += props.variable;
+        endIndex += props.variable;
+        startIndex = startIndex % props.size;
+        endIndex = endIndex % props.size;
+        props.setIndecies({ start: startIndex, end: endIndex });
       }}
     >
       {props.children}

@@ -113,7 +113,7 @@ const StyledPictureSelectorRoll = styled.div`
   padding-left: 20px;
   justify-content: center;
   align-center;
-  position: fixed;
+  position: relative;
 `;
 
 const StyledLeftRightButton = styled.button`
