@@ -26,16 +26,23 @@ function InitiativePage(props) {
   });
 
   useEffect(() => {
+    if (props.room === "") {
+      return;
+    }
+    console.log("useEffectFired");
     const eventListener = (data) => {
       console.log(data);
     };
 
+    socket.emit("join_room", { room: props.room });
+
     socket.on("receive_message", (data) => {
-      console.log(data.message);
+      console.log("received");
+      setParticipants(data.message);
     });
 
     return () => socket.off("receive_message", eventListener);
-  }, [socket]);
+  }, [props.room]);
 
   function RemoveParticipant(participantIndex) {
     let updatedParticipants = [...participants];
@@ -49,6 +56,14 @@ function InitiativePage(props) {
       console.log("should be 0");
       setOffset(0);
     }
+  }
+
+  function TestSendMessage() {
+    console.log("room " + props.room);
+    socket.emit("send_message", {
+      room: props.room,
+      message: participants,
+    });
   }
 
   function SortParticipantsHelper(toBeSorted) {
@@ -162,6 +177,7 @@ function InitiativePage(props) {
         <button onClick={AdvanceTurn}>Advance turn</button>
         <button onClick={ReduceTurn}>reduce turn</button>
         <button onClick={SortParticipants}>sort</button>
+        <button onClick={TestSendMessage}>test</button>
       </DefaultPageColumn>
       <DefaultPageColumn flexGrow={2} modalOn={addModalVisible}>
         <button
