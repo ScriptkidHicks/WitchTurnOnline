@@ -56,10 +56,10 @@ function InitiativePage(props) {
       console.log("should be 0");
       setOffset(0);
     }
+    SendRoll();
   }
 
-  function TestSendMessage() {
-    console.log("room " + props.room);
+  function SendRoll() {
     socket.emit("send_message", {
       room: props.room,
       message: participants,
@@ -115,6 +115,7 @@ function InitiativePage(props) {
       ...updatedParticipants.slice(0, offset),
     ];
     setParticipants(updatedParticipants);
+    SendRoll();
   }
 
   function AdvanceTurn() {
@@ -137,6 +138,7 @@ function InitiativePage(props) {
     console.log(newOffset);
 
     setParticipants(updatedParticipants);
+    SendRoll();
   }
 
   function ReduceTurn() {
@@ -155,6 +157,7 @@ function InitiativePage(props) {
     }
     console.log(newOffset);
     setOffset(newOffset);
+    SendRoll();
   }
 
   return (
@@ -177,7 +180,6 @@ function InitiativePage(props) {
         <button onClick={AdvanceTurn}>Advance turn</button>
         <button onClick={ReduceTurn}>reduce turn</button>
         <button onClick={SortParticipants}>sort</button>
-        <button onClick={TestSendMessage}>test</button>
       </DefaultPageColumn>
       <DefaultPageColumn flexGrow={2} modalOn={addModalVisible}>
         <button
