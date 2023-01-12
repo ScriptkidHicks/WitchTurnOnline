@@ -16,7 +16,6 @@ const socket = io(process.env.REACT_APP_CLIENT_CONNECTION, {
 
 function LoginLandingPage(props) {
   const [message, setMessage] = useState("");
-  const [roomPicked, setRoomPicked] = useState(false);
 
   const [title, setTitle] = useState("");
 
@@ -24,9 +23,7 @@ function LoginLandingPage(props) {
 
   function sendMessage() {
     console.log(process.env);
-    if (roomPicked) {
-      socket.emit("send_message", { message: message, room: props.room });
-    }
+    socket.emit("send_message", { message: message, room: props.room });
   }
 
   useEffect(() => {
@@ -44,12 +41,10 @@ function LoginLandingPage(props) {
 
   function connectToRoom(room) {
     console.log(room);
-    setRoomPicked(true);
     socket.emit("join_room", { room: room });
   }
 
   function disconnectFromRoom(room) {
-    setRoomPicked(false);
     socket.emit("leave_room", { room: room });
     props.setRoom(null);
   }
@@ -57,7 +52,7 @@ function LoginLandingPage(props) {
   return (
     <DefaultPageBody>
       <DefaultPageColumn flexGrow={2}>
-        {!roomPicked && (
+        {
           <GenericInputDiv>
             Start A New Room
             <LimitedInputCombo
@@ -74,15 +69,7 @@ function LoginLandingPage(props) {
               Join
             </button>
           </GenericInputDiv>
-        )}
-        {roomPicked && (
-          <GenericInputDiv>
-            Disconnect from current room
-            <button onClick={() => disconnectFromRoom(props.room)}>
-              Disconnect
-            </button>
-          </GenericInputDiv>
-        )}
+        }
         <GenericInputDiv>
           This is an example of socket work. No need to hang onto it.
           <LimitedInputCombo

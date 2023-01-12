@@ -27,7 +27,9 @@ io.on("connection", (socket) => {
   console.log(`user connected: ${socket.id}`);
 
   socket.on("send_message", (data) => {
-    console.log("I am sending data " + data);
+    console.log("I am sending data " + data.message);
+    console.log("this is the room: " + data.room);
+    console.log(socket.rooms["12"]);
     socket.to(data.room).emit("receive_message", { message: data.message });
   });
 

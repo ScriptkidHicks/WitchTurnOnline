@@ -8,7 +8,8 @@ import {
 } from "../Components/StyledComponents/MainStyledComponents";
 import wizard from "../Assets/Wizard.png";
 import gobo from "../Assets/GoboTest.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { io } from "socket.io-client";
 
 function InitiativePage(props) {
   const [participants, setParticipants] = useState([
@@ -18,7 +19,23 @@ function InitiativePage(props) {
 
   const [offset, setOffset] = useState(0);
 
-  const [addModalVisible, setAddModalVisible] = useState(true);
+  const [addModalVisible, setAddModalVisible] = useState(false);
+
+  const socket = io(process.env.REACT_APP_CLIENT_CONNECTION, {
+    transports: ["websocket"],
+  });
+
+  useEffect(() => {
+    const eventListener = (data) => {
+      console.log(data);
+    };
+
+    socket.on("receive_message", (data) => {
+      console.log(data.message);
+    });
+
+    return () => socket.off("receive_message", eventListener);
+  }, [socket]);
 
   function RemoveParticipant(participantIndex) {
     let updatedParticipants = [...participants];

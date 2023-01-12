@@ -6,7 +6,7 @@ import InitiativePage from "./Pages/InitiativePage";
 import { useState } from "react";
 
 function App() {
-  const [room, setRoom] = useState("");
+  const [room, setRoom] = useState("12");
   return (
     <div className="App">
       <Routes>
