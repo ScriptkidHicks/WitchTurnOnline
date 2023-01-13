@@ -9,7 +9,7 @@ import { LimitedInputCombo } from "../Components/SearchBars/GenericInputs";
 
 import { useNavigate } from "react-router-dom";
 
-function LoginLandingPage(props) {
+function JoinRoomPage(props) {
   const [message, setMessage] = useState("");
 
   const [title, setTitle] = useState("");
@@ -21,7 +21,7 @@ function LoginLandingPage(props) {
       <DefaultPageColumn flexGrow={2}>
         {
           <GenericInputDiv>
-            Start A New Room
+            Join an existing room
             <LimitedInputCombo
               maxLength={10}
               minLength={10}
@@ -38,7 +38,7 @@ function LoginLandingPage(props) {
           </GenericInputDiv>
         }
         <GenericInputDiv>
-          This is an example of socket work. No need to hang onto it.
+          Start a new Room (You will be GM)
           <LimitedInputCombo
             inputState={message}
             setInputState={setMessage}
@@ -55,4 +55,4 @@ function LoginLandingPage(props) {
   );
 }
 
-export default LoginLandingPage;
+export default JoinRoomPage;
