@@ -7,12 +7,7 @@ import {
 } from "../Components/StyledComponents/MainStyledComponents";
 import { LimitedInputCombo } from "../Components/SearchBars/GenericInputs";
 
-import { io } from "socket.io-client";
 import { useNavigate } from "react-router-dom";
-
-const socket = io(process.env.REACT_APP_CLIENT_CONNECTION, {
-  transports: ["websocket"],
-});
 
 function LoginLandingPage(props) {
   const [message, setMessage] = useState("");
@@ -20,34 +15,6 @@ function LoginLandingPage(props) {
   const [title, setTitle] = useState("");
 
   const navigate = useNavigate();
-
-  function sendMessage() {
-    console.log(process.env);
-    socket.emit("send_message", { message: message, room: props.room });
-  }
-
-  useEffect(() => {
-    const eventListener = (data) => {
-      console.log(data);
-    };
-
-    socket.on("receive_message", (data) => {
-      console.log(data.message);
-      setTitle(data.message);
-    });
-
-    return () => socket.off("receive_message", eventListener);
-  }, [socket]);
-
-  function connectToRoom(room) {
-    console.log(room);
-    socket.emit("join_room", { room: room });
-  }
-
-  function disconnectFromRoom(room) {
-    socket.emit("leave_room", { room: room });
-    props.setRoom(null);
-  }
 
   return (
     <DefaultPageBody>
@@ -76,7 +43,7 @@ function LoginLandingPage(props) {
             inputState={message}
             setInputState={setMessage}
           ></LimitedInputCombo>
-          <button onClick={sendMessage}>Send it</button>
+          <button>Send it</button>
         </GenericInputDiv>
       </DefaultPageColumn>
       <DefaultPageColumn justifyContent={"flex-start"}>

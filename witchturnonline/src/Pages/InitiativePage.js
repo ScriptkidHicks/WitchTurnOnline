@@ -37,7 +37,7 @@ function InitiativePage(props) {
     socket.emit("join_room", { room: props.room });
 
     socket.on("receive_message", (data) => {
-      console.log("received");
+      console.log("received " + data.message);
       setParticipants(data.message);
     });
 
@@ -56,13 +56,13 @@ function InitiativePage(props) {
       console.log("should be 0");
       setOffset(0);
     }
-    SendRoll();
+    SendRoll(updatedParticipants);
   }
 
-  function SendRoll() {
+  function SendRoll(roll) {
     socket.emit("send_message", {
       room: props.room,
-      message: participants,
+      message: roll,
     });
   }
 
@@ -80,6 +80,7 @@ function InitiativePage(props) {
     updatedParticipants = SortParticipantsHelper(updatedParticipants);
     setParticipants(updatedParticipants);
     setOffset(0);
+    SendRoll(updatedParticipants);
   }
 
   function AddParticipant(picture, name, initiative, bonus) {
@@ -115,7 +116,7 @@ function InitiativePage(props) {
       ...updatedParticipants.slice(0, offset),
     ];
     setParticipants(updatedParticipants);
-    SendRoll();
+    SendRoll(updatedParticipants);
   }
 
   function AdvanceTurn() {
@@ -138,7 +139,7 @@ function InitiativePage(props) {
     console.log(newOffset);
 
     setParticipants(updatedParticipants);
-    SendRoll();
+    SendRoll(updatedParticipants);
   }
 
   function ReduceTurn() {
@@ -157,7 +158,7 @@ function InitiativePage(props) {
     }
     console.log(newOffset);
     setOffset(newOffset);
-    SendRoll();
+    SendRoll(updatedParticipants);
   }
 
   return (
