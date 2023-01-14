@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   DefaultPageBody,
   DefaultPageColumn,
@@ -11,6 +11,12 @@ import { useNavigate } from "react-router-dom";
 
 function JoinRoomPage(props) {
   const [message, setMessage] = useState("");
+
+  const [generateRoomPressed, setGenerateRoomPressed] = useState(false);
+  const toggleRoomPressed = useCallback(
+    () => setGenerateRoomPressed(!generateRoomPressed),
+    [generateRoomPressed]
+  );
 
   const [title, setTitle] = useState("");
 

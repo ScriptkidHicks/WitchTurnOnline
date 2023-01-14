@@ -9,7 +9,6 @@ import {
 import wizard from "../Assets/Wizard.png";
 import gobo from "../Assets/GoboTest.png";
 import { useEffect, useState } from "react";
-import { io } from "socket.io-client";
 
 function Base20InitiativePage(props) {
   const [participants, setParticipants] = useState([
@@ -21,10 +20,6 @@ function Base20InitiativePage(props) {
 
   const [addModalVisible, setAddModalVisible] = useState(false);
 
-  const socket = io(process.env.REACT_APP_CLIENT_CONNECTION, {
-    transports: ["websocket"],
-  });
-
   useEffect(() => {
     if (props.room === "") {
       return;
@@ -34,18 +29,18 @@ function Base20InitiativePage(props) {
       console.log(data);
     };
 
-    socket.emit("join_room", { room: props.room });
+    props.socket.emit("join_room", { room: props.room });
 
-    socket.on("receive_message", (data) => {
+    props.socket.on("receive_message", (data) => {
       console.log("received " + data.message);
       setParticipants(data.message);
     });
 
-    return () => socket.off("receive_message", eventListener);
+    return () => props.socket.off("receive_message", eventListener);
   }, [props.room]);
 
   function LeaveRoom() {
-    socket.emit("leave_room", { room: props.room });
+    props.socket.emit("leave_room", { room: props.room });
     props.setRoom("");
   }
 
@@ -65,7 +60,7 @@ function Base20InitiativePage(props) {
   }
 
   function SendRoll(roll) {
-    socket.emit("send_message", {
+    props.socket.emit("send_message", {
       room: props.room,
       message: roll,
     });
