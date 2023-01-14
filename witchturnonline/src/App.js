@@ -2,7 +2,7 @@ import "./App.css";
 import { Route, Routes } from "react-router-dom";
 
 import JoinRoomPage from "./Pages/JoinRoomPage";
-import InitiativePage from "./Pages/InitiativePage";
+import Base20InitiativePage from "./Pages/Base20InitiativePage";
 import { useState } from "react";
 
 function App() {
@@ -26,7 +26,7 @@ function App() {
         <Route
           path="/Initiative"
           element={
-            <InitiativePage
+            <Base20InitiativePage
               room={room}
               setRoom={setRoom}
               isGM={isGM}

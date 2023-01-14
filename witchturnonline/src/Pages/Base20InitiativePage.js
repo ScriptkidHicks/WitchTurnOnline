@@ -11,7 +11,7 @@ import gobo from "../Assets/GoboTest.png";
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 
-function InitiativePage(props) {
+function Base20InitiativePage(props) {
   const [participants, setParticipants] = useState([
     { name: "Bianchi", img: wizard, initiative: 1, bonus: 3 },
     { name: "momo", img: gobo, initiative: 13, bonus: 2 },
@@ -43,6 +43,11 @@ function InitiativePage(props) {
 
     return () => socket.off("receive_message", eventListener);
   }, [props.room]);
+
+  function LeaveRoom() {
+    socket.emit("leave_room", { room: props.room });
+    props.setRoom("");
+  }
 
   function RemoveParticipant(participantIndex) {
     let updatedParticipants = [...participants];
@@ -180,7 +185,7 @@ function InitiativePage(props) {
         ></InitiativeRoll>
         <button onClick={AdvanceTurn}>Advance turn</button>
         <button onClick={ReduceTurn}>reduce turn</button>
-        <button onClick={SortParticipants}>sort</button>
+        <button onClick={LeaveRoom}>leave</button>
       </DefaultPageColumn>
       <DefaultPageColumn flexGrow={2} modalOn={addModalVisible}>
         <button
@@ -195,4 +200,4 @@ function InitiativePage(props) {
   );
 }
 
-export default InitiativePage;
+export default Base20InitiativePage;

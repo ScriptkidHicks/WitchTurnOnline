@@ -23,34 +23,87 @@ const io = new Server(server, {
   },
 });
 
+const roomsInUse = new Map();
+
+const rooomCodeCharacters = "abcdefghijklmnopqrstuvwxyz123456789";
+
+class Connection {
+  constructor(io, socket) {
+    this.socket = socket;
+    this.io = io;
+
+    socket.on("send_message", (data) => {
+      SendMessage(socket, data);
+    });
+    socket.on("generate_room", (data) => {
+      GenerateRoom(socket, data);
+    });
+    socket.on("join_room", (data) => {
+      JoinRoom(socket, data);
+    });
+    socket.on("leave_room", (data) => {
+      LeaveRoom(socket, data, io);
+    });
+    socket.on("disconnect", (data) => {
+      Disconnect(socket, data);
+    });
+
+    io.of("/").adapter.on("create-room", (room) => {
+      console.log(`room ${room} was created`);
+    });
+
+    io.of("/").adapter.on("delete-room", (room) => {
+      console.log(`room ${room} was deleted`);
+      DeleteRoom(room);
+    });
+  }
+}
+
+function SendMessage(socket, data) {
+  socket.to(data.room).emit("receive_massage", { message: data.message });
+}
+
+function GenerateRandomRoomCode() {
+  let roomCode = "";
+  for (let i = 0; i < 6; i++) {
+    roomCode +=
+      rooomCodeCharacters[
+        Math.floor(Math.random() * rooomCodeCharacters.length)
+      ];
+  }
+}
+
+function GenerateRoom(socket, data) {
+  let roomViable = false;
+  let roomCode = "";
+
+  while (!roomViable) {
+    roomCode = GenerateRandomRoomCode();
+    if (!roomsInUse.has(roomCode)) {
+      roomViable = true;
+    }
+  }
+  socket.join(roomCode);
+  socket.broadcast.to(socket.id).emit("room_generated", roomCode);
+}
+
+function JoinRoom(socket, data) {
+  console.log("socket " + socket + "joining room " + data.room);
+  socket.join(data.room);
+}
+
+function DeleteRoom(room) {
+  roomsInUse.delete(room);
+  console.log(roomsInUse);
+}
+
+function Disconnect(socket, data) {
+  socket.removeAllListeners();
+}
+
 io.on("connection", (socket) => {
-  console.log(`user connected: ${socket.id}`);
-
-  socket.on("send_message", (data) => {
-    console.log("I am sending data " + data.message);
-    console.log("this is the room: " + data.room);
-    console.log(socket.rooms["12"]);
-    socket.to(data.room).emit("receive_message", { message: data.message });
-  });
-
-  socket.on("join_room", (data) => {
-    console.log(data.room);
-    socket.join(data.room);
-  });
-
-  socket.on("leave_room", (data) => {
-    console.log("Leaving room: " + data.room);
-    socket.leave(data.room);
-  });
-
-  socket.off("send_message", (data) => {
-    console.log("off " + data);
-  });
-
-  socket.on("disconnect", (data) => {
-    console.log("disconnecting " + data);
-    socket.removeAllListeners();
-  });
+  console.log("new connection");
+  new Connection(io, socket);
 });
 
 server.listen(process.env.PORT, () => {
