@@ -36,13 +36,10 @@ class Connection {
       SendMessage(socket, data);
     });
     socket.on("generate_room", (data) => {
-      GenerateRoom(socket, data);
+      GenerateRoom(socket, data, io);
     });
     socket.on("join_room", (data) => {
       JoinRoom(socket, data);
-    });
-    socket.on("leave_room", (data) => {
-      LeaveRoom(socket, data, io);
     });
     socket.on("disconnect", (data) => {
       Disconnect(socket, data);
@@ -71,9 +68,11 @@ function GenerateRandomRoomCode() {
         Math.floor(Math.random() * rooomCodeCharacters.length)
       ];
   }
+  return roomCode;
 }
 
-function GenerateRoom(socket, data) {
+function GenerateRoom(socket, data, io) {
+  console.log("generating Room");
   let roomViable = false;
   let roomCode = "";
 
@@ -83,8 +82,10 @@ function GenerateRoom(socket, data) {
       roomViable = true;
     }
   }
+  console.log(roomCode);
   socket.join(roomCode);
-  socket.broadcast.to(socket.id).emit("room_generated", roomCode);
+  console.log(socket.id);
+  io.to(socket.id).emit("room_generated", { room: roomCode });
 }
 
 function JoinRoom(socket, data) {

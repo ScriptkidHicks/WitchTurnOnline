@@ -39,11 +39,6 @@ function Base20InitiativePage(props) {
     return () => props.socket.off("receive_message", eventListener);
   }, [props.room]);
 
-  function LeaveRoom() {
-    props.socket.emit("leave_room", { room: props.room });
-    props.setRoom("");
-  }
-
   function RemoveParticipant(participantIndex) {
     let updatedParticipants = [...participants];
     updatedParticipants.splice(participantIndex, 1);
@@ -104,8 +99,6 @@ function Base20InitiativePage(props) {
     let insertIndex = updatedParticipants.findIndex((obj) => {
       return obj === newParticipant;
     });
-
-    console.log("insert " + insertIndex);
 
     if (insertIndex > participants.length - offset) {
       console.log("my offset " + offset + 1);
@@ -180,9 +173,9 @@ function Base20InitiativePage(props) {
         ></InitiativeRoll>
         <button onClick={AdvanceTurn}>Advance turn</button>
         <button onClick={ReduceTurn}>reduce turn</button>
-        <button onClick={LeaveRoom}>leave</button>
       </DefaultPageColumn>
       <DefaultPageColumn flexGrow={2} modalOn={addModalVisible}>
+        <label>Room: {props.room}</label>
         <button
           onClick={() => {
             setAddModalVisible(true);
