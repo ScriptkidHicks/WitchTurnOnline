@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 function JoinRoomPage(props) {
   const [generateRoomPressed, setGenerateRoomPressed] = useState(false);
+  const [checkingRoomValidity, setCheckingRoomValidity] = useState(false);
 
   const navigate = useNavigate();
 
@@ -19,10 +20,40 @@ function JoinRoomPage(props) {
     setGenerateRoomPressed(true);
   }
 
+  function AttemptToJoinRoom() {
+    props.socket.emit("check_room_validity", { room: props.room });
+    setCheckingRoomValidity(true);
+  }
+
   useEffect(() => {
-    console.log("use effect fired");
+    props.socket.on("room_valid", (data) => {
+      props.setRoom(data.room);
+      navigate("/initiative");
+    });
+
+    return () => {
+      props.socket.off("room_valid", (data) => {
+        console.log("room valid off");
+      });
+    };
+  }, []);
+
+  useEffect(() => {
+    props.socket.on("room_not_valid", (data) => {
+      console.log(`the room ${data.room} is not valid`);
+      setCheckingRoomValidity(false);
+    });
+
+    return () => {
+      props.socket.off("room_not_valid", (data) => {
+        console.log("stopped listening to room valid");
+      });
+    };
+  }, []);
+
+  useEffect(() => {
     props.socket.on("room_generated", (data) => {
-      console.log("roomcode: " + data.room);
+      console.log("room generated");
       props.setRoom(data.room);
       navigate("/initiative");
     });
@@ -38,7 +69,7 @@ function JoinRoomPage(props) {
     <DefaultPageBody>
       {!generateRoomPressed && (
         <DefaultPageColumn flexGrow={2}>
-          {
+          {!checkingRoomValidity && (
             <GenericInputDiv>
               Join an existing room
               <LimitedInputCombo
@@ -47,15 +78,13 @@ function JoinRoomPage(props) {
                 inputState={props.room}
                 setInputState={props.setRoom}
               ></LimitedInputCombo>
-              <button
-                onClick={() => {
-                  navigate("/initiative");
-                }}
-              >
-                Join
-              </button>
+              <button onClick={AttemptToJoinRoom}>Join</button>
             </GenericInputDiv>
-          }
+          )}
+          {checkingRoomValidity && (
+            <GenericInputDiv>Checking the validity of the room</GenericInputDiv>
+          )}
+
           <GenericInputDiv>
             Start a new Room (You will be GM)
             <button onClick={GenerateRoom}>Generate Room</button>

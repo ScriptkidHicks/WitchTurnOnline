@@ -4,15 +4,12 @@ import { Route, Routes } from "react-router-dom";
 import JoinRoomPage from "./Pages/JoinRoomPage";
 import Base20InitiativePage from "./Pages/Base20InitiativePage";
 import { useState } from "react";
-import { io } from "socket.io-client";
+
+import socket from "./Socket/Socket";
 
 function App() {
-  const [room, setRoom] = useState("12");
+  const [room, setRoom] = useState("");
   const [isGM, setIsGM] = useState(false);
-
-  const socket = io(process.env.REACT_APP_CLIENT_CONNECTION, {
-    transports: ["websocket"],
-  });
   return (
     <div className="App">
       <Routes>

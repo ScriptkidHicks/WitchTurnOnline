@@ -44,6 +44,10 @@ class Connection {
     socket.on("disconnect", (data) => {
       Disconnect(socket, data);
     });
+    socket.on("check_room_validity", (data) => {
+      console.log("check room valid1");
+      CheckRoom(socket, data, io);
+    });
 
     io.of("/").adapter.on("create-room", (room) => {
       console.log(`room ${room} was created`);
@@ -58,6 +62,20 @@ class Connection {
 
 function SendMessage(socket, data) {
   socket.to(data.room).emit("receive_massage", { message: data.message });
+}
+
+function CheckRoom(socket, data, io) {
+  let socketid = socket.id;
+  console.log("scoketid " + socketid);
+  let roomExists = roomsInUse.has(data.room);
+  if (roomExists) {
+    console.log("room exists");
+    io.to(socket.id).emit("room_valid", { room: data.room });
+  } else {
+    console.log("room does not exist");
+    console.log(socket.id);
+    io.to(socket.id).emit("room_not_valid", { room: data.room });
+  }
 }
 
 function GenerateRandomRoomCode() {
@@ -85,6 +103,7 @@ function GenerateRoom(socket, data, io) {
   console.log(roomCode);
   socket.join(roomCode);
   console.log(socket.id);
+  roomsInUse.set(roomCode, true);
   io.to(socket.id).emit("room_generated", { room: roomCode });
 }
 
