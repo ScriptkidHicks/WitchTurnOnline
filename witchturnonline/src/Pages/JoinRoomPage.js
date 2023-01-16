@@ -4,6 +4,7 @@ import {
   DefaultPageColumn,
   MainTitleLabel,
   GenericInputDiv,
+  MarginText,
 } from "../Components/StyledComponents/MainStyledComponents";
 import { LimitedInputCombo } from "../Components/SearchBars/GenericInputs";
 
@@ -69,7 +70,7 @@ function JoinRoomPage(props) {
   return (
     <DefaultPageBody>
       {!generateRoomPressed && (
-        <DefaultPageColumn flexGrow={2}>
+        <DefaultPageColumn flexGrow={1}>
           {!checkingRoomValidity && (
             <GenericInputDiv>
               Join an existing room
@@ -94,7 +95,10 @@ function JoinRoomPage(props) {
       )}
       <DefaultPageColumn justifyContent={"flex-start"}>
         <MainTitleLabel flexGrow={1} maxWidth={"40%"} opacity={"0.5"}>
-          {!generateRoomPressed && "Witch Turn Online"}
+          {!generateRoomPressed && "Witch"} <br />
+          {!generateRoomPressed && (
+            <MarginText margin={"0px 0px 0px 100px"}>Turn</MarginText>
+          )}
           {generateRoomPressed && "Loading your room"}
         </MainTitleLabel>
       </DefaultPageColumn>

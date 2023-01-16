@@ -16,8 +16,10 @@ const DefaultPageBody = styled.div`
   scrollbar-display: none;
 
   @media screen and (max-width: 800px) {
-    flex-direction: column;
-  }
+    flex-direction: ${(props) =>
+      props.mobileDirection ? props.mobileDirection : "column-reverse"};
+    justify-content: center;
+    align-items: center;
 `;
 
 const DefaultPageColumn = styled.div`
@@ -37,26 +39,27 @@ const DefaultPageColumn = styled.div`
   @media screen and (max-width: 800px) {
     min-width: 100%;
     max-width: none;
+    min-height: 0px;
+    justify-content: center;
   }
 `;
 
 /* Styled Labels and Titles */
 
 const MainTitleLabel = styled.label`
-  background-color: rgba(
-    ${(props) =>
-      props.backgroundColor
-        ? props.backgroundColor
-        : DarkColorStyles.GreyPurpleForegroundRGB},
-    ${(props) => (props.opacity ? props.opacity : `1`)}
-  );
+  margin-top: 10vh;
+  margin-right: 30px;
   padding: ${(props) =>
     props.padding ? props.padding : "20px 20px 20px 20px"};
   margin-bottom: 100px;
   border-radius: ${(props) =>
     props.borderRadius ? props.borderRadius : "15px"};
-  font-size: ${(props) => (props.fontSize ? props.fontSize : "2em")};
+  font-size: ${(props) => (props.fontSize ? props.fontSize : "4em")};
   color: white;
+
+  @media screen and (max-width: 800px) {
+    margin: 0px 0px 0px 0px;
+  }
 `;
 
 /* Styled Input Boxes */
@@ -75,7 +78,9 @@ const GenericInputDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
+  border-radius: 15px;
+  padding: 15px;
 `;
 
 /* Styled Generic Inputs */
@@ -179,6 +184,10 @@ const StyledFormInformationRow = styled.div`
   padding-bottom: 10px;
 `;
 
+const MarginText = styled.text`
+  margin: ${(props) => props.margin};
+`;
+
 export {
   DefaultPageBody,
   DefaultPageColumn,
@@ -189,4 +198,5 @@ export {
   StyledXButton,
   StyledGenericButton,
   StyledFormInformationRow,
+  MarginText,
 };
