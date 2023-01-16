@@ -54,6 +54,7 @@ function JoinRoomPage(props) {
   useEffect(() => {
     props.socket.on("room_generated", (data) => {
       console.log("room generated");
+      props.setIsGM(true);
       props.setRoom(data.room);
       navigate("/initiative");
     });

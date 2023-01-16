@@ -33,7 +33,7 @@ class Connection {
     this.io = io;
 
     socket.on("send_message", (data) => {
-      SendMessage(socket, data);
+      SendMessage(socket, data, io);
     });
     socket.on("generate_room", (data) => {
       GenerateRoom(socket, data, io);
@@ -60,8 +60,11 @@ class Connection {
   }
 }
 
-function SendMessage(socket, data) {
-  socket.to(data.room).emit("receive_massage", { message: data.message });
+function SendMessage(socket, data, io) {
+  console.log("sending message");
+  console.log(data.room);
+  console.log(data.message);
+  io.to(data.room).emit("receive_message", { message: data.message });
 }
 
 function CheckRoom(socket, data, io) {

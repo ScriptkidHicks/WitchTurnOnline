@@ -120,6 +120,16 @@ const StyledLeftRightButton = styled.button`
   background-image: ${(props) => (props.image ? props.image : "none")};
 `;
 
+const StyledButtonRow = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 20px;
+  margin: 20px;
+`;
+
 export {
   StyledTurnContainer,
   StyledTurnTaker,
@@ -132,4 +142,5 @@ export {
   StyledPictureSelectorRoll,
   StyledTTPictureOption,
   StyledLeftRightButton,
+  StyledButtonRow,
 };

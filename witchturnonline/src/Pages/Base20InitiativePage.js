@@ -9,6 +9,7 @@ import {
 import wizard from "../Assets/Wizard.png";
 import gobo from "../Assets/GoboTest.png";
 import { useEffect, useState } from "react";
+import { StyledButtonRow } from "../Components/StyledComponents/InitiativeStyles";
 
 function Base20InitiativePage(props) {
   const [participants, setParticipants] = useState([
@@ -171,8 +172,12 @@ function Base20InitiativePage(props) {
           participants={participants}
           RemoveParticipant={RemoveParticipant}
         ></InitiativeRoll>
-        <button onClick={AdvanceTurn}>Advance turn</button>
-        <button onClick={ReduceTurn}>reduce turn</button>
+        {props.isGM && (
+          <StyledButtonRow>
+            <button onClick={AdvanceTurn}>Advance turn</button>
+            <button onClick={ReduceTurn}>reduce turn</button>
+          </StyledButtonRow>
+        )}
       </DefaultPageColumn>
       <DefaultPageColumn flexGrow={2} modalOn={addModalVisible}>
         <label>Room: {props.room}</label>
