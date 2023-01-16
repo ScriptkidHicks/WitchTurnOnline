@@ -1,29 +1,13 @@
 import styled from "styled-components";
-
-/* Style Color Components */
-
-const ColorStyles = {
-  DeepBackgroundPurple: "#0B0016",
-  GreyPurpleBackground: "#3C1F66",
-  GreyPurpleBackgroundRGB: "60, 31, 102",
-  DarkPurpleBackground: "#2B0066",
-  GreyPurpleForeground: "#4B00B3",
-  GreyPurpleForegroundRGB: "75, 0, 179",
-  LightPurpleForeground: "#8A46EA",
-  PurpleHighlight: "#6000E6",
-  inputLavendar: "#D7B4F3",
-  inputLavendarRGB: "120, 85, 190",
-  WhiteText: "#FFFFFF",
-};
-
+import { DarkColorStyles } from "./ColorStyles";
 /* Main Page Body Components */
 
 const DefaultPageBody = styled.div`
   display: flex;
   flex-direction: row;
-  background-color: ${ColorStyles["DeepBackgroundPurple"]};
-  color: ${ColorStyles["WhiteText"]}
-  justify-content: space-between;
+  background-color: ${DarkColorStyles.DeepBackgroundPurple};
+  color: ${DarkColorStyles.WhiteText};
+  justify-content: space-evenly;
   align-items: center;
   min-height: 100vh;
   border: 1px solid black;
@@ -32,12 +16,13 @@ const DefaultPageBody = styled.div`
   scrollbar-display: none;
 
   @media screen and (max-width: 800px) {
-    flex-direction: column;
-  }
+    flex-direction: ${(props) =>
+      props.mobileDirection ? props.mobileDirection : "column-reverse"};
+    justify-content: center;
+    align-items: center;
 `;
 
 const DefaultPageColumn = styled.div`
-  border: 1px solid ${ColorStyles["GreyPurpleForeground"]};
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -48,31 +33,33 @@ const DefaultPageColumn = styled.div`
   max-width: ${(props) => (props.maxWidth ? props.maxWidth : "none")};
   background-color: ${(props) =>
     props.backgroundColor ? props.backgroundColor : "none"};
-  color: ${(props) => (props.color ? props.color : ColorStyles["WhiteText"])};
+  color: ${(props) =>
+    props.color ? props.color : DarkColorStyles["WhiteText"]};
 
   @media screen and (max-width: 800px) {
     min-width: 100%;
     max-width: none;
+    min-height: 0px;
+    justify-content: center;
   }
 `;
 
 /* Styled Labels and Titles */
 
 const MainTitleLabel = styled.label`
-  background-color: rgba(
-    ${(props) =>
-      props.backgroundColor
-        ? props.backgroundColor
-        : ColorStyles.GreyPurpleForegroundRGB},
-    ${(props) => (props.opacity ? props.opacity : `1`)}
-  );
+  margin-top: 10vh;
+  margin-right: 30px;
   padding: ${(props) =>
     props.padding ? props.padding : "20px 20px 20px 20px"};
   margin-bottom: 100px;
   border-radius: ${(props) =>
     props.borderRadius ? props.borderRadius : "15px"};
-  font-size: ${(props) => (props.fontSize ? props.fontSize : "2em")};
+  font-size: ${(props) => (props.fontSize ? props.fontSize : "4em")};
   color: white;
+
+  @media screen and (max-width: 800px) {
+    margin: 0px 0px 0px 0px;
+  }
 `;
 
 /* Styled Input Boxes */
@@ -82,7 +69,7 @@ const GenericInputDiv = styled.div`
     ${(props) =>
       props.backgroundColor
         ? props.backgroundColor
-        : ColorStyles.GreyPurpleForegroundRGB},
+        : DarkColorStyles.GreyPurpleForegroundRGB},
     ${(props) => (props.opacity ? props.opacity : `1`)}
   );
   padding: ${(props) => (props.padding ? props.padding : "5px")};
@@ -91,7 +78,9 @@ const GenericInputDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
+  border-radius: 15px;
+  padding: 15px;
 `;
 
 /* Styled Generic Inputs */
@@ -101,7 +90,7 @@ const StyleableLimitedInput = styled.input`
     props.backgroundColor
       ? props.backgroundColor
       : "rgba(" +
-        ColorStyles.inputLavendarRGB +
+        DarkColorStyles.inputLavendarRGB +
         ", " +
         (props.opacity ? props.opacity : "1") +
         ")"};
@@ -112,6 +101,15 @@ const StyleableLimitedInput = styled.input`
   font-size: ${(props) => (props.fontSize ? props.fontSize : "1em")};
   letter-spacing: ${(props) =>
     props.letterSpacing ? props.letterSpacing : "1em"};
+
+  border-radius: 8px;
+
+  transition: ease all 0.4s;
+
+  :focus {
+    box-shadow: inset 1px 1px 1px black;
+    outline: none;
+  }
 `;
 
 /* Styled Generic Buttons */
@@ -138,6 +136,58 @@ const StyleableButton = styled.button`
   }
 `;
 
+const StyledXButton = styled.button`
+  background-color: ${(props) =>
+    props.ButtonColor ? props.ButtonColor : DarkColorStyles.PurpleHighlight};
+  color: white;
+  height: ${(props) => (props.buttonSize ? props.buttonSize : "22px")};
+  width: ${(props) => (props.buttonSize ? props.buttonSize : "22px")};
+  border-radius: 40px;
+  border: 2px solid;
+  border-color: white ${DarkColorStyles.LightPurpleForeground}
+    ${DarkColorStyles.LightPurpleForeground} white;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 2px;
+  font-weight: bolder;
+  font-size: 1em;
+
+  box-shadow: 1px 1px 1px black;
+
+  transition: ease all 0.4s;
+
+  :hover {
+    border-color: ${DarkColorStyles.LightPurpleForeground} white white
+      ${DarkColorStyles.LightPurpleForeground};
+    box-shadow: -1px -1px 1px black;
+  }
+`;
+
+const StyledGenericButton = styled.button`
+  background-color: ${(props) =>
+    props.ButtonColor ? props.ButtonColor : DarkColorStyles.PurpleHighlight};
+  color: white;
+  border: 1px solid white;
+  border-radius: 5px;
+  margin: 5px;
+`;
+
+const StyledFormInformationRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  justify-content: ${(props) =>
+    props.justify ? props.justify : "space-between"};
+  padding-bottom: 10px;
+`;
+
+const MarginText = styled.text`
+  margin: ${(props) => props.margin};
+`;
+
 export {
   DefaultPageBody,
   DefaultPageColumn,
@@ -145,4 +195,8 @@ export {
   MainTitleLabel,
   GenericInputDiv,
   StyleableLimitedInput,
+  StyledXButton,
+  StyledGenericButton,
+  StyledFormInformationRow,
+  MarginText,
 };
