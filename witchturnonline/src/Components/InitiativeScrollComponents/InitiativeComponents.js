@@ -64,10 +64,7 @@ function TurnTaker(props) {
               : "")}
         </StyledInfoLabel>
       </StyledTTContentcontainer>
-      <StyledTTContentcontainer>
-        <ChangePositionButton>Increase Position</ChangePositionButton>
-        <ChangePositionButton>Decreate Position</ChangePositionButton>
-      </StyledTTContentcontainer>
+      <StyledTTContentcontainer></StyledTTContentcontainer>
       <StyledTTContentcontainer>
         <StyledXButton
           buttonSize={"40px"}
@@ -149,6 +146,7 @@ function AddModal(props) {
         <StyledFormInformationRow>
           <StyledInfoLabel>Initiative: </StyledInfoLabel>
           <LimitedInputCombo
+            lettersNotAllowed={true}
             setInputState={(value) => {
               initiative.current = value;
             }}
@@ -160,6 +158,7 @@ function AddModal(props) {
         <StyledFormInformationRow>
           <StyledInfoLabel>Bonus: </StyledInfoLabel>
           <LimitedInputCombo
+            lettersNotAllowed={true}
             setInputState={(value) => {
               bonus.current = value;
             }}

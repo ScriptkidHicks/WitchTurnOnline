@@ -12,10 +12,7 @@ import { useEffect, useState } from "react";
 import { StyledButtonRow } from "../Components/StyledComponents/InitiativeStyles";
 
 function Base20InitiativePage(props) {
-  const [participants, setParticipants] = useState([
-    { name: "Bianchi", img: wizard, initiative: 1, bonus: 3 },
-    { name: "momo", img: gobo, initiative: 13, bonus: 2 },
-  ]);
+  const [participants, setParticipants] = useState([]);
 
   const [offset, setOffset] = useState(0);
 
