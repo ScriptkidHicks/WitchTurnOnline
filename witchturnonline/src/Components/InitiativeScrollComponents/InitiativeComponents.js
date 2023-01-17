@@ -8,11 +8,10 @@ import {
   StyledModalInterfaceDiv,
   StyledTTContentcontainer,
   StyledTTPicture,
-  StyledTTPictureOption,
   StyledTurnContainer,
   StyledTurnTaker,
   StyledTTPictureSelectorButton,
-  StyledPictureSelectorRoll,
+  StyledTurnandAddButton,
 } from "../StyledComponents/InitiativeStyles";
 import {
   StyledFormInformationRow,
@@ -32,7 +31,7 @@ function InitiativeRoll(props) {
             img={character.img}
             initiative={character.initiative}
             bonus={character.bonus}
-            placement={index}
+            position={index}
             RemoveParticipant={props.RemoveParticipant}
             key={(character.initiative, character.bonus, character.name, index)}
           />
@@ -44,7 +43,7 @@ function InitiativeRoll(props) {
 
 function TurnTaker(props) {
   return (
-    <StyledTurnTaker>
+    <StyledTurnTaker position={props.position}>
       <StyledTTContentcontainer>
         <StyledTTPicture src={props.img} />
         <StyledInfoLabel>
@@ -64,15 +63,12 @@ function TurnTaker(props) {
               : "")}
         </StyledInfoLabel>
       </StyledTTContentcontainer>
-      <StyledTTContentcontainer>
-        <ChangePositionButton>Increase Position</ChangePositionButton>
-        <ChangePositionButton>Decreate Position</ChangePositionButton>
-      </StyledTTContentcontainer>
+      <StyledTTContentcontainer></StyledTTContentcontainer>
       <StyledTTContentcontainer>
         <StyledXButton
           buttonSize={"40px"}
           onClick={() => {
-            props.RemoveParticipant(props.placement);
+            props.RemoveParticipant(props.position);
           }}
         >
           X
@@ -96,14 +92,14 @@ function ChangePositionButton(props) {
 
 function CompleteModalButton(props) {
   return (
-    <StyledGenericButton
+    <StyledTurnandAddButton
       onClick={() => {
         props.CompleteModalFunction();
         props.SetVisible(false);
       }}
     >
       {props.children}
-    </StyledGenericButton>
+    </StyledTurnandAddButton>
   );
 }
 
@@ -149,6 +145,7 @@ function AddModal(props) {
         <StyledFormInformationRow>
           <StyledInfoLabel>Initiative: </StyledInfoLabel>
           <LimitedInputCombo
+            lettersNotAllowed={true}
             setInputState={(value) => {
               initiative.current = value;
             }}
@@ -160,6 +157,7 @@ function AddModal(props) {
         <StyledFormInformationRow>
           <StyledInfoLabel>Bonus: </StyledInfoLabel>
           <LimitedInputCombo
+            lettersNotAllowed={true}
             setInputState={(value) => {
               bonus.current = value;
             }}

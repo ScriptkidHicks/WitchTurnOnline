@@ -41,7 +41,7 @@ function JoinRoomPage(props) {
 
   useEffect(() => {
     props.socket.on("room_not_valid", (data) => {
-      console.log(`the room ${data.room} is not valid`);
+      alert(`That room has not yet been made`);
       setCheckingRoomValidity(false);
     });
 

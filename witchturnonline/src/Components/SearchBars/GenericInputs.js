@@ -14,10 +14,15 @@ function LimitedInputCombo(props) {
       textAlignment={props.textAlignment}
       backgroundColor={props.backgroundColor}
       letterSpacing={props.letterSpacing}
-      onInput={
-        props.onInputFunction
-          ? (event) => props.onInputFunction(event)
-          : (event) => onInputFunction(event)
+      onInput={(event) => onInputFunction(event)}
+      onKeyUp={
+        props.lettersNotAllowed
+          ? (event) => {
+              let replacement = event.target.value.replace(/[^a-z]/, "");
+              event.target.value = replacement;
+              props.setInputState(replacement);
+            }
+          : () => {}
       }
     ></StyleableLimitedInput>
   );

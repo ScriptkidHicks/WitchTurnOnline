@@ -9,13 +9,13 @@ import {
 import wizard from "../Assets/Wizard.png";
 import gobo from "../Assets/GoboTest.png";
 import { useEffect, useState } from "react";
-import { StyledButtonRow } from "../Components/StyledComponents/InitiativeStyles";
+import {
+  StyledButtonRow,
+  StyledTurnandAddButton,
+} from "../Components/StyledComponents/InitiativeStyles";
 
 function Base20InitiativePage(props) {
-  const [participants, setParticipants] = useState([
-    { name: "Bianchi", img: wizard, initiative: 1, bonus: 3 },
-    { name: "momo", img: gobo, initiative: 13, bonus: 2 },
-  ]);
+  const [participants, setParticipants] = useState([]);
 
   const [offset, setOffset] = useState(0);
 
@@ -181,13 +181,13 @@ function Base20InitiativePage(props) {
       </DefaultPageColumn>
       <DefaultPageColumn flexGrow={2} modalOn={addModalVisible}>
         <label>Room: {props.room}</label>
-        <button
+        <StyledTurnandAddButton
           onClick={() => {
             setAddModalVisible(true);
           }}
         >
           Add Participant
-        </button>
+        </StyledTurnandAddButton>
       </DefaultPageColumn>
     </DefaultPageBody>
   );
