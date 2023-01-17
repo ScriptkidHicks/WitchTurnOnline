@@ -9,7 +9,10 @@ import {
 import wizard from "../Assets/Wizard.png";
 import gobo from "../Assets/GoboTest.png";
 import { useEffect, useState } from "react";
-import { StyledButtonRow } from "../Components/StyledComponents/InitiativeStyles";
+import {
+  StyledButtonRow,
+  StyledTurnandAddButton,
+} from "../Components/StyledComponents/InitiativeStyles";
 
 function Base20InitiativePage(props) {
   const [participants, setParticipants] = useState([]);
@@ -178,13 +181,13 @@ function Base20InitiativePage(props) {
       </DefaultPageColumn>
       <DefaultPageColumn flexGrow={2} modalOn={addModalVisible}>
         <label>Room: {props.room}</label>
-        <button
+        <StyledTurnandAddButton
           onClick={() => {
             setAddModalVisible(true);
           }}
         >
           Add Participant
-        </button>
+        </StyledTurnandAddButton>
       </DefaultPageColumn>
     </DefaultPageBody>
   );

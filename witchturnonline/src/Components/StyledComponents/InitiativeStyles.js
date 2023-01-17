@@ -40,8 +40,8 @@ const StyledTurnTaker = styled.div`
   align-items: center;
 
   background-color: ${(props) =>
-    props.backgroundColor
-      ? props.backgroundColor
+    props.position == 0
+      ? DarkColorStyles.LighterGreyPurpleBackground
       : DarkColorStyles.GreyPurpleBackground};
 `;
 
@@ -70,6 +70,21 @@ const StyledTTPictureSelectorButton = styled(StyledTTPicture)`
   transition: ease all 0.4s;
   :hover {
     box-shadow: 4px 4px 4px black;
+  }
+`;
+
+const StyledTurnandAddButton = styled.button`
+  color: white;
+  font-weight: bold;
+  border: 2px ${DarkColorStyles.PurpleHighlight} solid;
+  padding: 10px;
+  font-size: 1em;
+  border-radius: 10px;
+  background-color: ${DarkColorStyles.LightPurpleForeground};
+  transition: ease all 0.4s;
+
+  :hover {
+    box-shadow: 3px 3px 3px ${DarkColorStyles.PurpleBoxShadow};
   }
 `;
 
@@ -142,5 +157,6 @@ export {
   StyledPictureSelectorRoll,
   StyledTTPictureOption,
   StyledLeftRightButton,
+  StyledTurnandAddButton,
   StyledButtonRow,
 };

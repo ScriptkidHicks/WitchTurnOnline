@@ -1,6 +1,7 @@
 const DarkColorStyles = {
   DeepBackgroundPurple: "#0B0016",
   GreyPurpleBackground: "#3C1F66",
+  LighterGreyPurpleBackground: "#5C3F86",
   GreyPurpleBackgroundRGB: "60, 31, 102",
   DarkPurpleBackground: "#2B0066",
   GreyPurpleForeground: "#4B00B3",
