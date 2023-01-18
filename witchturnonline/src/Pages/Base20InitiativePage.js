@@ -32,7 +32,6 @@ function Base20InitiativePage(props) {
     props.socket.emit("join_room", { room: props.room });
 
     props.socket.on("receive_message", (data) => {
-      console.log("received " + data.message);
       participantsParallel = data.message;
       offset = data.offset;
       setParticipants(data.message);
@@ -54,16 +53,13 @@ function Base20InitiativePage(props) {
     let updatedParticipants = [...participants];
     updatedParticipants.splice(participantIndex, 1);
 
-    let newOffset = 0;
     if (participantIndex < offset) {
-      newOffset = offset - 1;
-      offset = newOffset;
+      offset -= 1;
     }
     if (offset > updatedParticipants.length) {
-      newOffset = 0;
-      offset = newOffset;
+      offset = 0;
     }
-    SendRoll(updatedParticipants, newOffset);
+    SendRoll(updatedParticipants, offset);
     participantsParallel = updatedParticipants;
   }
 
@@ -115,16 +111,14 @@ function Base20InitiativePage(props) {
       return obj === newParticipant;
     });
 
-    let newOffset = 0;
     if (insertIndex > participants.length - offset) {
-      newOffset = offset + 1;
-      offset = newOffset;
+      offset += 1;
     }
     updatedParticipants = [
       ...updatedParticipants.slice(offset, updatedParticipants.length),
       ...updatedParticipants.slice(0, offset),
     ];
-    SendRoll(updatedParticipants, newOffset);
+    SendRoll(updatedParticipants, offset);
   }
 
   function AdvanceTurn() {
@@ -137,12 +131,11 @@ function Base20InitiativePage(props) {
     let heldParticipant = updatedParticipants.splice(0, 1)[0];
     updatedParticipants.push(heldParticipant);
 
-    let newOffset = offset - 1;
-    if (newOffset < 0) {
-      newOffset = updatedParticipants.length + newOffset;
+    offset -= 1;
+    if (offset < 0) {
+      offset = updatedParticipants.length + offset;
     }
-    offset = newOffset;
-    SendRoll(updatedParticipants, newOffset);
+    SendRoll(updatedParticipants, offset);
   }
 
   function ReduceTurn() {
@@ -154,12 +147,11 @@ function Base20InitiativePage(props) {
     let heldParticipant = updatedParticipants.pop();
     updatedParticipants = [heldParticipant, ...updatedParticipants];
 
-    let newOffset = offset + 1;
-    if (newOffset >= updatedParticipants.length) {
-      newOffset = 0;
+    offset += 1;
+    if (offset >= updatedParticipants.length) {
+      offset = 0;
     }
-    offset = newOffset;
-    SendRoll(updatedParticipants, newOffset);
+    SendRoll(updatedParticipants, offset);
   }
 
   return (
