@@ -9,6 +9,7 @@ import {
 import { LimitedInputCombo } from "../Components/SearchBars/GenericInputs";
 
 import { useNavigate } from "react-router-dom";
+import { StyledTurnandAddButton } from "../Components/StyledComponents/InitiativeStyles";
 
 function JoinRoomPage(props) {
   const [generateRoomPressed, setGenerateRoomPressed] = useState(false);
@@ -80,7 +81,9 @@ function JoinRoomPage(props) {
                 inputState={props.room}
                 setInputState={props.setRoom}
               ></LimitedInputCombo>
-              <button onClick={AttemptToJoinRoom}>Join</button>
+              <StyledTurnandAddButton onClick={AttemptToJoinRoom}>
+                Join
+              </StyledTurnandAddButton>
             </GenericInputDiv>
           )}
           {checkingRoomValidity && (
@@ -89,7 +92,9 @@ function JoinRoomPage(props) {
 
           <GenericInputDiv>
             Start a new Room (You will be GM)
-            <button onClick={GenerateRoom}>Generate Room</button>
+            <StyledTurnandAddButton onClick={GenerateRoom}>
+              Generate Room
+            </StyledTurnandAddButton>
           </GenericInputDiv>
         </DefaultPageColumn>
       )}

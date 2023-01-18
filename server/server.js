@@ -39,7 +39,7 @@ class Connection {
       GenerateRoom(socket, data, io);
     });
     socket.on("join_room", (data) => {
-      JoinRoom(socket, data);
+      JoinRoom(socket, data, io);
     });
     socket.on("disconnect", (data) => {
       Disconnect(socket, data);
@@ -61,22 +61,18 @@ class Connection {
 }
 
 function SendMessage(socket, data, io) {
-  console.log("sending message");
-  console.log(data.room);
-  console.log(data.message);
-  io.to(data.room).emit("receive_message", { message: data.message });
+  io.to(data.room).emit("receive_message", {
+    message: data.message,
+    offset: data.offset,
+  });
 }
 
 function CheckRoom(socket, data, io) {
   let socketid = socket.id;
-  console.log("scoketid " + socketid);
   let roomExists = roomsInUse.has(data.room);
   if (roomExists) {
-    console.log("room exists");
     io.to(socket.id).emit("room_valid", { room: data.room });
   } else {
-    console.log("room does not exist");
-    console.log(socket.id);
     io.to(socket.id).emit("room_not_valid", { room: data.room });
   }
 }
@@ -93,7 +89,6 @@ function GenerateRandomRoomCode() {
 }
 
 function GenerateRoom(socket, data, io) {
-  console.log("generating Room");
   let roomViable = false;
   let roomCode = "";
 
@@ -111,8 +106,8 @@ function GenerateRoom(socket, data, io) {
 }
 
 function JoinRoom(socket, data) {
-  console.log("socket " + socket + "joining room " + data.room);
   socket.join(data.room);
+  io.to(data.room).emit("new_member");
 }
 
 function DeleteRoom(room) {
