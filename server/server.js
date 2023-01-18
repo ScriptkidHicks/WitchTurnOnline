@@ -39,7 +39,7 @@ class Connection {
       GenerateRoom(socket, data, io);
     });
     socket.on("join_room", (data) => {
-      JoinRoom(socket, data);
+      JoinRoom(socket, data, io);
     });
     socket.on("disconnect", (data) => {
       Disconnect(socket, data);
@@ -112,6 +112,7 @@ function GenerateRoom(socket, data, io) {
 
 function JoinRoom(socket, data) {
   console.log("socket " + socket + "joining room " + data.room);
+  io.to(data.room).emit("new_member");
   socket.join(data.room);
 }
 

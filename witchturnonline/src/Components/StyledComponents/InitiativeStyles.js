@@ -41,7 +41,7 @@ const StyledTurnTaker = styled.div`
 
   background-color: ${(props) =>
     props.position == 0
-      ? DarkColorStyles.LighterGreyPurpleBackground
+      ? DarkColorStyles.DarkerBackgroundGreen
       : DarkColorStyles.GreyPurpleBackground};
 `;
 
@@ -76,15 +76,18 @@ const StyledTTPictureSelectorButton = styled(StyledTTPicture)`
 const StyledTurnandAddButton = styled.button`
   color: white;
   font-weight: bold;
-  border: 2px ${DarkColorStyles.PurpleHighlight} solid;
+  border: 2px ${DarkColorStyles.DarkBorderGreen} solid;
   padding: 10px;
   font-size: 1em;
   border-radius: 10px;
-  background-color: ${DarkColorStyles.LightPurpleForeground};
+  background-color: ${DarkColorStyles.DarkBackgroundGreen};
   transition: ease all 0.4s;
+  margin: 10px;
 
   :hover {
     box-shadow: 3px 3px 3px ${DarkColorStyles.PurpleBoxShadow};
+    border: 2px ${DarkColorStyles.DarkBackgroundGreen} solid;
+    background-color: ${DarkColorStyles.DarkBorderGreen};
   }
 `;
 

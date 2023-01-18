@@ -32,6 +32,11 @@ function Base20InitiativePage(props) {
 
     props.socket.emit("join_room", { room: props.room });
 
+    props.socket.on("new_member", () => {
+      console.log("new member");
+      props.socket.emit("recieve_message", { room: props.room });
+    });
+
     props.socket.on("receive_message", (data) => {
       console.log("received " + data.message);
       setParticipants(data.message);
@@ -174,8 +179,12 @@ function Base20InitiativePage(props) {
         ></InitiativeRoll>
         {props.isGM && (
           <StyledButtonRow>
-            <button onClick={AdvanceTurn}>Advance turn</button>
-            <button onClick={ReduceTurn}>reduce turn</button>
+            <StyledTurnandAddButton onClick={AdvanceTurn}>
+              Advance turn
+            </StyledTurnandAddButton>
+            <StyledTurnandAddButton onClick={ReduceTurn}>
+              reduce turn
+            </StyledTurnandAddButton>
           </StyledButtonRow>
         )}
       </DefaultPageColumn>
