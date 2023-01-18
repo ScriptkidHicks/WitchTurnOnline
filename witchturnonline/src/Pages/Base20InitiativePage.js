@@ -6,8 +6,6 @@ import {
   DefaultPageBody,
   DefaultPageColumn,
 } from "../Components/StyledComponents/MainStyledComponents";
-import wizard from "../Assets/Wizard.png";
-import gobo from "../Assets/GoboTest.png";
 import { useEffect, useState } from "react";
 import {
   StyledButtonRow,
@@ -17,7 +15,9 @@ import {
 function Base20InitiativePage(props) {
   const [participants, setParticipants] = useState([]);
 
-  const [offset, setOffset] = useState(0);
+  let participantsParallel = [];
+  //we have to keep this around to deal with the render lag from useState
+  let offset = 0;
 
   const [addModalVisible, setAddModalVisible] = useState(false);
 
@@ -25,21 +25,26 @@ function Base20InitiativePage(props) {
     if (props.room === "") {
       return;
     }
-    console.log("useEffectFired");
     const eventListener = (data) => {
       console.log(data);
     };
 
     props.socket.emit("join_room", { room: props.room });
 
-    props.socket.on("new_member", () => {
-      console.log("new member");
-      props.socket.emit("recieve_message", { room: props.room });
-    });
-
     props.socket.on("receive_message", (data) => {
       console.log("received " + data.message);
+      participantsParallel = data.message;
+      offset = data.offset;
       setParticipants(data.message);
+    });
+
+    props.socket.on("new_member", () => {
+      console.log("outer new member");
+      if (props.isGM) {
+        console.log("I am the fucking gm");
+        console.log("participants " + participantsParallel);
+        SendRoll(participantsParallel);
+      }
     });
 
     return () => props.socket.off("receive_message", eventListener);
@@ -48,22 +53,27 @@ function Base20InitiativePage(props) {
   function RemoveParticipant(participantIndex) {
     let updatedParticipants = [...participants];
     updatedParticipants.splice(participantIndex, 1);
-    setParticipants(updatedParticipants);
 
+    let newOffset = 0;
     if (participantIndex < offset) {
-      setOffset(offset - 1);
+      newOffset = offset - 1;
+      offset = newOffset;
     }
     if (offset > updatedParticipants.length) {
-      console.log("should be 0");
-      setOffset(0);
+      newOffset = 0;
+      offset = newOffset;
     }
-    SendRoll(updatedParticipants);
+    SendRoll(updatedParticipants, newOffset);
+    participantsParallel = updatedParticipants;
   }
 
-  function SendRoll(roll) {
+  function SendRoll(roll, offset) {
+    participantsParallel = roll;
+    console.log(participantsParallel);
     props.socket.emit("send_message", {
       room: props.room,
       message: roll,
+      offset: offset,
     });
   }
 
@@ -79,9 +89,8 @@ function Base20InitiativePage(props) {
   function SortParticipants() {
     let updatedParticipants = [...participants];
     updatedParticipants = SortParticipantsHelper(updatedParticipants);
-    setParticipants(updatedParticipants);
-    setOffset(0);
-    SendRoll(updatedParticipants);
+    offset = 0;
+    SendRoll(updatedParticipants, 0);
   }
 
   function AddParticipant(picture, name, initiative, bonus) {
@@ -106,16 +115,16 @@ function Base20InitiativePage(props) {
       return obj === newParticipant;
     });
 
+    let newOffset = 0;
     if (insertIndex > participants.length - offset) {
-      console.log("my offset " + offset + 1);
-      setOffset(offset + 1);
+      newOffset = offset + 1;
+      offset = newOffset;
     }
     updatedParticipants = [
       ...updatedParticipants.slice(offset, updatedParticipants.length),
       ...updatedParticipants.slice(0, offset),
     ];
-    setParticipants(updatedParticipants);
-    SendRoll(updatedParticipants);
+    SendRoll(updatedParticipants, newOffset);
   }
 
   function AdvanceTurn() {
@@ -132,13 +141,8 @@ function Base20InitiativePage(props) {
     if (newOffset < 0) {
       newOffset = updatedParticipants.length + newOffset;
     }
-
-    console.log("adv " + newOffset);
-    setOffset(newOffset);
-    console.log(newOffset);
-
-    setParticipants(updatedParticipants);
-    SendRoll(updatedParticipants);
+    offset = newOffset;
+    SendRoll(updatedParticipants, newOffset);
   }
 
   function ReduceTurn() {
@@ -149,15 +153,13 @@ function Base20InitiativePage(props) {
 
     let heldParticipant = updatedParticipants.pop();
     updatedParticipants = [heldParticipant, ...updatedParticipants];
-    setParticipants(updatedParticipants);
 
     let newOffset = offset + 1;
     if (newOffset >= updatedParticipants.length) {
       newOffset = 0;
     }
-    console.log(newOffset);
-    setOffset(newOffset);
-    SendRoll(updatedParticipants);
+    offset = newOffset;
+    SendRoll(updatedParticipants, newOffset);
   }
 
   return (
