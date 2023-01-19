@@ -17,7 +17,7 @@ function Base20InitiativePage(props) {
 
   let participantsParallel = [];
   //we have to keep this around to deal with the render lag from useState
-  let offset = 0;
+  const [offset, setOffset] = useState(0);
 
   const [addModalVisible, setAddModalVisible] = useState(false);
 
@@ -33,16 +33,14 @@ function Base20InitiativePage(props) {
 
     props.socket.on("receive_message", (data) => {
       participantsParallel = data.message;
-      offset = data.offset;
+      setOffset(data.offset);
+      console.log("receive offset " + data.offset);
       setParticipants(data.message);
     });
 
     props.socket.on("new_member", () => {
-      console.log("outer new member");
       if (props.isGM) {
-        console.log("I am the fucking gm");
-        console.log("participants " + participantsParallel);
-        SendRoll(participantsParallel);
+        SendRoll(participantsParallel, offset);
       }
     });
 
@@ -53,19 +51,21 @@ function Base20InitiativePage(props) {
     let updatedParticipants = [...participants];
     updatedParticipants.splice(participantIndex, 1);
 
-    if (participantIndex < offset) {
-      offset -= 1;
+    let tempoffset = offset;
+    if (participantIndex < tempoffset) {
+      tempoffset -= 1;
     }
-    if (offset > updatedParticipants.length) {
-      offset = 0;
+    if (tempoffset > updatedParticipants.length) {
+      tempoffset = 0;
     }
-    SendRoll(updatedParticipants, offset);
+    setOffset(tempoffset);
+    SendRoll(updatedParticipants, tempoffset);
     participantsParallel = updatedParticipants;
   }
 
   function SendRoll(roll, offset) {
     participantsParallel = roll;
-    console.log(participantsParallel);
+    console.log("sent offset " + offset);
     props.socket.emit("send_message", {
       room: props.room,
       message: roll,
@@ -85,7 +85,7 @@ function Base20InitiativePage(props) {
   function SortParticipants() {
     let updatedParticipants = [...participants];
     updatedParticipants = SortParticipantsHelper(updatedParticipants);
-    offset = 0;
+    setOffset(0);
     SendRoll(updatedParticipants, 0);
   }
 
@@ -97,10 +97,10 @@ function Base20InitiativePage(props) {
       initiative: initiative,
       bonus: bonus,
     };
-    if (bonus === undefined) {
+    if (bonus === undefined || bonus === "") {
       newParticipant.bonus = 0;
     }
-    if (initiative === undefined) {
+    if (initiative === undefined || initiative === "") {
       newParticipant.initiative =
         Math.floor(Math.random() * 19 + 1) + Number(bonus);
     }
@@ -111,14 +111,17 @@ function Base20InitiativePage(props) {
       return obj === newParticipant;
     });
 
-    if (insertIndex > participants.length - offset) {
-      offset += 1;
+    let tempoffset = offset;
+    if (insertIndex > participants.length - tempoffset) {
+      tempoffset += 1;
     }
+    console.log("tempOffset " + tempoffset);
     updatedParticipants = [
-      ...updatedParticipants.slice(offset, updatedParticipants.length),
-      ...updatedParticipants.slice(0, offset),
+      ...updatedParticipants.slice(tempoffset, updatedParticipants.length),
+      ...updatedParticipants.slice(0, tempoffset),
     ];
-    SendRoll(updatedParticipants, offset);
+    SendRoll(updatedParticipants, tempoffset);
+    setOffset(tempoffset);
   }
 
   function AdvanceTurn() {
@@ -131,11 +134,14 @@ function Base20InitiativePage(props) {
     let heldParticipant = updatedParticipants.splice(0, 1)[0];
     updatedParticipants.push(heldParticipant);
 
-    offset -= 1;
-    if (offset < 0) {
-      offset = updatedParticipants.length + offset;
+    let tempoffset = offset;
+
+    tempoffset -= 1;
+    if (tempoffset < 0) {
+      tempoffset = updatedParticipants.length + tempoffset;
     }
-    SendRoll(updatedParticipants, offset);
+    SendRoll(updatedParticipants, tempoffset);
+    setOffset(tempoffset);
   }
 
   function ReduceTurn() {
@@ -147,11 +153,13 @@ function Base20InitiativePage(props) {
     let heldParticipant = updatedParticipants.pop();
     updatedParticipants = [heldParticipant, ...updatedParticipants];
 
-    offset += 1;
-    if (offset >= updatedParticipants.length) {
-      offset = 0;
+    let tempoffset = offset;
+    tempoffset += 1;
+    if (tempoffset >= updatedParticipants.length) {
+      tempoffset = 0;
     }
-    SendRoll(updatedParticipants, offset);
+    SendRoll(updatedParticipants, tempoffset);
+    setOffset(tempoffset);
   }
 
   return (
