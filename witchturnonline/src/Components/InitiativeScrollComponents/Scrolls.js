@@ -39,7 +39,14 @@ function PictureChooser(props) {
           />
         );
       })}
-      <LeftRightButton>Right</LeftRightButton>
+      <LeftRightButton
+        displayIndecies={displayIndecies}
+        setIndecies={setDisplayIndecies}
+        variable={-3}
+        size={props.pictures.length}
+      >
+        Right
+      </LeftRightButton>
     </StyledPictureSelectorRoll>
   );
 }
