@@ -206,7 +206,14 @@ function Base20InitiativePage(props) {
         justifyContent={"space-evenly"}
       >
         <GenericInputDiv>
-          <StyledLabelText>Room: {props.room}</StyledLabelText>
+          <StyledLabelText>Room: {room}</StyledLabelText>
+          <StyledTurnandAddButton
+            onClick={() => {
+              navigator.clipboard.writeText(window.location.href);
+            }}
+          >
+            Copy Link
+          </StyledTurnandAddButton>
         </GenericInputDiv>
         <StyledTurnandAddButton
           onClick={() => {
