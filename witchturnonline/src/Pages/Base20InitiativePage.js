@@ -13,9 +13,14 @@ import {
   StyledButtonRow,
   StyledTurnandAddButton,
 } from "../Components/StyledComponents/InitiativeStyles";
+import { useNavigate, useParams } from "react-router-dom";
 
 function Base20InitiativePage(props) {
   const [participants, setParticipants] = useState([]);
+
+  const { room } = useParams();
+
+  const navigate = useNavigate();
 
   let participantsParallel = [];
   //we have to keep this around to deal with the render lag from useState
@@ -24,14 +29,18 @@ function Base20InitiativePage(props) {
   const [addModalVisible, setAddModalVisible] = useState(false);
 
   useEffect(() => {
-    if (props.room === "") {
-      return;
-    }
+    console.log("room " + room);
+    props.setRoom(room);
+
+    // if (props.room === "") {
+    //   alert("That room doesn't appear to exist");
+    //   navigate("/");
+    // }
     const eventListener = (data) => {
       console.log(data);
     };
 
-    props.socket.emit("join_room", { room: props.room });
+    props.socket.emit("join_room", { room: room });
 
     props.socket.on("receive_message", (data) => {
       participantsParallel = data.message;
