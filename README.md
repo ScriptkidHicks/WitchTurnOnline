@@ -20,7 +20,8 @@ You can find Witch Turn [here](https://witch-turn-l95l.onrender.com)
 ## Goals
 
 - [ ] The website needs UI improvement. This applies to both the color / stylings, and the quality of the site on mobile. This needs to be done without duplication of code.
-- [ ] There needs to be a way too create a copy pastable link that people can follow that the dm can post. It will save people the trouble of typing in the join.
+- [x] There needs to be a way too create a copy pastable link that people can follow that the dm can post. It will save people the trouble of typing in the join.
+  -This ended up being much easier than expected.
 - [ ] There needs to be a way to track where you are in the order. I would like to tie player name to this as well. 
 - [ ] There should be a way to track clocks in the same simultaneous fashion as we track initiative.
 - [ ] There should be a way to roll dice in the app, and this information should be communicated to other users (The results are important).
