@@ -5,6 +5,8 @@ import {
 import {
   DefaultPageBody,
   DefaultPageColumn,
+  GenericInputDiv,
+  StyledLabelText,
 } from "../Components/StyledComponents/MainStyledComponents";
 import { useEffect, useState } from "react";
 import {
@@ -189,8 +191,14 @@ function Base20InitiativePage(props) {
           </StyledButtonRow>
         )}
       </DefaultPageColumn>
-      <DefaultPageColumn flexGrow={2} modalOn={addModalVisible}>
-        <label>Room: {props.room}</label>
+      <DefaultPageColumn
+        flexGrow={2}
+        modalOn={addModalVisible}
+        justifyContent={"space-evenly"}
+      >
+        <GenericInputDiv>
+          <StyledLabelText>Room: {props.room}</StyledLabelText>
+        </GenericInputDiv>
         <StyledTurnandAddButton
           onClick={() => {
             setAddModalVisible(true);

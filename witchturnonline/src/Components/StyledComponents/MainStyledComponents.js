@@ -184,8 +184,16 @@ const StyledFormInformationRow = styled.div`
   padding-bottom: 10px;
 `;
 
-const MarginText = styled.text`
+const MarginText = styled.div`
   margin: ${(props) => props.margin};
+`;
+
+const StyledLabelText = styled.div`
+  margin: 10px;
+  padding: 0;
+  color: white;
+  font-weight: bold;
+  font-size: 1.2em;
 `;
 
 export {
@@ -199,4 +207,5 @@ export {
   StyledGenericButton,
   StyledFormInformationRow,
   MarginText,
+  StyledLabelText,
 };
