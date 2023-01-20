@@ -34,7 +34,6 @@ function Base20InitiativePage(props) {
     props.socket.on("receive_message", (data) => {
       participantsParallel = data.message;
       setOffset(data.offset);
-      console.log("receive offset " + data.offset);
       setParticipants(data.message);
     });
 
@@ -65,7 +64,6 @@ function Base20InitiativePage(props) {
 
   function SendRoll(roll, offset) {
     participantsParallel = roll;
-    console.log("sent offset " + offset);
     props.socket.emit("send_message", {
       room: props.room,
       message: roll,
@@ -112,13 +110,14 @@ function Base20InitiativePage(props) {
     });
 
     let tempoffset = offset;
+
     if (insertIndex > participants.length - tempoffset) {
       tempoffset += 1;
     }
-    console.log("tempOffset " + tempoffset);
+    let sliceIndex = updatedParticipants.length - tempoffset;
     updatedParticipants = [
-      ...updatedParticipants.slice(tempoffset, updatedParticipants.length),
-      ...updatedParticipants.slice(0, tempoffset),
+      ...updatedParticipants.slice(sliceIndex, updatedParticipants.length),
+      ...updatedParticipants.slice(0, sliceIndex),
     ];
     SendRoll(updatedParticipants, tempoffset);
     setOffset(tempoffset);
