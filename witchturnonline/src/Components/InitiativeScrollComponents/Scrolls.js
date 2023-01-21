@@ -21,7 +21,7 @@ function PictureChooser(props) {
         variable={3}
         size={props.pictures.length}
       >
-        Left
+        {"<"}
       </LeftRightButton>
       {RotatingSlice(
         props.pictures,
@@ -45,7 +45,7 @@ function PictureChooser(props) {
         variable={-3}
         size={props.pictures.length}
       >
-        Right
+        {">"}
       </LeftRightButton>
     </StyledPictureSelectorRoll>
   );

@@ -119,6 +119,7 @@ function BasicXCloseButton(props) {
 function LeftRightButton(props) {
   return (
     <StyledLeftRightButton
+      variable={props.variable}
       onClick={() => {
         let startIndex = props.displayIndecies.start;
         let endIndex = props.displayIndecies.end;
