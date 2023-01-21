@@ -18,6 +18,7 @@ const DarkColorStyles = {
   MiddleForegroundGreen: "#11A84F",
   HighlightGreen: "#2ADB00",
   DarkBorderGreen: "#0F552C",
+  DarkTextGreen: "#0F392B",
 };
 
 const LightColorStyles = {}; //We're going to add light mode at some point here, then use some useContext hooks with personal stuff yada yada.

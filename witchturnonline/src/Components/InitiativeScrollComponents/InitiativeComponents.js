@@ -22,20 +22,50 @@ import {
 import { picturesList } from "../../Assets/Pictures";
 
 function InitiativeRoll(props) {
+  let isFirst = true;
   return (
     <StyledTurnContainer>
       {props.participants.map((character, index) => {
-        return (
-          <TurnTaker
-            name={character.name}
-            img={character.img}
-            initiative={character.initiative}
-            bonus={character.bonus}
-            position={index}
-            RemoveParticipant={props.RemoveParticipant}
-            key={(character.initiative, character.bonus, character.name, index)}
-          />
-        );
+        console.log("bonus " + character.bonus);
+        if (props.isGM && character.isHidden) {
+          let firstThief = isFirst;
+          isFirst = false;
+          return (
+            <TurnTaker
+              name={character.name}
+              img={character.img}
+              initiative={character.initiative}
+              bonus={character.bonus}
+              position={index}
+              isFirst={firstThief}
+              isGM={props.isGM}
+              isHidden={character.isHidden}
+              RemoveParticipant={props.RemoveParticipant}
+              key={
+                (character.initiative, character.bonus, character.name, index)
+              }
+            />
+          );
+        } else if (!character.isHidden) {
+          let firstThief = isFirst;
+          isFirst = false;
+          return (
+            <TurnTaker
+              name={character.name}
+              img={character.img}
+              initiative={character.initiative}
+              bonus={character.bonus}
+              position={index}
+              isFirst={firstThief}
+              isGM={props.isGM}
+              isHidden={character.isHidden}
+              RemoveParticipant={props.RemoveParticipant}
+              key={
+                (character.initiative, character.bonus, character.name, index)
+              }
+            />
+          );
+        }
       })}
     </StyledTurnContainer>
   );
@@ -43,7 +73,7 @@ function InitiativeRoll(props) {
 
 function TurnTaker(props) {
   return (
-    <StyledTurnTaker position={props.position}>
+    <StyledTurnTaker position={props.position} isFirst={props.isFirst}>
       <StyledTTContentcontainer>
         <StyledTTPicture src={props.img} />
         <StyledInfoLabel>
@@ -55,18 +85,15 @@ function TurnTaker(props) {
           {"Initiative: " + (props.initiative ? props.initiative : "")}
         </StyledInfoLabel>
         <StyledInfoLabel>
-          {"Bonus: " +
-            (props.bonus
-              ? props.bonus >= 0
-                ? "+" + props.bonus
-                : props.bonus
-              : "")}
+          {"Bonus: " + (props.bonus >= 0 ? "+" + props.bonus : props.bonus)}
         </StyledInfoLabel>
       </StyledTTContentcontainer>
-      <StyledTTContentcontainer></StyledTTContentcontainer>
+      <StyledTTContentcontainer>
+        {props.isGM && props.isHidden && <button>unhide</button>}
+      </StyledTTContentcontainer>
       <StyledTTContentcontainer>
         <StyledXButton
-          buttonSize={"40px"}
+          buttonSize={40}
           onClick={() => {
             props.RemoveParticipant(props.position);
           }}
@@ -109,6 +136,7 @@ function AddModal(props) {
   const initiative = useRef(undefined);
   const [picture, setPicture] = useState(picturesList[0]);
   const [picScrollVisible, setPicScrollVisible] = useState(false);
+  const isHidden = useRef(false);
   return (
     <StyledModalBackground>
       <StyledModalInterfaceDiv>
@@ -133,6 +161,16 @@ function AddModal(props) {
               }}
             />
           )}
+        </StyledFormInformationRow>
+        <StyledFormInformationRow>
+          <StyledInfoLabel>Is this a hidden character?</StyledInfoLabel>
+          <input
+            type={"checkbox"}
+            onClick={() => {
+              console.log(!isHidden.current);
+              isHidden.current = !isHidden.current;
+            }}
+          ></input>
         </StyledFormInformationRow>
         <StyledFormInformationRow>
           <StyledInfoLabel>Name: </StyledInfoLabel>
@@ -172,7 +210,8 @@ function AddModal(props) {
               picture,
               name.current,
               initiative.current,
-              bonus.current
+              bonus.current,
+              isHidden.current
             )
           }
           SetVisible={props.SetVisible}

@@ -5,45 +5,52 @@ import {
 import {
   DefaultPageBody,
   DefaultPageColumn,
+  GenericInputDiv,
+  StyledLabelText,
 } from "../Components/StyledComponents/MainStyledComponents";
 import { useEffect, useState } from "react";
 import {
   StyledButtonRow,
   StyledTurnandAddButton,
 } from "../Components/StyledComponents/InitiativeStyles";
+import { useNavigate, useParams } from "react-router-dom";
 
 function Base20InitiativePage(props) {
   const [participants, setParticipants] = useState([]);
 
+  const { room } = useParams();
+
+  const navigate = useNavigate();
+
   let participantsParallel = [];
   //we have to keep this around to deal with the render lag from useState
-  let offset = 0;
+  const [offset, setOffset] = useState(0);
 
   const [addModalVisible, setAddModalVisible] = useState(false);
 
   useEffect(() => {
-    if (props.room === "") {
-      return;
-    }
+    console.log("room " + room);
+    props.setRoom(room);
+
+    // if (props.room === "") {
+    //   alert("That room doesn't appear to exist");
+    //   navigate("/");
+    // }
     const eventListener = (data) => {
       console.log(data);
     };
 
-    props.socket.emit("join_room", { room: props.room });
+    props.socket.emit("join_room", { room: room });
 
     props.socket.on("receive_message", (data) => {
-      console.log("received " + data.message);
       participantsParallel = data.message;
-      offset = data.offset;
+      setOffset(data.offset);
       setParticipants(data.message);
     });
 
     props.socket.on("new_member", () => {
-      console.log("outer new member");
       if (props.isGM) {
-        console.log("I am the fucking gm");
-        console.log("participants " + participantsParallel);
-        SendRoll(participantsParallel);
+        SendRoll(participantsParallel, offset);
       }
     });
 
@@ -54,22 +61,20 @@ function Base20InitiativePage(props) {
     let updatedParticipants = [...participants];
     updatedParticipants.splice(participantIndex, 1);
 
-    let newOffset = 0;
-    if (participantIndex < offset) {
-      newOffset = offset - 1;
-      offset = newOffset;
+    let tempoffset = offset;
+    if (participantIndex < tempoffset) {
+      tempoffset -= 1;
     }
-    if (offset > updatedParticipants.length) {
-      newOffset = 0;
-      offset = newOffset;
+    if (tempoffset > updatedParticipants.length) {
+      tempoffset = 0;
     }
-    SendRoll(updatedParticipants, newOffset);
+    setOffset(tempoffset);
+    SendRoll(updatedParticipants, tempoffset);
     participantsParallel = updatedParticipants;
   }
 
   function SendRoll(roll, offset) {
     participantsParallel = roll;
-    console.log(participantsParallel);
     props.socket.emit("send_message", {
       room: props.room,
       message: roll,
@@ -89,22 +94,25 @@ function Base20InitiativePage(props) {
   function SortParticipants() {
     let updatedParticipants = [...participants];
     updatedParticipants = SortParticipantsHelper(updatedParticipants);
-    offset = 0;
+    setOffset(0);
     SendRoll(updatedParticipants, 0);
   }
 
-  function AddParticipant(picture, name, initiative, bonus) {
+  function AddParticipant(picture, name, initiative, bonus, isHidden) {
+    console.log("character is hidden " + isHidden);
     let updatedParticipants = [...participants];
     let newParticipant = {
       name: name,
       img: picture,
       initiative: initiative,
       bonus: bonus,
+      isHidden: isHidden,
     };
-    if (bonus === undefined) {
+    if (bonus === undefined || bonus === "") {
       newParticipant.bonus = 0;
     }
-    if (initiative === undefined) {
+    console.log("bonus in add " + bonus);
+    if (initiative === undefined || initiative === "") {
       newParticipant.initiative =
         Math.floor(Math.random() * 19 + 1) + Number(bonus);
     }
@@ -115,16 +123,18 @@ function Base20InitiativePage(props) {
       return obj === newParticipant;
     });
 
-    let newOffset = 0;
-    if (insertIndex > participants.length - offset) {
-      newOffset = offset + 1;
-      offset = newOffset;
+    let tempoffset = offset;
+
+    if (insertIndex > participants.length - tempoffset) {
+      tempoffset += 1;
     }
+    let sliceIndex = updatedParticipants.length - tempoffset;
     updatedParticipants = [
-      ...updatedParticipants.slice(offset, updatedParticipants.length),
-      ...updatedParticipants.slice(0, offset),
+      ...updatedParticipants.slice(sliceIndex, updatedParticipants.length),
+      ...updatedParticipants.slice(0, sliceIndex),
     ];
-    SendRoll(updatedParticipants, newOffset);
+    SendRoll(updatedParticipants, tempoffset);
+    setOffset(tempoffset);
   }
 
   function AdvanceTurn() {
@@ -137,12 +147,14 @@ function Base20InitiativePage(props) {
     let heldParticipant = updatedParticipants.splice(0, 1)[0];
     updatedParticipants.push(heldParticipant);
 
-    let newOffset = offset - 1;
-    if (newOffset < 0) {
-      newOffset = updatedParticipants.length + newOffset;
+    let tempoffset = offset;
+
+    tempoffset -= 1;
+    if (tempoffset < 0) {
+      tempoffset = updatedParticipants.length + tempoffset;
     }
-    offset = newOffset;
-    SendRoll(updatedParticipants, newOffset);
+    SendRoll(updatedParticipants, tempoffset);
+    setOffset(tempoffset);
   }
 
   function ReduceTurn() {
@@ -154,18 +166,20 @@ function Base20InitiativePage(props) {
     let heldParticipant = updatedParticipants.pop();
     updatedParticipants = [heldParticipant, ...updatedParticipants];
 
-    let newOffset = offset + 1;
-    if (newOffset >= updatedParticipants.length) {
-      newOffset = 0;
+    let tempoffset = offset;
+    tempoffset += 1;
+    if (tempoffset >= updatedParticipants.length) {
+      tempoffset = 0;
     }
-    offset = newOffset;
-    SendRoll(updatedParticipants, newOffset);
+    SendRoll(updatedParticipants, tempoffset);
+    setOffset(tempoffset);
   }
 
   return (
     <DefaultPageBody>
       {addModalVisible && (
         <AddModal
+          isGM={props.isGM}
           AddParticipant={AddParticipant}
           SetVisible={setAddModalVisible}
         />
@@ -176,6 +190,7 @@ function Base20InitiativePage(props) {
       ></DefaultPageColumn>
       <DefaultPageColumn modalOn={addModalVisible}>
         <InitiativeRoll
+          isGM={props.isGM}
           participants={participants}
           RemoveParticipant={RemoveParticipant}
         ></InitiativeRoll>
@@ -190,8 +205,21 @@ function Base20InitiativePage(props) {
           </StyledButtonRow>
         )}
       </DefaultPageColumn>
-      <DefaultPageColumn flexGrow={2} modalOn={addModalVisible}>
-        <label>Room: {props.room}</label>
+      <DefaultPageColumn
+        flexGrow={2}
+        modalOn={addModalVisible}
+        justifyContent={"space-evenly"}
+      >
+        <GenericInputDiv>
+          <StyledLabelText>Room: {room}</StyledLabelText>
+          <StyledTurnandAddButton
+            onClick={() => {
+              navigator.clipboard.writeText(window.location.href);
+            }}
+          >
+            Copy Link
+          </StyledTurnandAddButton>
+        </GenericInputDiv>
         <StyledTurnandAddButton
           onClick={() => {
             setAddModalVisible(true);

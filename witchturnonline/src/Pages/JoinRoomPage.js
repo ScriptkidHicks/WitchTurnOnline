@@ -1,10 +1,11 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   DefaultPageBody,
   DefaultPageColumn,
   MainTitleLabel,
   GenericInputDiv,
   MarginText,
+  StyledLabelText,
 } from "../Components/StyledComponents/MainStyledComponents";
 import { LimitedInputCombo } from "../Components/SearchBars/GenericInputs";
 
@@ -55,10 +56,9 @@ function JoinRoomPage(props) {
 
   useEffect(() => {
     props.socket.on("room_generated", (data) => {
-      console.log("room generated");
       props.setIsGM(true);
       props.setRoom(data.room);
-      navigate("/initiative");
+      navigate(`/initiative/${data.room}`);
     });
 
     return () =>
@@ -74,10 +74,10 @@ function JoinRoomPage(props) {
         <DefaultPageColumn flexGrow={1}>
           {!checkingRoomValidity && (
             <GenericInputDiv>
-              Join an existing room
+              <StyledLabelText>Join an existing room</StyledLabelText>
               <LimitedInputCombo
-                maxLength={10}
-                minLength={10}
+                maxLength={6}
+                minLength={6}
                 inputState={props.room}
                 setInputState={props.setRoom}
               ></LimitedInputCombo>
@@ -91,7 +91,8 @@ function JoinRoomPage(props) {
           )}
 
           <GenericInputDiv>
-            Start a new Room (You will be GM)
+            <StyledLabelText>Start a new Room (You will be GM)</StyledLabelText>
+
             <StyledTurnandAddButton onClick={GenerateRoom}>
               Generate Room
             </StyledTurnandAddButton>

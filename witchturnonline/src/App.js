@@ -26,18 +26,20 @@ function App() {
             />
           }
         />
-        <Route
-          path="/Initiative"
-          element={
-            <Base20InitiativePage
-              room={room}
-              setRoom={setRoom}
-              isGM={isGM}
-              setIsGM={setIsGM}
-              socket={socket}
-            />
-          }
-        />
+        <Route path="/initiative">
+          <Route
+            path=":room"
+            element={
+              <Base20InitiativePage
+                room={room}
+                setRoom={setRoom}
+                isGM={isGM}
+                setIsGM={setIsGM}
+                socket={socket}
+              />
+            }
+          />
+        </Route>
       </Routes>
     </div>
   );
