@@ -98,17 +98,20 @@ function Base20InitiativePage(props) {
     SendRoll(updatedParticipants, 0);
   }
 
-  function AddParticipant(picture, name, initiative, bonus) {
+  function AddParticipant(picture, name, initiative, bonus, isHidden) {
+    console.log("character is hidden " + isHidden);
     let updatedParticipants = [...participants];
     let newParticipant = {
       name: name,
       img: picture,
       initiative: initiative,
       bonus: bonus,
+      isHidden: isHidden,
     };
     if (bonus === undefined || bonus === "") {
       newParticipant.bonus = 0;
     }
+    console.log("bonus in add " + bonus);
     if (initiative === undefined || initiative === "") {
       newParticipant.initiative =
         Math.floor(Math.random() * 19 + 1) + Number(bonus);
@@ -176,6 +179,7 @@ function Base20InitiativePage(props) {
     <DefaultPageBody>
       {addModalVisible && (
         <AddModal
+          isGM={props.isGM}
           AddParticipant={AddParticipant}
           SetVisible={setAddModalVisible}
         />
@@ -186,6 +190,7 @@ function Base20InitiativePage(props) {
       ></DefaultPageColumn>
       <DefaultPageColumn modalOn={addModalVisible}>
         <InitiativeRoll
+          isGM={props.isGM}
           participants={participants}
           RemoveParticipant={RemoveParticipant}
         ></InitiativeRoll>

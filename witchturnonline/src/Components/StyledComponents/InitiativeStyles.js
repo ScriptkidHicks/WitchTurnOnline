@@ -40,7 +40,7 @@ const StyledTurnTaker = styled.div`
   align-items: center;
 
   background-color: ${(props) =>
-    props.position == 0
+    props.isFirst
       ? DarkColorStyles.DarkerBackgroundGreen
       : DarkColorStyles.GreyPurpleBackground};
 `;
@@ -59,35 +59,44 @@ const StyledTTPicture = styled.img`
   height: 50px;
   width: 50px;
   border-radius: 10px;
+  transition: ease all 0.4s;
 `;
 
 const StyledTTPictureOption = styled(StyledTTPicture)`
   margin-right: 10px;
+
+  :hover {
+    height: 60px;
+    width: 60px;
+  }
 `;
 
 const StyledTTPictureSelectorButton = styled(StyledTTPicture)`
   box-shadow: 2px 2px 2px black;
-  transition: ease all 0.4s;
   :hover {
     box-shadow: 4px 4px 4px black;
+    height: 60px;
+    width: 60px;
   }
 `;
 
 const StyledTurnandAddButton = styled.button`
   color: white;
   font-weight: bold;
-  border: 2px ${DarkColorStyles.DarkBorderGreen} solid;
+  border: 4px ${DarkColorStyles.DarkBackgroundGreen} solid;
   padding: 10px;
   font-size: 1em;
   border-radius: 10px;
-  background-color: ${DarkColorStyles.DarkBackgroundGreen};
+  background-color: ${DarkColorStyles.DarkBorderGreen};
   transition: ease all 0.4s;
   margin: 10px;
 
   :hover {
     box-shadow: 3px 3px 3px ${DarkColorStyles.PurpleBoxShadow};
-    border: 2px ${DarkColorStyles.DarkBackgroundGreen} solid;
-    background-color: ${DarkColorStyles.DarkBorderGreen};
+    border: 4px ${DarkColorStyles.DarkBorderGreen} solid;
+    background-color: ${DarkColorStyles.DarkBackgroundGreen};
+    color: ${DarkColorStyles.DarkTextGreen};
+    font-size: 1.2em;
   }
 `;
 

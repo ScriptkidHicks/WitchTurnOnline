@@ -140,8 +140,8 @@ const StyledXButton = styled.button`
   background-color: ${(props) =>
     props.ButtonColor ? props.ButtonColor : DarkColorStyles.PurpleHighlight};
   color: white;
-  height: ${(props) => (props.buttonSize ? props.buttonSize : "22px")};
-  width: ${(props) => (props.buttonSize ? props.buttonSize : "22px")};
+  height: ${(props) => (props.buttonSize ? props.buttonSize : 30)}px;
+  width: ${(props) => (props.buttonSize ? props.buttonSize : 30)}px;
   border-radius: 40px;
   border: 2px solid;
   border-color: white ${DarkColorStyles.LightPurpleForeground}
@@ -162,6 +162,9 @@ const StyledXButton = styled.button`
     border-color: ${DarkColorStyles.LightPurpleForeground} white white
       ${DarkColorStyles.LightPurpleForeground};
     box-shadow: -1px -1px 1px black;
+    height: ${(props) => (props.buttonSize ? props.buttonSize + 10 : 40)}px;
+    width: ${(props) => (props.buttonSize ? props.buttonSize + 10 : 40)}px;
+    font-size: 1.5em;
   }
 `;
 
