@@ -31,7 +31,7 @@ function JoinRoomPage(props) {
   useEffect(() => {
     props.socket.on("room_valid", (data) => {
       props.setRoom(data.room);
-      navigate("/initiative");
+      navigate(`/initiative/${data.room}`);
     });
 
     return () => {
