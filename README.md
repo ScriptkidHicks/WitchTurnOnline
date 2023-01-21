@@ -26,7 +26,7 @@ You can find Witch Turn [here](https://witch-turn-l95l.onrender.com)
 - [ ] There should be a way to track clocks in the same simultaneous fashion as we track initiative.
 - [ ] There should be a way to roll dice in the app, and this information should be communicated to other users (The results are important).
 - [ ] There should be a way to chat within the app. This is of low priority. This goal should be reviewed by users.
-- [ ] There should be a way for the DM to hide participants from the users, so that the DM could add entities that are acting off screen.
+- [x] There should be a way for the DM to hide participants from the users, so that the DM could add entities that are acting off screen.
 - [ ] There should be a way to track whether an entity has used its reaction.
 - [ ] There should be a way to roll dice for an entity on the entity. This should include things like ways for the GM to track invisible saves and rolls.
 - [ ] There should be an ability to track basic information about the entity on the entity (AC, Health, ETC). For this one players should only be able to alter their own.
