@@ -19,17 +19,17 @@ You can find Witch Turn [here](https://witch-turn-l95l.onrender.com)
 
 ## Goals
 
-- [ ] The website needs UI improvement. This applies to both the color / stylings, and the quality of the site on mobile. This needs to be done without duplication of code.
+- [x] There should be a way for the DM to hide participants from the users, so that the DM could add entities that are acting off screen.
 - [x] There needs to be a way too create a copy pastable link that people can follow that the dm can post. It will save people the trouble of typing in the join.
-  -This ended up being much easier than expected.
+- [ ] The website needs UI improvement. This applies to both the color / stylings, and the quality of the site on mobile. This needs to be done without duplication of code.
 - [ ] There needs to be a way to track where you are in the order. I would like to tie player name to this as well. 
 - [ ] There should be a way to track clocks in the same simultaneous fashion as we track initiative.
 - [ ] There should be a way to roll dice in the app, and this information should be communicated to other users (The results are important).
 - [ ] There should be a way to chat within the app. This is of low priority. This goal should be reviewed by users.
-- [x] There should be a way for the DM to hide participants from the users, so that the DM could add entities that are acting off screen.
 - [ ] There should be a way to track whether an entity has used its reaction.
 - [ ] There should be a way to roll dice for an entity on the entity. This should include things like ways for the GM to track invisible saves and rolls.
 - [ ] There should be an ability to track basic information about the entity on the entity (AC, Health, ETC). For this one players should only be able to alter their own.
+- [ ] 
 
 ## Next Sprint
 
@@ -41,3 +41,9 @@ You can find Witch Turn [here](https://witch-turn-l95l.onrender.com)
   - Cleaning the code for readability, as well as smoothness.
   
   At the end of this sprint the Alpha of this product will be released, and will represent the bare minimum version of this product for usability.
+  
+  ### Known Bugs
+  - [ ] The right button incorrectly indexes, sometimes showing either the whole list, or none.
+  - [ ] The mobile UI is not correctly positioned for use on a mobile device
+  - [ ] The layout of the main intro page needs to be reworked to have a vertical first layout.
+  - [ ] The buttons do not currently have animations when clicked. This is more noticable for buttons that do not navigate or close modals.
