@@ -12,6 +12,7 @@ import {
   StyledTurnTaker,
   StyledTTPictureSelectorButton,
   StyledTurnandAddButton,
+  StyledBottomObscure,
 } from "../StyledComponents/InitiativeStyles";
 import {
   StyledFormInformationRow,

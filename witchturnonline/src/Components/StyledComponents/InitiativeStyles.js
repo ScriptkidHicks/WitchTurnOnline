@@ -39,10 +39,12 @@ const StyledTurnTaker = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  background-color: ${(props) =>
-    props.isFirst
-      ? DarkColorStyles.DarkerBackgroundGreen
-      : DarkColorStyles.GreyPurpleBackground};
+  background-image: linear-gradient(
+    ${(props) =>
+      props.isFirst
+        ? `${DarkColorStyles.LightBackgroundGreen}, ${DarkColorStyles.DarkTextGreen}`
+        : `${DarkColorStyles.GreyPurpleForeground}, ${DarkColorStyles.GreyPurpleBackground}`}
+  );
 `;
 
 const StyledTTContentcontainer = styled.div`

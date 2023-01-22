@@ -1,5 +1,6 @@
 const DarkColorStyles = {
   DeepBackgroundPurple: "#0B0016",
+  DeepBackgroundPurpleRGBA: "rgba(11, 0, 22, 1)",
   GreyPurpleBackground: "#3C1F66",
   LighterGreyPurpleBackground: "#5C3F86",
   GreyPurpleBackgroundRGB: "60, 31, 102",
@@ -15,6 +16,7 @@ const DarkColorStyles = {
   PurpleBoxShadow: "rgba(27, 07, 74, 1)",
   DarkBackgroundGreen: "#2F754C",
   DarkerBackgroundGreen: "#0F502b",
+  LightBackgroundGreen: "#4F956C",
   MiddleForegroundGreen: "#11A84F",
   HighlightGreen: "#2ADB00",
   DarkBorderGreen: "#0F552C",
