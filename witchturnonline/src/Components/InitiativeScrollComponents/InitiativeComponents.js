@@ -16,8 +16,9 @@ import {
 import {
   StyledFormInformationRow,
   StyledGenericButton,
+  StyledMinorfunctionButton,
   StyledXButton,
-} from "../StyledComponents/MainStyledComponents";
+} from "../StyledComponents/MainStyles";
 
 import { picturesList } from "../../Assets/Pictures";
 
@@ -41,6 +42,7 @@ function InitiativeRoll(props) {
               isGM={props.isGM}
               isHidden={character.isHidden}
               RemoveParticipant={props.RemoveParticipant}
+              UnhideParticipant={props.UnhideParticipant}
               key={
                 (character.initiative, character.bonus, character.name, index)
               }
@@ -89,7 +91,15 @@ function TurnTaker(props) {
         </StyledInfoLabel>
       </StyledTTContentcontainer>
       <StyledTTContentcontainer>
-        {props.isGM && props.isHidden && <button>unhide</button>}
+        {props.isGM && props.isHidden && (
+          <StyledMinorfunctionButton
+            onClick={() => {
+              props.UnhideParticipant(props.position);
+            }}
+          >
+            unhide
+          </StyledMinorfunctionButton>
+        )}
       </StyledTTContentcontainer>
       <StyledTTContentcontainer>
         <StyledXButton

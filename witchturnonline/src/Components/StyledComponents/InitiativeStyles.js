@@ -99,6 +99,11 @@ const StyledTurnandAddButton = styled.button`
     color: ${DarkColorStyles.DarkTextGreen};
     font-size: 1.2em;
   }
+
+  :active {
+    border-radius: 50%;
+    font-size: 0em;
+  }
 `;
 
 const StyledInfoLabel = styled.label`

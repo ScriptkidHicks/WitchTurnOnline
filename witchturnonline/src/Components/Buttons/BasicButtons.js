@@ -1,8 +1,5 @@
 import { StyledLeftRightButton } from "../StyledComponents/InitiativeStyles";
-import {
-  StyleableButton,
-  StyledXButton,
-} from "../StyledComponents/MainStyledComponents";
+import { StyleableButton, StyledXButton } from "../StyledComponents/MainStyles";
 
 function BasicButton(props) {
   return (
@@ -127,6 +124,22 @@ function LeftRightButton(props) {
         endIndex += props.variable;
         startIndex = startIndex % props.size;
         endIndex = endIndex % props.size;
+
+        if (startIndex < 0) {
+          startIndex = 0;
+        }
+
+        if (endIndex < 0) {
+          endIndex = 0;
+        }
+        if (startIndex === endIndex) {
+          startIndex = props.size + props.variable - 1;
+          endIndex = props.size - 1;
+        }
+
+        if (Math.abs(endIndex - startIndex) < Math.abs(props.variable)) {
+          endIndex = startIndex + Math.abs(props.variable);
+        }
         props.setIndecies({ start: startIndex, end: endIndex });
       }}
     >

@@ -7,13 +7,15 @@ import {
   DefaultPageColumn,
   GenericInputDiv,
   StyledLabelText,
-} from "../Components/StyledComponents/MainStyledComponents";
+} from "../Components/StyledComponents/MainStyles";
 import { useEffect, useState } from "react";
 import {
   StyledButtonRow,
+  StyledInfoLabel,
   StyledTurnandAddButton,
 } from "../Components/StyledComponents/InitiativeStyles";
 import { useNavigate, useParams } from "react-router-dom";
+import { StyledCopyFlyout } from "../Components/BarsAndFoldouts/Flyouts";
 
 function Base20InitiativePage(props) {
   const [participants, setParticipants] = useState([]);
@@ -56,6 +58,14 @@ function Base20InitiativePage(props) {
 
     return () => props.socket.off("receive_message", eventListener);
   }, [props.room]);
+
+  function UnhideParticipant(participantIndex) {
+    let updatedParticipants = [...participants];
+    updatedParticipants[participantIndex].isHidden = false;
+    let tempoffset = offset;
+    SendRoll(updatedParticipants, tempoffset);
+    participantsParallel = updatedParticipants;
+  }
 
   function RemoveParticipant(participantIndex) {
     let updatedParticipants = [...participants];
@@ -175,6 +185,29 @@ function Base20InitiativePage(props) {
     setOffset(tempoffset);
   }
 
+  function CopyFlyout(props) {
+    const [open, setOpen] = useState(false);
+
+    return (
+      <StyledCopyFlyout
+        left={props.left}
+        open={open}
+        onClick={() => {
+          setOpen(!open);
+        }}
+      >
+        <StyledInfoLabel>Room: {props.room}</StyledInfoLabel>
+        <StyledTurnandAddButton
+          onClick={() => {
+            navigator.clipboard.writeText(window.location.href);
+          }}
+        >
+          Copy Link
+        </StyledTurnandAddButton>
+      </StyledCopyFlyout>
+    );
+  }
+
   return (
     <DefaultPageBody>
       {addModalVisible && (
@@ -193,6 +226,7 @@ function Base20InitiativePage(props) {
           isGM={props.isGM}
           participants={participants}
           RemoveParticipant={RemoveParticipant}
+          UnhideParticipant={UnhideParticipant}
         ></InitiativeRoll>
         {props.isGM && (
           <StyledButtonRow>
@@ -210,7 +244,8 @@ function Base20InitiativePage(props) {
         modalOn={addModalVisible}
         justifyContent={"space-evenly"}
       >
-        <GenericInputDiv>
+        <CopyFlyout left={true} room={room} />
+        {/* {<GenericInputDiv>
           <StyledLabelText>Room: {room}</StyledLabelText>
           <StyledTurnandAddButton
             onClick={() => {
@@ -219,7 +254,7 @@ function Base20InitiativePage(props) {
           >
             Copy Link
           </StyledTurnandAddButton>
-        </GenericInputDiv>
+        </GenericInputDiv>} */}
         <StyledTurnandAddButton
           onClick={() => {
             setAddModalVisible(true);

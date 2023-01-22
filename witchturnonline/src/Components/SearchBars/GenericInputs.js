@@ -1,4 +1,4 @@
-import { StyleableLimitedInput } from "../StyledComponents/MainStyledComponents";
+import { StyleableLimitedInput } from "../StyledComponents/MainStyles";
 
 function LimitedInputCombo(props) {
   function onInputFunction(event) {
