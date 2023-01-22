@@ -1,10 +1,13 @@
 const DarkColorStyles = {
   DeepBackgroundPurple: "#0B0016",
   DeepBackgroundPurpleRGBA: "rgba(11, 0, 22, 1)",
+  DeepBackgroundPurpleInvisibleRGBA: "rgba(11, 0, 22, 0)",
   GreyPurpleBackground: "#3C1F66",
   LighterGreyPurpleBackground: "#5C3F86",
   GreyPurpleBackgroundRGB: "60, 31, 102",
   DarkPurpleBackground: "#2B0066",
+  DarkPurpleBackgroundRGBA: "rgba(43, 0, 102, 1)",
+  DarkPurpleBackgroundInvisibleRGBA: "rgba(43, 0, 102, 0)",
   GreyPurpleForeground: "#4B00B3",
   GreyPurpleForegroundRGB: "75, 0, 179",
   LightPurpleForeground: "#8A46EA",

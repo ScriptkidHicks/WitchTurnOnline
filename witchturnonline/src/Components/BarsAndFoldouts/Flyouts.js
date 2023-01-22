@@ -3,7 +3,7 @@ import { DarkColorStyles } from "../StyledComponents/ColorStyles";
 
 const StyledCopyFlyout = styled.div`
   background-color: ${DarkColorStyles.GreyPurpleForeground};
-  padding: 10px;
+  padding: 0;
   border: 3px solid ${DarkColorStyles.LightPurpleForeground};
 
   border-radius: ${(props) =>
@@ -13,9 +13,14 @@ const StyledCopyFlyout = styled.div`
   align-items: center;
   text-align: center;
   position: absolute;
-  right: ${(props) => (props.open ? "-4px" : "-200px")};
+  right: ${(props) => (props.open ? "-4px" : "-180px")};
   top: 150px;
   transition: ease all 0.4s;
+
+  @media screen and (max-width: 800px) {
+    top: 0;
+    right: ${(props) => (props.open ? "-4px" : "-185px")};
+  }
 `;
 
 export { StyledCopyFlyout };

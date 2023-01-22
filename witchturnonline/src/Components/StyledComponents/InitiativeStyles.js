@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { DarkColorStyles } from "./ColorStyles";
 
-const StyledTurnContainer = styled.div`
+const StyledTurnContainerWrapper = styled.div`
   width: 95%;
   height: 60vh;
   max-height: 1000px;
@@ -11,10 +11,10 @@ const StyledTurnContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  padding: 12px;
+  position: relative;
 
   border-radius: 20px;
+  padding: 12px 30px 12px 12px;
 
   min-height: 300px;
   min-width: 300px;
@@ -24,6 +24,43 @@ const StyledTurnContainer = styled.div`
   :webkit-scrollbar {
     display: none;
   }
+
+  :after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    left: 0;
+    pointer-events: none;
+    background-image: linear-gradient(
+      to top,
+      ${DarkColorStyles.DarkPurpleBackgroundRGBA},
+      ${DarkColorStyles.DarkPurpleBackgroundInvisibleRGBA} 90%
+    );
+    width: 100%;
+    height: 6em;
+  }
+
+  :before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    background-image: linear-gradient(
+      to top,
+      ${DarkColorStyles.DarkPurpleBackgroundInvisibleRGBA},
+      ${DarkColorStyles.DarkPurpleBackgroundRGBA} 90%
+    );
+    width: 100%;
+    height: 1.4em;
+  }
+`;
+
+const StyledTurncontainer = styled.div`
+  width: 100%;
+  overflow: scroll;
 `;
 
 const StyledTurnTaker = styled.div`
@@ -115,6 +152,7 @@ const StyledInfoLabel = styled.label`
 `;
 
 const StyledModalBackground = styled.div`
+  z-index: 3;
   overflow: hidden;
   position: absolute;
   top: 0;
@@ -181,7 +219,8 @@ const StyledButtonRow = styled.div`
 `;
 
 export {
-  StyledTurnContainer,
+  StyledTurnContainerWrapper,
+  StyledTurncontainer,
   StyledTurnTaker,
   StyledTTContentcontainer,
   StyledTTPicture,
