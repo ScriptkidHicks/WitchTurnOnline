@@ -177,6 +177,29 @@ const StyledGenericButton = styled.button`
   margin: 5px;
 `;
 
+const StyledMinorfunctionButton = styled.button`
+  background-color: ${DarkColorStyles.LightPurpleForeground};
+  color: ${DarkColorStyles.GreyPurpleForeground};
+  border: 2px solid ${DarkColorStyles.GreyPurpleForeground};
+  font-weight: bolder;
+  font-size: 0.8em;
+  padding: 2px;
+  border-radius: 5px;
+  transition: ease all 0.4s;
+
+  :hover {
+    background-color: ${DarkColorStyles.GreyPurpleForeground};
+    border: 2px solid ${DarkColorStyles.LightPurpleForeground};
+    border-radius: 7px;
+    color: white;
+    box-shadow: 2px 2px 3px black;
+  }
+
+  :active {
+    box-shadow: none;
+  }
+`;
+
 const StyledFormInformationRow = styled.div`
   display: flex;
   flex-direction: row;
@@ -211,4 +234,5 @@ export {
   StyledFormInformationRow,
   MarginText,
   StyledLabelText,
+  StyledMinorfunctionButton,
 };

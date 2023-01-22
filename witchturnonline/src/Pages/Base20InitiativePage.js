@@ -7,7 +7,7 @@ import {
   DefaultPageColumn,
   GenericInputDiv,
   StyledLabelText,
-} from "../Components/StyledComponents/MainStyledComponents";
+} from "../Components/StyledComponents/MainStyles";
 import { useEffect, useState } from "react";
 import {
   StyledButtonRow,
@@ -58,6 +58,14 @@ function Base20InitiativePage(props) {
 
     return () => props.socket.off("receive_message", eventListener);
   }, [props.room]);
+
+  function UnhideParticipant(participantIndex) {
+    let updatedParticipants = [...participants];
+    updatedParticipants[participantIndex].isHidden = false;
+    let tempoffset = offset;
+    SendRoll(updatedParticipants, tempoffset);
+    participantsParallel = updatedParticipants;
+  }
 
   function RemoveParticipant(participantIndex) {
     let updatedParticipants = [...participants];
@@ -218,6 +226,7 @@ function Base20InitiativePage(props) {
           isGM={props.isGM}
           participants={participants}
           RemoveParticipant={RemoveParticipant}
+          UnhideParticipant={UnhideParticipant}
         ></InitiativeRoll>
         {props.isGM && (
           <StyledButtonRow>

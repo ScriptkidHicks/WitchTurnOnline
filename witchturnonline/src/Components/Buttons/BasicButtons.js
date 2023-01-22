@@ -1,8 +1,5 @@
 import { StyledLeftRightButton } from "../StyledComponents/InitiativeStyles";
-import {
-  StyleableButton,
-  StyledXButton,
-} from "../StyledComponents/MainStyledComponents";
+import { StyleableButton, StyledXButton } from "../StyledComponents/MainStyles";
 
 function BasicButton(props) {
   return (

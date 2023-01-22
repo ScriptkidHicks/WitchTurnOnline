@@ -6,7 +6,7 @@ import {
   GenericInputDiv,
   MarginText,
   StyledLabelText,
-} from "../Components/StyledComponents/MainStyledComponents";
+} from "../Components/StyledComponents/MainStyles";
 import { LimitedInputCombo } from "../Components/SearchBars/GenericInputs";
 
 import { useNavigate } from "react-router-dom";
