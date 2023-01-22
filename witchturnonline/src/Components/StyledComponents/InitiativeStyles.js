@@ -63,11 +63,12 @@ const StyledTTPicture = styled.img`
 `;
 
 const StyledTTPictureOption = styled(StyledTTPicture)`
-  margin-right: 10px;
+  margin: 10px;
 
   :hover {
     height: 60px;
     width: 60px;
+    margin: 10px 0px 10px 0px;
   }
 `;
 
@@ -139,12 +140,27 @@ const StyledPictureSelectorRoll = styled.div`
   flex-direction: row;
   padding-left: 20px;
   justify-content: center;
-  align-center;
+  align-items: center;
   position: relative;
 `;
 
 const StyledLeftRightButton = styled.button`
-  background-image: ${(props) => (props.image ? props.image : "none")};
+  background-color: ${DarkColorStyles.DarkBackgroundGreen};
+  color: white;
+  font-weight: 900;
+  font-size: 1em;
+  width: 40px;
+  height: 40px;
+  border: 3px solid ${DarkColorStyles.DarkBorderGreen};
+  transition: ease all 0.3s;
+
+  border-radius: ${(props) =>
+    props.variable > 0 ? "20px 10px 10px 20px" : "10px 20px 20px 10px"};
+
+  :hover {
+    border: 3px solid ${DarkColorStyles.DarkBackgroundGreen};
+    background-color: ${DarkColorStyles.DarkBorderGreen};
+  }
 `;
 
 const StyledButtonRow = styled.div`
