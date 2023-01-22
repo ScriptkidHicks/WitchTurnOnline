@@ -29,7 +29,6 @@ You can find Witch Turn [here](https://witch-turn-l95l.onrender.com)
 - [ ] There should be a way to track whether an entity has used its reaction.
 - [ ] There should be a way to roll dice for an entity on the entity. This should include things like ways for the GM to track invisible saves and rolls.
 - [ ] There should be an ability to track basic information about the entity on the entity (AC, Health, ETC). For this one players should only be able to alter their own.
-- [ ] 
 
 ## Next Sprint
 
