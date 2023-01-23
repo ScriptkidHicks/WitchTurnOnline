@@ -42,7 +42,9 @@ You can find Witch Turn [here](https://witch-turn-l95l.onrender.com)
   At the end of this sprint the Alpha of this product will be released, and will represent the bare minimum version of this product for usability.
   
   ### Known Bugs
-  - [ ] The right button incorrectly indexes, sometimes showing either the whole list, or none.
-  - [ ] The mobile UI is not correctly positioned for use on a mobile device
+  - [x] The right button incorrectly indexes, sometimes showing either the whole list, or none.
+  - this is now resolved by fixing with a few error checks. Issue also closed
+  - [x] The mobile UI is not correctly positioned for use on a mobile device
+  - Minor adjustments while leaving the add button at the top.
   - [ ] The layout of the main intro page needs to be reworked to have a vertical first layout.
   - [ ] The buttons do not currently have animations when clicked. This is more noticable for buttons that do not navigate or close modals.
