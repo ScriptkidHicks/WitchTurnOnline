@@ -6,6 +6,7 @@ import Base20InitiativePage from "./Pages/Base20InitiativePage";
 import { useState } from "react";
 
 import socket from "./Socket/Socket";
+import AboutPage from "./Pages/AboutPage";
 
 function App() {
   const [room, setRoom] = useState("");
@@ -26,7 +27,7 @@ function App() {
             />
           }
         />
-        <Route path="/initiative">
+        <Route path="/initiative" exact>
           <Route
             path=":room"
             element={
@@ -40,6 +41,7 @@ function App() {
             }
           />
         </Route>
+        <Route path="/About" element={<AboutPage />} />
       </Routes>
     </div>
   );

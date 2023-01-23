@@ -8,10 +8,11 @@ import {
   StyledModalInterfaceDiv,
   StyledTTContentcontainer,
   StyledTTPicture,
-  StyledTurnContainer,
   StyledTurnTaker,
   StyledTTPictureSelectorButton,
   StyledTurnandAddButton,
+  StyledTurnContainerWrapper,
+  StyledTurncontainer,
 } from "../StyledComponents/InitiativeStyles";
 import {
   StyledFormInformationRow,
@@ -25,51 +26,53 @@ import { picturesList } from "../../Assets/Pictures";
 function InitiativeRoll(props) {
   let isFirst = true;
   return (
-    <StyledTurnContainer>
-      {props.participants.map((character, index) => {
-        console.log("bonus " + character.bonus);
-        if (props.isGM && character.isHidden) {
-          let firstThief = isFirst;
-          isFirst = false;
-          return (
-            <TurnTaker
-              name={character.name}
-              img={character.img}
-              initiative={character.initiative}
-              bonus={character.bonus}
-              position={index}
-              isFirst={firstThief}
-              isGM={props.isGM}
-              isHidden={character.isHidden}
-              RemoveParticipant={props.RemoveParticipant}
-              UnhideParticipant={props.UnhideParticipant}
-              key={
-                (character.initiative, character.bonus, character.name, index)
-              }
-            />
-          );
-        } else if (!character.isHidden) {
-          let firstThief = isFirst;
-          isFirst = false;
-          return (
-            <TurnTaker
-              name={character.name}
-              img={character.img}
-              initiative={character.initiative}
-              bonus={character.bonus}
-              position={index}
-              isFirst={firstThief}
-              isGM={props.isGM}
-              isHidden={character.isHidden}
-              RemoveParticipant={props.RemoveParticipant}
-              key={
-                (character.initiative, character.bonus, character.name, index)
-              }
-            />
-          );
-        }
-      })}
-    </StyledTurnContainer>
+    <StyledTurnContainerWrapper>
+      <StyledTurncontainer>
+        {props.participants.map((character, index) => {
+          console.log("bonus " + character.bonus);
+          if (props.isGM && character.isHidden) {
+            let firstThief = isFirst;
+            isFirst = false;
+            return (
+              <TurnTaker
+                name={character.name}
+                img={character.img}
+                initiative={character.initiative}
+                bonus={character.bonus}
+                position={index}
+                isFirst={firstThief}
+                isGM={props.isGM}
+                isHidden={character.isHidden}
+                RemoveParticipant={props.RemoveParticipant}
+                UnhideParticipant={props.UnhideParticipant}
+                key={
+                  (character.initiative, character.bonus, character.name, index)
+                }
+              />
+            );
+          } else if (!character.isHidden) {
+            let firstThief = isFirst;
+            isFirst = false;
+            return (
+              <TurnTaker
+                name={character.name}
+                img={character.img}
+                initiative={character.initiative}
+                bonus={character.bonus}
+                position={index}
+                isFirst={firstThief}
+                isGM={props.isGM}
+                isHidden={character.isHidden}
+                RemoveParticipant={props.RemoveParticipant}
+                key={
+                  (character.initiative, character.bonus, character.name, index)
+                }
+              />
+            );
+          }
+        })}
+      </StyledTurncontainer>
+    </StyledTurnContainerWrapper>
   );
 }
 
@@ -215,6 +218,7 @@ function AddModal(props) {
           />
         </StyledFormInformationRow>
         <CompleteModalButton
+          desktopOnly={true}
           CompleteModalFunction={() =>
             props.AddParticipant(
               picture,

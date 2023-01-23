@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  min-width: 100vw;
+  overflow: hidden;
 }
 
 .App-logo {
@@ -35,4 +37,9 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+html {
+  min-width: 100vw;
+  overflow: hidden;
 }

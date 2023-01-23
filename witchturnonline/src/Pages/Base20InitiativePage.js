@@ -15,7 +15,10 @@ import {
   StyledTurnandAddButton,
 } from "../Components/StyledComponents/InitiativeStyles";
 import { useNavigate, useParams } from "react-router-dom";
-import { StyledCopyFlyout } from "../Components/BarsAndFoldouts/Flyouts";
+import {
+  StyledCopyFlyout,
+  StyledHiddenInfo,
+} from "../Components/BarsAndFoldouts/Flyouts";
 
 function Base20InitiativePage(props) {
   const [participants, setParticipants] = useState([]);
@@ -186,24 +189,24 @@ function Base20InitiativePage(props) {
   }
 
   function CopyFlyout(props) {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(true);
 
     return (
       <StyledCopyFlyout
         left={props.left}
-        open={open}
         onClick={() => {
           setOpen(!open);
         }}
       >
-        <StyledInfoLabel>Room: {props.room}</StyledInfoLabel>
-        <StyledTurnandAddButton
+        <StyledInfoLabel>Room: </StyledInfoLabel>
+        <StyledHiddenInfo open={open}>{props.room}</StyledHiddenInfo>
+        {/* {<StyledTurnandAddButton
           onClick={() => {
             navigator.clipboard.writeText(window.location.href);
           }}
         >
           Copy Link
-        </StyledTurnandAddButton>
+        </StyledTurnandAddButton>} */}
       </StyledCopyFlyout>
     );
   }
@@ -233,8 +236,28 @@ function Base20InitiativePage(props) {
             <StyledTurnandAddButton onClick={AdvanceTurn}>
               Advance turn
             </StyledTurnandAddButton>
+            <StyledTurnandAddButton
+              mobileOnly={true}
+              onClick={() => {
+                setAddModalVisible(true);
+              }}
+            >
+              Add Participant
+            </StyledTurnandAddButton>
             <StyledTurnandAddButton onClick={ReduceTurn}>
               reduce turn
+            </StyledTurnandAddButton>
+          </StyledButtonRow>
+        )}
+        {!props.isGM && (
+          <StyledButtonRow>
+            <StyledTurnandAddButton
+              mobileOnly={true}
+              onClick={() => {
+                setAddModalVisible(true);
+              }}
+            >
+              Add Participant
             </StyledTurnandAddButton>
           </StyledButtonRow>
         )}
@@ -245,17 +268,9 @@ function Base20InitiativePage(props) {
         justifyContent={"space-evenly"}
       >
         <CopyFlyout left={true} room={room} />
-        {/* {<GenericInputDiv>
-          <StyledLabelText>Room: {room}</StyledLabelText>
-          <StyledTurnandAddButton
-            onClick={() => {
-              navigator.clipboard.writeText(window.location.href);
-            }}
-          >
-            Copy Link
-          </StyledTurnandAddButton>
-        </GenericInputDiv>} */}
+
         <StyledTurnandAddButton
+          desktopOnly={true}
           onClick={() => {
             setAddModalVisible(true);
           }}
