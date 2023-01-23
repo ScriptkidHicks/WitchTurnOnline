@@ -56,11 +56,18 @@ const StyledTurnContainerWrapper = styled.div`
     width: 100%;
     height: 1.4em;
   }
+
+  @media screen and (max-width: 800px) {
+    margin-top: 80px;
+  }
 `;
 
 const StyledTurncontainer = styled.div`
   width: 100%;
   overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const StyledTurnTaker = styled.div`
@@ -143,6 +150,15 @@ const StyledTurnandAddButton = styled.button`
     border-radius: 50%;
     font-size: 0em;
   }
+
+  ${(props) =>
+    props.desktopOnly
+      ? "@media screen and (max-width: 800px) { display: none }"
+      : ""}
+  ${(props) =>
+    props.mobileOnly
+      ? "@media screen and (min-width: 800px) { display: none }"
+      : ""}
 `;
 
 const StyledInfoLabel = styled.label`

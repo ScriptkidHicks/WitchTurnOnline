@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { DarkColorStyles } from "../StyledComponents/ColorStyles";
+import { StyledInfoLabel } from "../StyledComponents/InitiativeStyles";
 
 const StyledCopyFlyout = styled.div`
   background-color: ${DarkColorStyles.GreyPurpleForeground};
@@ -13,14 +14,18 @@ const StyledCopyFlyout = styled.div`
   align-items: center;
   text-align: center;
   position: absolute;
-  right: ${(props) => (props.open ? "-4px" : "-180px")};
+  right: 0;
   top: 150px;
   transition: ease all 0.4s;
 
   @media screen and (max-width: 800px) {
-    top: 0;
-    right: ${(props) => (props.open ? "-4px" : "-185px")};
+    top: 20px;
   }
 `;
 
-export { StyledCopyFlyout };
+const StyledHiddenInfo = styled(StyledInfoLabel)`
+  transition: ease all 0.4s;
+  font-size: ${(props) => (props.open ? "1em" : "0em")};
+`;
+
+export { StyledCopyFlyout, StyledHiddenInfo };
