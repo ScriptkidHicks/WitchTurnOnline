@@ -112,9 +112,7 @@ const StyledTTPictureOption = styled(StyledTTPicture)`
   margin: 10px;
 
   :hover {
-    height: 60px;
-    width: 60px;
-    margin: 10px 0px 10px 0px;
+    box-shadow: 4px 4px 4px black;
   }
 `;
 
@@ -122,8 +120,6 @@ const StyledTTPictureSelectorButton = styled(StyledTTPicture)`
   box-shadow: 2px 2px 2px black;
   :hover {
     box-shadow: 4px 4px 4px black;
-    height: 60px;
-    width: 60px;
   }
 `;
 
@@ -143,12 +139,10 @@ const StyledTurnandAddButton = styled.button`
     border: 4px ${DarkColorStyles.DarkBorderGreen} solid;
     background-color: ${DarkColorStyles.DarkBackgroundGreen};
     color: ${DarkColorStyles.DarkTextGreen};
-    font-size: 1.2em;
   }
 
   :active {
-    border-radius: 50%;
-    font-size: 0em;
+    border-radius: 20px;
   }
 
   ${(props) =>
