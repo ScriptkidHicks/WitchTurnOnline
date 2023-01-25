@@ -15,6 +15,7 @@ const StyledTurnContainerWrapper = styled.div`
 
   border-radius: 20px;
   padding: 12px;
+  z-index: 0;
 
   min-height: 300px;
   min-width: 300px;
