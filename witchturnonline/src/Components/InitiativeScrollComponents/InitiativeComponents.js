@@ -218,7 +218,6 @@ function AddModal(props) {
           />
         </StyledFormInformationRow>
         <CompleteModalButton
-          desktopOnly={true}
           CompleteModalFunction={() =>
             props.AddParticipant(
               picture,
