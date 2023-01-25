@@ -31,15 +31,19 @@ const StyledHiddenInfo = styled(StyledInfoLabel)`
 const StyledTabbedFlyoutBody = styled.div`
   height: 100vh;
   width: 50vw;
-  background-color: ${DarkColorStyles.DarkBackgroundGreen};
+  background-color: ${DarkColorStyles.DarkBorderGreen};
   position: fixed;
-  left: 0;
+  left: ${(props) => (props.open ? "0" : "-51vw")};
 
   display: flex;
   flex-direction: column;
 
+  transition: ease all 0.6s;
+
   @media screen and (max-width: 800px) {
     width: 100vw;
+    left: ${(props) => (props.open ? "0" : "-100vw")};
+    border: none;
   }
 `;
 

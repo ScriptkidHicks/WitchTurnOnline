@@ -157,7 +157,7 @@ function LeftRightButton(props) {
 
 function HamburgerBarButton(props) {
   return (
-    <StyledHamburgerDivContainer onClick={props.invert}>
+    <StyledHamburgerDivContainer open={props.open} onClick={props.invert}>
       <StyledTopHamburgerDiv open={props.open}></StyledTopHamburgerDiv>
       <StyledMiddleHamburgerDiv open={props.open}></StyledMiddleHamburgerDiv>
       <StyledBottomHamburgerDiv open={props.open}></StyledBottomHamburgerDiv>

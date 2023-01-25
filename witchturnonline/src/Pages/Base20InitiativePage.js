@@ -19,10 +19,17 @@ import {
 } from "../Components/BarsAndFoldouts/FlyoutStyles";
 import TabbedFlyout from "../Components/BarsAndFoldouts/Flyouts";
 
+import { HamburgerBarButton } from "../Components/Buttons/BasicButtons";
+
 function Base20InitiativePage(props) {
+  // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  // const variables
+  // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   const [participants, setParticipants] = useState([]);
   let participantsParallel = [];
   //we have to keep this around to deal with the render lag from useState
+
+  const [open, setOpen] = useState(false);
 
   const { room } = useParams();
 
@@ -222,6 +229,10 @@ function Base20InitiativePage(props) {
     );
   }
 
+  // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  // The body of the page
+  // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
   return (
     <DefaultPageBody>
       {addModalVisible && (
@@ -289,7 +300,13 @@ function Base20InitiativePage(props) {
           Add Participant
         </StyledTurnandAddButton>
       </DefaultPageColumn>
-      <TabbedFlyout />
+      <TabbedFlyout open={open} />
+      <HamburgerBarButton
+        open={open}
+        invert={() => {
+          setOpen(!open);
+        }}
+      />
     </DefaultPageBody>
   );
 }

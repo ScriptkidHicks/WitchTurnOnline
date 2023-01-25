@@ -171,8 +171,13 @@ const StyledHamburgerDivContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  right: 30px;
-  top: 30px;
+  top: 40px;
+  left: ${(props) => (props.open ? "44vw" : "40px")};
+  transition: ease all 0.6s;
+
+  @media screen and (max-width: 800px) {
+    left: ${(props) => (props.open ? "85vw" : "20px")};
+  }
 `;
 
 const StyledHamburgerDiv = styled.div`
@@ -180,7 +185,7 @@ const StyledHamburgerDiv = styled.div`
   height: 3px;
   background-color: white;
   border-radius: 10px;
-  transition: ease all 0.4s;
+  transition: ease all 0.6s;
 `;
 
 const StyledTopHamburgerDiv = styled(StyledHamburgerDiv)`
