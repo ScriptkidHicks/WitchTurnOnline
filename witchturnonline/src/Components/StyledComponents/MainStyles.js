@@ -172,7 +172,7 @@ const StyledHamburgerDivContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   top: 40px;
-  left: ${(props) => (props.open ? "44vw" : "40px")};
+  left: ${(props) => (props.open ? "46vw" : "40px")};
   transition: ease all 0.6s;
 
   @media screen and (max-width: 800px) {
