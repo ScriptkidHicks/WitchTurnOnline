@@ -14,7 +14,8 @@ const StyledTurnContainerWrapper = styled.div`
   position: relative;
 
   border-radius: 20px;
-  padding: 12px;
+  padding: 0px 12px;
+  z-index: 0;
 
   min-height: 300px;
   min-width: 300px;
@@ -73,6 +74,7 @@ const StyledTurncontainer = styled.div`
 const StyledTurnTaker = styled.div`
   width: 95%;
   padding: 12px;
+  margin-top: ${(props) => (props.isFirst ? "15px" : "0px")};
   margin-bottom: 20px;
 
   box-shadow: 0px 10px 10px ${DarkColorStyles.PurpleBoxShadow};

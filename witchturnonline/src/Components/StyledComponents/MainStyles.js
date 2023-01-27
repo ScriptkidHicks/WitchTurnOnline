@@ -163,6 +163,51 @@ const StyledXButton = styled.button`
   }
 `;
 
+const StyledHamburgerDivContainer = styled.div`
+  width: 40px;
+  height: 25px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  top: 40px;
+  left: ${(props) => (props.open ? "46vw" : "40px")};
+  transition: ease all 0.6s;
+
+  @media screen and (max-width: 800px) {
+    left: ${(props) => (props.open ? "85vw" : "20px")};
+  }
+`;
+
+const StyledHamburgerDiv = styled.div`
+  width: 40px;
+  height: 3px;
+  background-color: white;
+  border-radius: 10px;
+  transition: ease all 0.6s;
+`;
+
+const StyledTopHamburgerDiv = styled(StyledHamburgerDiv)`
+  transform: ${(props) =>
+    props.open ? "rotate(-40deg) translate(0px, 7px)" : "translate(0px, 0px)"};
+  width: ${(props) => (props.open ? "20px" : "40px")};
+`;
+
+const StyledBottomHamburgerDiv = styled(StyledHamburgerDiv)`
+  transform: ${(props) =>
+    props.open
+      ? "rotate(40deg) translate(0px, -7px)"
+      : "translate(0px, 0px) rotate(0deg)"};
+  width: ${(props) => (props.open ? "20px" : "40px")};
+`;
+
+const StyledMiddleHamburgerDiv = styled(StyledHamburgerDiv)`
+  width: ${(props) => (props.open ? "0px" : "40px")};
+  transform: ${(props) =>
+    props.open ? "translate(-10px) rotate(360deg)" : "translate(0px, 0px)"};
+`;
+
 const StyledGenericButton = styled.button`
   background-color: ${(props) =>
     props.ButtonColor ? props.ButtonColor : DarkColorStyles.PurpleHighlight};
@@ -230,4 +275,8 @@ export {
   MarginText,
   StyledLabelText,
   StyledMinorfunctionButton,
+  StyledHamburgerDivContainer,
+  StyledTopHamburgerDiv,
+  StyledBottomHamburgerDiv,
+  StyledMiddleHamburgerDiv,
 };
