@@ -1,5 +1,12 @@
 import { StyledLeftRightButton } from "../StyledComponents/InitiativeStyles";
-import { StyleableButton, StyledXButton } from "../StyledComponents/MainStyles";
+import {
+  StyleableButton,
+  StyledXButton,
+  StyledBottomHamburgerDiv,
+  StyledHamburgerDivContainer,
+  StyledMiddleHamburgerDiv,
+  StyledTopHamburgerDiv,
+} from "../StyledComponents/MainStyles";
 
 function BasicButton(props) {
   return (
@@ -148,6 +155,16 @@ function LeftRightButton(props) {
   );
 }
 
+function HamburgerBarButton(props) {
+  return (
+    <StyledHamburgerDivContainer open={props.open} onClick={props.invert}>
+      <StyledTopHamburgerDiv open={props.open}></StyledTopHamburgerDiv>
+      <StyledMiddleHamburgerDiv open={props.open}></StyledMiddleHamburgerDiv>
+      <StyledBottomHamburgerDiv open={props.open}></StyledBottomHamburgerDiv>
+    </StyledHamburgerDivContainer>
+  );
+}
+
 export {
   BasicButton,
   BasicIncrementButton,
@@ -156,4 +173,5 @@ export {
   BasicResetButton,
   BasicXCloseButton,
   LeftRightButton,
+  HamburgerBarButton,
 };
