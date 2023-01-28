@@ -13,6 +13,7 @@ import {
   StyledTurnandAddButton,
   StyledTurnContainerWrapper,
   StyledTurncontainer,
+  StyledTTReactionCheckbox,
 } from "../StyledComponents/InitiativeStyles";
 import {
   StyledFormInformationRow,
@@ -42,9 +43,11 @@ function InitiativeRoll(props) {
                 position={index}
                 isFirst={firstThief}
                 isGM={props.isGM}
+                reactionUsed={character.reactionUsed}
                 isHidden={character.isHidden}
                 RemoveParticipant={props.RemoveParticipant}
                 UnhideParticipant={props.UnhideParticipant}
+                UpdateParticipantReaction={props.UpdateParticipantReaction}
                 key={
                   (character.initiative, character.bonus, character.name, index)
                 }
@@ -62,8 +65,10 @@ function InitiativeRoll(props) {
                 position={index}
                 isFirst={firstThief}
                 isGM={props.isGM}
+                reactionUsed={character.reactionUsed}
                 isHidden={character.isHidden}
                 RemoveParticipant={props.RemoveParticipant}
+                UpdateParticipantReaction={props.UpdateParticipantReaction}
                 key={
                   (character.initiative, character.bonus, character.name, index)
                 }
@@ -74,6 +79,34 @@ function InitiativeRoll(props) {
       </StyledTurncontainer>
     </StyledTurnContainerWrapper>
   );
+}
+
+function ReactionTracker(props) {
+  if (!props.isGM) {
+    if (props.reactionUsed) {
+      return <StyledInfoLabel>Yes</StyledInfoLabel>;
+    } else {
+      return <StyledInfoLabel>No</StyledInfoLabel>;
+    }
+  } else {
+    if (props.reactionUsed) {
+      return (
+        <StyledMinorfunctionButton
+          onClick={() => props.UpdateParticipantReaction(props.position)}
+        >
+          Yes
+        </StyledMinorfunctionButton>
+      );
+    } else {
+      return (
+        <StyledMinorfunctionButton
+          onClick={() => props.UpdateParticipantReaction(props.position)}
+        >
+          No
+        </StyledMinorfunctionButton>
+      );
+    }
+  }
 }
 
 function TurnTaker(props) {
@@ -94,7 +127,16 @@ function TurnTaker(props) {
         </StyledInfoLabel>
       </StyledTTContentcontainer>
       <StyledTTContentcontainer>
-        {props.isGM && props.isHidden && (
+        <StyledInfoLabel>Reaction Used?</StyledInfoLabel>
+        <ReactionTracker
+          isGM={props.isGM}
+          reactionUsed={props.reactionUsed}
+          position={props.position}
+          UpdateParticipantReaction={props.UpdateParticipantReaction}
+        />
+      </StyledTTContentcontainer>
+      {props.isGM && props.isHidden && (
+        <StyledTTContentcontainer>
           <StyledMinorfunctionButton
             onClick={() => {
               props.UnhideParticipant(props.position);
@@ -102,8 +144,8 @@ function TurnTaker(props) {
           >
             unhide
           </StyledMinorfunctionButton>
-        )}
-      </StyledTTContentcontainer>
+        </StyledTTContentcontainer>
+      )}
       <StyledTTContentcontainer>
         <StyledXButton
           buttonSize={40}
@@ -175,16 +217,18 @@ function AddModal(props) {
             />
           )}
         </StyledFormInformationRow>
-        <StyledFormInformationRow>
-          <StyledInfoLabel>Is this a hidden character?</StyledInfoLabel>
-          <input
-            type={"checkbox"}
-            onClick={() => {
-              console.log(!isHidden.current);
-              isHidden.current = !isHidden.current;
-            }}
-          ></input>
-        </StyledFormInformationRow>
+        {props.isGM && (
+          <StyledFormInformationRow>
+            <StyledInfoLabel>Is this a hidden character?</StyledInfoLabel>
+            <input
+              type={"checkbox"}
+              onClick={() => {
+                console.log(!isHidden.current);
+                isHidden.current = !isHidden.current;
+              }}
+            ></input>
+          </StyledFormInformationRow>
+        )}
         <StyledFormInformationRow>
           <StyledInfoLabel>Name: </StyledInfoLabel>
           <LimitedInputCombo
@@ -218,7 +262,6 @@ function AddModal(props) {
           />
         </StyledFormInformationRow>
         <CompleteModalButton
-          desktopOnly={true}
           CompleteModalFunction={() =>
             props.AddParticipant(
               picture,

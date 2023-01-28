@@ -5,8 +5,6 @@ import {
 import {
   DefaultPageBody,
   DefaultPageColumn,
-  GenericInputDiv,
-  StyledLabelText,
 } from "../Components/StyledComponents/MainStyles";
 import { useEffect, useState } from "react";
 import {
@@ -14,33 +12,39 @@ import {
   StyledInfoLabel,
   StyledTurnandAddButton,
 } from "../Components/StyledComponents/InitiativeStyles";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   StyledCopyFlyout,
   StyledHiddenInfo,
-} from "../Components/BarsAndFoldouts/Flyouts";
+} from "../Components/BarsAndFoldouts/FlyoutStyles";
+import TabbedFlyout from "../Components/BarsAndFoldouts/Flyouts";
+
+import { HamburgerBarButton } from "../Components/Buttons/BasicButtons";
 
 function Base20InitiativePage(props) {
+  // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  // const variables
+  // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   const [participants, setParticipants] = useState([]);
+  let participantsParallel = [];
+  //we have to keep this around to deal with the render lag from useState
+
+  const [open, setOpen] = useState(false);
 
   const { room } = useParams();
 
-  const navigate = useNavigate();
-
-  let participantsParallel = [];
-  //we have to keep this around to deal with the render lag from useState
   const [offset, setOffset] = useState(0);
 
   const [addModalVisible, setAddModalVisible] = useState(false);
 
+  /*
+    Use Effects
+  */
+  //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
   useEffect(() => {
     console.log("room " + room);
     props.setRoom(room);
-
-    // if (props.room === "") {
-    //   alert("That room doesn't appear to exist");
-    //   navigate("/");
-    // }
     const eventListener = (data) => {
       console.log(data);
     };
@@ -62,6 +66,11 @@ function Base20InitiativePage(props) {
     return () => props.socket.off("receive_message", eventListener);
   }, [props.room]);
 
+  /*
+    Assistant Functions
+  */
+  //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
   function UnhideParticipant(participantIndex) {
     let updatedParticipants = [...participants];
     updatedParticipants[participantIndex].isHidden = false;
@@ -70,6 +79,28 @@ function Base20InitiativePage(props) {
     participantsParallel = updatedParticipants;
   }
 
+  /*
+    Update Participant Reaction
+      *if false, set to true, etc
+
+    var: participantIndex: the index of the participant in the turn order
+  */
+
+  function UpdateParticipantReaction(participantIndex) {
+    let updatedParticipants = [...participants];
+    updatedParticipants[participantIndex].reactionUsed =
+      !updatedParticipants[participantIndex].reactionUsed;
+    participantsParallel = updatedParticipants;
+
+    let tempoffset = offset;
+    SendRoll(updatedParticipants, tempoffset);
+  }
+
+  /*
+    Remove a participant from the roll
+
+    var: participantIndex: the index of the participant in the turn order
+  */
   function RemoveParticipant(participantIndex) {
     let updatedParticipants = [...participants];
     updatedParticipants.splice(participantIndex, 1);
@@ -111,6 +142,16 @@ function Base20InitiativePage(props) {
     SendRoll(updatedParticipants, 0);
   }
 
+  /*
+  Add a new participant to the initiative roll. 
+
+  Var:
+    picture: the address of the picture the person has selected
+    name: the input name of the character
+    initiative: the iniative of the participant (OPTIONAL: random(1-20) + bonus)
+    bonus: the participant bonus (OPTIONAL: 0)
+    isHidden: whether the non-GM players can see this participant.
+*/
   function AddParticipant(picture, name, initiative, bonus, isHidden) {
     console.log("character is hidden " + isHidden);
     let updatedParticipants = [...participants];
@@ -120,11 +161,11 @@ function Base20InitiativePage(props) {
       initiative: initiative,
       bonus: bonus,
       isHidden: isHidden,
+      reactionUsed: false,
     };
     if (bonus === undefined || bonus === "") {
       newParticipant.bonus = 0;
     }
-    console.log("bonus in add " + bonus);
     if (initiative === undefined || initiative === "") {
       newParticipant.initiative =
         Math.floor(Math.random() * 19 + 1) + Number(bonus);
@@ -211,6 +252,10 @@ function Base20InitiativePage(props) {
     );
   }
 
+  // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  // The body of the page
+  // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
   return (
     <DefaultPageBody>
       {addModalVisible && (
@@ -230,6 +275,7 @@ function Base20InitiativePage(props) {
           participants={participants}
           RemoveParticipant={RemoveParticipant}
           UnhideParticipant={UnhideParticipant}
+          UpdateParticipantReaction={UpdateParticipantReaction}
         ></InitiativeRoll>
         {props.isGM && (
           <StyledButtonRow>
@@ -278,6 +324,13 @@ function Base20InitiativePage(props) {
           Add Participant
         </StyledTurnandAddButton>
       </DefaultPageColumn>
+      <TabbedFlyout open={open} />
+      {/* {<HamburgerBarButton
+        open={open}
+        invert={() => {
+          setOpen(!open);
+        }}
+      />} */}
     </DefaultPageBody>
   );
 }

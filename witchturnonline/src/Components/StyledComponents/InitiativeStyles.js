@@ -14,7 +14,8 @@ const StyledTurnContainerWrapper = styled.div`
   position: relative;
 
   border-radius: 20px;
-  padding: 12px;
+  padding: 0px 12px;
+  z-index: 0;
 
   min-height: 300px;
   min-width: 300px;
@@ -73,6 +74,7 @@ const StyledTurncontainer = styled.div`
 const StyledTurnTaker = styled.div`
   width: 95%;
   padding: 12px;
+  margin-top: ${(props) => (props.isFirst ? "15px" : "0px")};
   margin-bottom: 20px;
 
   box-shadow: 0px 10px 10px ${DarkColorStyles.PurpleBoxShadow};
@@ -101,6 +103,25 @@ const StyledTTContentcontainer = styled.div`
   margin: 0;
 `;
 
+const StyledTTReactionCheckbox = styled.input`
+  accent-color: ${DarkColorStyles.GreyPurpleBackground};
+  color: white;
+  background-color: black;
+  height: 15px;
+  width: 15px;
+
+  :before {
+    background-color: black;
+  }
+
+  :after {
+    content: "";
+    visibility: visible;
+    display: inline-block;
+    background-color: green;
+  }
+`;
+
 const StyledTTPicture = styled.img`
   height: 50px;
   width: 50px;
@@ -112,9 +133,7 @@ const StyledTTPictureOption = styled(StyledTTPicture)`
   margin: 10px;
 
   :hover {
-    height: 60px;
-    width: 60px;
-    margin: 10px 0px 10px 0px;
+    box-shadow: 4px 4px 4px black;
   }
 `;
 
@@ -122,8 +141,6 @@ const StyledTTPictureSelectorButton = styled(StyledTTPicture)`
   box-shadow: 2px 2px 2px black;
   :hover {
     box-shadow: 4px 4px 4px black;
-    height: 60px;
-    width: 60px;
   }
 `;
 
@@ -143,12 +160,10 @@ const StyledTurnandAddButton = styled.button`
     border: 4px ${DarkColorStyles.DarkBorderGreen} solid;
     background-color: ${DarkColorStyles.DarkBackgroundGreen};
     color: ${DarkColorStyles.DarkTextGreen};
-    font-size: 1.2em;
   }
 
   :active {
-    border-radius: 50%;
-    font-size: 0em;
+    border-radius: 20px;
   }
 
   ${(props) =>
@@ -249,4 +264,5 @@ export {
   StyledLeftRightButton,
   StyledTurnandAddButton,
   StyledButtonRow,
+  StyledTTReactionCheckbox,
 };

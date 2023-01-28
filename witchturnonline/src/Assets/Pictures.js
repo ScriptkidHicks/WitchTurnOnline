@@ -1,19 +1,8 @@
 import wizard from "./Wizard.png";
-import Gobo from "./GoboTest.png";
+import Gobo from "./Goblin.png";
 import AnimalWitch from "./AnimalWitch.png";
+import OrcPriest from "./OrcPriest.png";
 
-const picturesList = [
-  wizard,
-  Gobo,
-  AnimalWitch,
-  Gobo,
-  Gobo,
-  Gobo,
-  Gobo,
-  Gobo,
-  Gobo,
-  Gobo,
-  Gobo,
-];
+const picturesList = [wizard, Gobo, AnimalWitch, OrcPriest];
 
 export { picturesList };

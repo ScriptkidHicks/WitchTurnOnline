@@ -6,6 +6,7 @@ import {
   GenericInputDiv,
   MarginText,
   StyledLabelText,
+  StyledInputRow,
 } from "../Components/StyledComponents/MainStyles";
 import { LimitedInputCombo } from "../Components/SearchBars/GenericInputs";
 
@@ -19,11 +20,19 @@ function JoinRoomPage(props) {
   const navigate = useNavigate();
 
   function GenerateRoom() {
+    if (props.playerName === undefined || props.playerName === "") {
+      alert("Please enter a player name");
+      return;
+    }
     props.socket.emit("generate_room");
     setGenerateRoomPressed(true);
   }
 
   function AttemptToJoinRoom() {
+    if (props.playerName === "" || props.playerName === undefined) {
+      alert("Please enter a player name");
+      return;
+    }
     props.socket.emit("check_room_validity", { room: props.room });
     setCheckingRoomValidity(true);
   }
@@ -43,6 +52,7 @@ function JoinRoomPage(props) {
 
   useEffect(() => {
     props.socket.on("room_not_valid", (data) => {
+      props.setPlayerName("");
       alert(`That room has not yet been made`);
       setCheckingRoomValidity(false);
     });
@@ -75,12 +85,24 @@ function JoinRoomPage(props) {
           {!checkingRoomValidity && (
             <GenericInputDiv>
               <StyledLabelText>Join an existing room</StyledLabelText>
-              <LimitedInputCombo
-                maxLength={6}
-                minLength={6}
-                inputState={props.room}
-                setInputState={props.setRoom}
-              ></LimitedInputCombo>
+              <StyledInputRow>
+                <StyledLabelText>Room Code:</StyledLabelText>
+                <LimitedInputCombo
+                  maxLength={6}
+                  minLength={6}
+                  inputState={props.room}
+                  setInputState={props.setRoom}
+                ></LimitedInputCombo>
+              </StyledInputRow>
+              <StyledInputRow>
+                <StyledLabelText>Your Name:</StyledLabelText>
+                <LimitedInputCombo
+                  maxLength={40}
+                  letterSpacing={"0em"}
+                  inputState={props.playerName}
+                  setInputState={props.setPlayerName}
+                ></LimitedInputCombo>
+              </StyledInputRow>
               <StyledTurnandAddButton onClick={AttemptToJoinRoom}>
                 Join
               </StyledTurnandAddButton>
@@ -92,6 +114,15 @@ function JoinRoomPage(props) {
 
           <GenericInputDiv>
             <StyledLabelText>Start a new Room (You will be GM)</StyledLabelText>
+            <StyledInputRow>
+              <StyledLabelText>Your Name:</StyledLabelText>
+              <LimitedInputCombo
+                maxLength={40}
+                letterSpacing={"0em"}
+                inputState={props.playerName}
+                setInputState={props.setPlayerName}
+              ></LimitedInputCombo>
+            </StyledInputRow>
 
             <StyledTurnandAddButton onClick={GenerateRoom}>
               Generate Room

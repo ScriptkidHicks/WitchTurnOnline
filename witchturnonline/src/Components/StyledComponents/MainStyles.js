@@ -49,13 +49,15 @@ const DefaultPageColumn = styled.div`
 const MainTitleLabel = styled.label`
   margin-top: 10vh;
   margin-right: 30px;
+  -webkit-text-stroke: 3px ${DarkColorStyles.PurpleHighlight};
   padding: ${(props) =>
     props.padding ? props.padding : "20px 20px 20px 20px"};
   margin-bottom: 100px;
   border-radius: ${(props) =>
     props.borderRadius ? props.borderRadius : "15px"};
-  font-size: ${(props) => (props.fontSize ? props.fontSize : "4em")};
-  color: white;
+  font-size: ${(props) => (props.fontSize ? props.fontSize : "5em")};
+  font-weight: bold;
+  color: ${DarkColorStyles.DarkPurpleBackground};
 
   @media screen and (max-width: 800px) {
     margin: 0px 0px 0px 0px;
@@ -112,6 +114,13 @@ const StyleableLimitedInput = styled.input`
   }
 `;
 
+const StyledInputRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 /* Styled Generic Buttons */
 
 const StyleableButton = styled.button`
@@ -144,8 +153,7 @@ const StyledXButton = styled.button`
   width: ${(props) => (props.buttonSize ? props.buttonSize : 30)}px;
   border-radius: 40px;
   border: 2px solid;
-  border-color: white ${DarkColorStyles.LightPurpleForeground}
-    ${DarkColorStyles.LightPurpleForeground} white;
+  border-color: ${DarkColorStyles.LightPurpleForeground};
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -159,13 +167,54 @@ const StyledXButton = styled.button`
   transition: ease all 0.4s;
 
   :hover {
-    border-color: ${DarkColorStyles.LightPurpleForeground} white white
-      ${DarkColorStyles.LightPurpleForeground};
-    box-shadow: -1px -1px 1px black;
-    height: ${(props) => (props.buttonSize ? props.buttonSize + 10 : 40)}px;
-    width: ${(props) => (props.buttonSize ? props.buttonSize + 10 : 40)}px;
-    font-size: 1.5em;
+    box-shadow: 2px 2px 3px black;
+    border-radius: 10px;
   }
+`;
+
+const StyledHamburgerDivContainer = styled.div`
+  width: 40px;
+  height: 25px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  top: 40px;
+  left: ${(props) => (props.open ? "46vw" : "40px")};
+  transition: ease all 0.6s;
+
+  @media screen and (max-width: 800px) {
+    left: ${(props) => (props.open ? "85vw" : "20px")};
+  }
+`;
+
+const StyledHamburgerDiv = styled.div`
+  width: 40px;
+  height: 3px;
+  background-color: white;
+  border-radius: 10px;
+  transition: ease all 0.6s;
+`;
+
+const StyledTopHamburgerDiv = styled(StyledHamburgerDiv)`
+  transform: ${(props) =>
+    props.open ? "rotate(-40deg) translate(0px, 7px)" : "translate(0px, 0px)"};
+  width: ${(props) => (props.open ? "20px" : "40px")};
+`;
+
+const StyledBottomHamburgerDiv = styled(StyledHamburgerDiv)`
+  transform: ${(props) =>
+    props.open
+      ? "rotate(40deg) translate(0px, -7px)"
+      : "translate(0px, 0px) rotate(0deg)"};
+  width: ${(props) => (props.open ? "20px" : "40px")};
+`;
+
+const StyledMiddleHamburgerDiv = styled(StyledHamburgerDiv)`
+  width: ${(props) => (props.open ? "0px" : "40px")};
+  transform: ${(props) =>
+    props.open ? "translate(-10px) rotate(360deg)" : "translate(0px, 0px)"};
 `;
 
 const StyledGenericButton = styled.button`
@@ -235,4 +284,9 @@ export {
   MarginText,
   StyledLabelText,
   StyledMinorfunctionButton,
+  StyledHamburgerDivContainer,
+  StyledTopHamburgerDiv,
+  StyledBottomHamburgerDiv,
+  StyledMiddleHamburgerDiv,
+  StyledInputRow,
 };
