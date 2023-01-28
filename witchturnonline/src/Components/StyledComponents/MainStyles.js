@@ -49,13 +49,15 @@ const DefaultPageColumn = styled.div`
 const MainTitleLabel = styled.label`
   margin-top: 10vh;
   margin-right: 30px;
+  -webkit-text-stroke: 3px ${DarkColorStyles.PurpleHighlight};
   padding: ${(props) =>
     props.padding ? props.padding : "20px 20px 20px 20px"};
   margin-bottom: 100px;
   border-radius: ${(props) =>
     props.borderRadius ? props.borderRadius : "15px"};
-  font-size: ${(props) => (props.fontSize ? props.fontSize : "4em")};
-  color: white;
+  font-size: ${(props) => (props.fontSize ? props.fontSize : "5em")};
+  font-weight: bold;
+  color: ${DarkColorStyles.DarkPurpleBackground};
 
   @media screen and (max-width: 800px) {
     margin: 0px 0px 0px 0px;

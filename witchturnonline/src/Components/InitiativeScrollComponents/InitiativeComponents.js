@@ -217,16 +217,18 @@ function AddModal(props) {
             />
           )}
         </StyledFormInformationRow>
-        <StyledFormInformationRow>
-          <StyledInfoLabel>Is this a hidden character?</StyledInfoLabel>
-          <input
-            type={"checkbox"}
-            onClick={() => {
-              console.log(!isHidden.current);
-              isHidden.current = !isHidden.current;
-            }}
-          ></input>
-        </StyledFormInformationRow>
+        {props.isGM && (
+          <StyledFormInformationRow>
+            <StyledInfoLabel>Is this a hidden character?</StyledInfoLabel>
+            <input
+              type={"checkbox"}
+              onClick={() => {
+                console.log(!isHidden.current);
+                isHidden.current = !isHidden.current;
+              }}
+            ></input>
+          </StyledFormInformationRow>
+        )}
         <StyledFormInformationRow>
           <StyledInfoLabel>Name: </StyledInfoLabel>
           <LimitedInputCombo

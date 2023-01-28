@@ -325,12 +325,12 @@ function Base20InitiativePage(props) {
         </StyledTurnandAddButton>
       </DefaultPageColumn>
       <TabbedFlyout open={open} />
-      <HamburgerBarButton
+      {/* {<HamburgerBarButton
         open={open}
         invert={() => {
           setOpen(!open);
         }}
-      />
+      />} */}
     </DefaultPageBody>
   );
 }

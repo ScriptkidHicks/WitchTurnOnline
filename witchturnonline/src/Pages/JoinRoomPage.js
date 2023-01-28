@@ -20,6 +20,10 @@ function JoinRoomPage(props) {
   const navigate = useNavigate();
 
   function GenerateRoom() {
+    if (props.playerName === undefined || props.playerName === "") {
+      alert("Please enter a player name");
+      return;
+    }
     props.socket.emit("generate_room");
     setGenerateRoomPressed(true);
   }
