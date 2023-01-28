@@ -112,6 +112,13 @@ const StyleableLimitedInput = styled.input`
   }
 `;
 
+const StyledInputRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 /* Styled Generic Buttons */
 
 const StyleableButton = styled.button`
@@ -279,4 +286,5 @@ export {
   StyledTopHamburgerDiv,
   StyledBottomHamburgerDiv,
   StyledMiddleHamburgerDiv,
+  StyledInputRow,
 };

@@ -11,6 +11,7 @@ import AboutPage from "./Pages/AboutPage";
 function App() {
   const [room, setRoom] = useState("");
   const [isGM, setIsGM] = useState(false);
+  const [playerName, setPlayerName] = useState("");
   return (
     <div className="App">
       <Routes>
@@ -24,6 +25,8 @@ function App() {
               isGM={isGM}
               setIsGM={setIsGM}
               socket={socket}
+              playerName={playerName}
+              setPlayerName={setPlayerName}
             />
           }
         />
