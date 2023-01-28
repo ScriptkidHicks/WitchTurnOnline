@@ -43,9 +43,11 @@ function InitiativeRoll(props) {
                 position={index}
                 isFirst={firstThief}
                 isGM={props.isGM}
+                reactionUsed={character.reactionUsed}
                 isHidden={character.isHidden}
                 RemoveParticipant={props.RemoveParticipant}
                 UnhideParticipant={props.UnhideParticipant}
+                UpdateParticipantReaction={props.UpdateParticipantReaction}
                 key={
                   (character.initiative, character.bonus, character.name, index)
                 }
@@ -63,8 +65,10 @@ function InitiativeRoll(props) {
                 position={index}
                 isFirst={firstThief}
                 isGM={props.isGM}
+                reactionUsed={character.reactionUsed}
                 isHidden={character.isHidden}
                 RemoveParticipant={props.RemoveParticipant}
+                UpdateParticipantReaction={props.UpdateParticipantReaction}
                 key={
                   (character.initiative, character.bonus, character.name, index)
                 }
@@ -75,6 +79,34 @@ function InitiativeRoll(props) {
       </StyledTurncontainer>
     </StyledTurnContainerWrapper>
   );
+}
+
+function ReactionTracker(props) {
+  if (!props.isGM) {
+    if (props.reactionUsed) {
+      return <StyledInfoLabel>Yes</StyledInfoLabel>;
+    } else {
+      return <StyledInfoLabel>No</StyledInfoLabel>;
+    }
+  } else {
+    if (props.reactionUsed) {
+      return (
+        <StyledMinorfunctionButton
+          onClick={() => props.UpdateParticipantReaction(props.position)}
+        >
+          Yes
+        </StyledMinorfunctionButton>
+      );
+    } else {
+      return (
+        <StyledMinorfunctionButton
+          onClick={() => props.UpdateParticipantReaction(props.position)}
+        >
+          No
+        </StyledMinorfunctionButton>
+      );
+    }
+  }
 }
 
 function TurnTaker(props) {
@@ -96,7 +128,12 @@ function TurnTaker(props) {
       </StyledTTContentcontainer>
       <StyledTTContentcontainer>
         <StyledInfoLabel>Reaction Used?</StyledInfoLabel>
-        <StyledTTReactionCheckbox type={"checkbox"} />
+        <ReactionTracker
+          isGM={props.isGM}
+          reactionUsed={props.reactionUsed}
+          position={props.position}
+          UpdateParticipantReaction={props.UpdateParticipantReaction}
+        />
       </StyledTTContentcontainer>
       {props.isGM && props.isHidden && (
         <StyledTTContentcontainer>

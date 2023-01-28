@@ -79,6 +79,28 @@ function Base20InitiativePage(props) {
     participantsParallel = updatedParticipants;
   }
 
+  /*
+    Update Participant Reaction
+      *if false, set to true, etc
+
+    var: participantIndex: the index of the participant in the turn order
+  */
+
+  function UpdateParticipantReaction(participantIndex) {
+    let updatedParticipants = [...participants];
+    updatedParticipants[participantIndex].reactionUsed =
+      !updatedParticipants[participantIndex].reactionUsed;
+    participantsParallel = updatedParticipants;
+
+    let tempoffset = offset;
+    SendRoll(updatedParticipants, tempoffset);
+  }
+
+  /*
+    Remove a participant from the roll
+
+    var: participantIndex: the index of the participant in the turn order
+  */
   function RemoveParticipant(participantIndex) {
     let updatedParticipants = [...participants];
     updatedParticipants.splice(participantIndex, 1);
@@ -253,6 +275,7 @@ function Base20InitiativePage(props) {
           participants={participants}
           RemoveParticipant={RemoveParticipant}
           UnhideParticipant={UnhideParticipant}
+          UpdateParticipantReaction={UpdateParticipantReaction}
         ></InitiativeRoll>
         {props.isGM && (
           <StyledButtonRow>
