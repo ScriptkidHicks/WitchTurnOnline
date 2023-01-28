@@ -139,6 +139,7 @@ function Base20InitiativePage(props) {
       initiative: initiative,
       bonus: bonus,
       isHidden: isHidden,
+      reactionUsed: false,
     };
     if (bonus === undefined || bonus === "") {
       newParticipant.bonus = 0;

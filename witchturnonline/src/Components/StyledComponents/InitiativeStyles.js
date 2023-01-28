@@ -103,6 +103,25 @@ const StyledTTContentcontainer = styled.div`
   margin: 0;
 `;
 
+const StyledTTReactionCheckbox = styled.input`
+  accent-color: ${DarkColorStyles.GreyPurpleBackground};
+  color: white;
+  background-color: black;
+  height: 15px;
+  width: 15px;
+
+  :before {
+    background-color: black;
+  }
+
+  :after {
+    content: "";
+    visibility: visible;
+    display: inline-block;
+    background-color: green;
+  }
+`;
+
 const StyledTTPicture = styled.img`
   height: 50px;
   width: 50px;
@@ -245,4 +264,5 @@ export {
   StyledLeftRightButton,
   StyledTurnandAddButton,
   StyledButtonRow,
+  StyledTTReactionCheckbox,
 };

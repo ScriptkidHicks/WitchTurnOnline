@@ -13,6 +13,7 @@ import {
   StyledTurnandAddButton,
   StyledTurnContainerWrapper,
   StyledTurncontainer,
+  StyledTTReactionCheckbox,
 } from "../StyledComponents/InitiativeStyles";
 import {
   StyledFormInformationRow,
@@ -94,7 +95,11 @@ function TurnTaker(props) {
         </StyledInfoLabel>
       </StyledTTContentcontainer>
       <StyledTTContentcontainer>
-        {props.isGM && props.isHidden && (
+        <StyledInfoLabel>Reaction Used?</StyledInfoLabel>
+        <StyledTTReactionCheckbox type={"checkbox"} />
+      </StyledTTContentcontainer>
+      {props.isGM && props.isHidden && (
+        <StyledTTContentcontainer>
           <StyledMinorfunctionButton
             onClick={() => {
               props.UnhideParticipant(props.position);
@@ -102,8 +107,8 @@ function TurnTaker(props) {
           >
             unhide
           </StyledMinorfunctionButton>
-        )}
-      </StyledTTContentcontainer>
+        </StyledTTContentcontainer>
+      )}
       <StyledTTContentcontainer>
         <StyledXButton
           buttonSize={40}
