@@ -17,8 +17,12 @@ const StyledTurnContainerWrapper = styled.div`
   padding: 0px 12px;
   z-index: 0;
 
+  @media screen and (max-width: 400px) {
+    padding: 0px;
+    width: 100%;
+  }
+
   min-height: 300px;
-  min-width: 300px;
   background-color: ${DarkColorStyles.DarkPurpleBackground};
 
   scrollbar-width: none;
@@ -63,8 +67,21 @@ const StyledTurnContainerWrapper = styled.div`
   }
 `;
 
+const StyledMobileOnlyColumn = styled.div`
+  display: flex;
+  flex-grow: 1;
+  @media screen and (max-width: 400px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+  }
+`;
+
 const StyledTurncontainer = styled.div`
-  width: 100%;
+  @media screen and (min-width: 400px) {
+    width: 100%;
+  }
   overflow: scroll;
   display: flex;
   flex-direction: column;
@@ -72,7 +89,9 @@ const StyledTurncontainer = styled.div`
 `;
 
 const StyledTurnTaker = styled.div`
-  width: 95%;
+  @media screen and (min-width: 400px) {
+    width: 95%;
+  }
   padding: 12px;
   margin-top: ${(props) => (props.isFirst ? "15px" : "0px")};
   margin-bottom: 20px;
@@ -91,15 +110,18 @@ const StyledTurnTaker = styled.div`
         ? `${DarkColorStyles.LightBackgroundGreen}, ${DarkColorStyles.DarkTextGreen}`
         : `${DarkColorStyles.GreyPurpleForeground}, ${DarkColorStyles.GreyPurpleBackground}`}
   );
+
+  @media screen and (max-width: 400px) {
+    width: 90vw;
+  }
 `;
 
 const StyledTTContentcontainer = styled.div`
-  background-color: none;
   display: flex;
   flex-direction: column;
-  width: 25%;
+  flex-grow: 1;
   align-items: ${(props) => (props.align ? props.align : "center")};
-  justify-content: space between;
+  justify-content: space-evenly;
   margin: 0;
 `;
 
@@ -131,6 +153,10 @@ const StyledTTPicture = styled.img`
 
 const StyledTTPictureOption = styled(StyledTTPicture)`
   margin: 10px;
+
+  @media screen and (max-width: 400px) {
+    margin: 3px;
+  }
 
   :hover {
     box-shadow: 4px 4px 4px black;
@@ -185,7 +211,7 @@ const StyledInfoLabel = styled.label`
 const StyledModalBackground = styled.div`
   z-index: 3;
   overflow: hidden;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
@@ -218,6 +244,11 @@ const StyledPictureSelectorRoll = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
+
+  @media screen and (max-width: 400px) {
+    position: fixed;
+    right: 5px;
+  }
 `;
 
 const StyledLeftRightButton = styled.button`
@@ -247,6 +278,10 @@ const StyledButtonRow = styled.div`
   align-items: center;
   padding: 20px;
   margin: 20px;
+
+  @media screen and (max-width: 450px) {
+    flex-direction: column;
+  }
 `;
 
 export {
@@ -265,4 +300,5 @@ export {
   StyledTurnandAddButton,
   StyledButtonRow,
   StyledTTReactionCheckbox,
+  StyledMobileOnlyColumn,
 };

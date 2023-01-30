@@ -43,11 +43,8 @@ function Base20InitiativePage(props) {
   //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
   useEffect(() => {
-    console.log("room " + room);
     props.setRoom(room);
-    const eventListener = (data) => {
-      console.log(data);
-    };
+    const eventListener = (data) => {};
 
     props.socket.emit("join_room", { room: room });
 
@@ -153,7 +150,6 @@ function Base20InitiativePage(props) {
     isHidden: whether the non-GM players can see this participant.
 */
   function AddParticipant(picture, name, initiative, bonus, isHidden) {
-    console.log("character is hidden " + isHidden);
     let updatedParticipants = [...participants];
     let newParticipant = {
       name: name,
@@ -324,13 +320,15 @@ function Base20InitiativePage(props) {
           Add Participant
         </StyledTurnandAddButton>
       </DefaultPageColumn>
-      <TabbedFlyout open={open} />
-      {/* {<HamburgerBarButton
-        open={open}
-        invert={() => {
-          setOpen(!open);
-        }}
-      />} */}
+      {/*<TabbedFlyout open={open} />
+      
+        <HamburgerBarButton
+          open={open}
+          invert={() => {
+            setOpen(!open);
+          }}
+        />
+      */}
     </DefaultPageBody>
   );
 }

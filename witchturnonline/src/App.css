@@ -1,7 +1,7 @@
 .App {
   text-align: center;
   min-width: 100vw;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .App-logo {
@@ -41,5 +41,5 @@
 
 html {
   min-width: 100vw;
-  overflow: hidden;
+  overflow-x: hidden;
 }

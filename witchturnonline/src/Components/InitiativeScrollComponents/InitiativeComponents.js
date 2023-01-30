@@ -14,6 +14,7 @@ import {
   StyledTurnContainerWrapper,
   StyledTurncontainer,
   StyledTTReactionCheckbox,
+  StyledMobileOnlyColumn,
 } from "../StyledComponents/InitiativeStyles";
 import {
   StyledFormInformationRow,
@@ -30,7 +31,6 @@ function InitiativeRoll(props) {
     <StyledTurnContainerWrapper>
       <StyledTurncontainer>
         {props.participants.map((character, index) => {
-          console.log("bonus " + character.bonus);
           if (props.isGM && character.isHidden) {
             let firstThief = isFirst;
             isFirst = false;
@@ -112,40 +112,45 @@ function ReactionTracker(props) {
 function TurnTaker(props) {
   return (
     <StyledTurnTaker position={props.position} isFirst={props.isFirst}>
-      <StyledTTContentcontainer>
-        <StyledTTPicture src={props.img} />
-        <StyledInfoLabel>
-          {props.name ? props.name : "Johnathan"}
-        </StyledInfoLabel>
-      </StyledTTContentcontainer>
-      <StyledTTContentcontainer>
-        <StyledInfoLabel>
-          {"Initiative: " + (props.initiative ? props.initiative : "")}
-        </StyledInfoLabel>
-        <StyledInfoLabel>
-          {"Bonus: " + (props.bonus >= 0 ? "+" + props.bonus : props.bonus)}
-        </StyledInfoLabel>
-      </StyledTTContentcontainer>
-      <StyledTTContentcontainer>
-        <StyledInfoLabel>Reaction Used?</StyledInfoLabel>
-        <ReactionTracker
-          isGM={props.isGM}
-          reactionUsed={props.reactionUsed}
-          position={props.position}
-          UpdateParticipantReaction={props.UpdateParticipantReaction}
-        />
-      </StyledTTContentcontainer>
-      {props.isGM && props.isHidden && (
+      <StyledMobileOnlyColumn>
         <StyledTTContentcontainer>
-          <StyledMinorfunctionButton
-            onClick={() => {
-              props.UnhideParticipant(props.position);
-            }}
-          >
-            unhide
-          </StyledMinorfunctionButton>
+          <StyledTTPicture src={props.img} />
+          <StyledInfoLabel>
+            {props.name ? props.name : "Johnathan"}
+          </StyledInfoLabel>
         </StyledTTContentcontainer>
-      )}
+        <StyledTTContentcontainer>
+          <StyledInfoLabel>
+            {"Initiative: " + (props.initiative ? props.initiative : "")}
+          </StyledInfoLabel>
+          <StyledInfoLabel>
+            {"Bonus: " + (props.bonus >= 0 ? "+" + props.bonus : props.bonus)}
+          </StyledInfoLabel>
+        </StyledTTContentcontainer>
+      </StyledMobileOnlyColumn>
+      <StyledMobileOnlyColumn>
+        <StyledTTContentcontainer>
+          <StyledInfoLabel>Reaction Used?</StyledInfoLabel>
+          <ReactionTracker
+            isGM={props.isGM}
+            reactionUsed={props.reactionUsed}
+            position={props.position}
+            UpdateParticipantReaction={props.UpdateParticipantReaction}
+          />
+        </StyledTTContentcontainer>
+        {props.isGM && props.isHidden && (
+          <StyledTTContentcontainer>
+            <StyledMinorfunctionButton
+              onClick={() => {
+                props.UnhideParticipant(props.position);
+              }}
+            >
+              unhide
+            </StyledMinorfunctionButton>
+          </StyledTTContentcontainer>
+        )}
+      </StyledMobileOnlyColumn>
+
       <StyledTTContentcontainer>
         <StyledXButton
           buttonSize={40}
@@ -223,7 +228,6 @@ function AddModal(props) {
             <input
               type={"checkbox"}
               onClick={() => {
-                console.log(!isHidden.current);
                 isHidden.current = !isHidden.current;
               }}
             ></input>
