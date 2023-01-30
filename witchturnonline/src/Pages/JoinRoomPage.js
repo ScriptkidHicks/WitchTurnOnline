@@ -44,9 +44,7 @@ function JoinRoomPage(props) {
     });
 
     return () => {
-      props.socket.off("room_valid", (data) => {
-        console.log("room valid off");
-      });
+      props.socket.off("room_valid", (data) => {});
     };
   }, []);
 
@@ -58,9 +56,7 @@ function JoinRoomPage(props) {
     });
 
     return () => {
-      props.socket.off("room_not_valid", (data) => {
-        console.log("stopped listening to room valid");
-      });
+      props.socket.off("room_not_valid", (data) => {});
     };
   }, []);
 
@@ -71,11 +67,7 @@ function JoinRoomPage(props) {
       navigate(`/initiative/${data.room}`);
     });
 
-    return () =>
-      props.socket.off("room_generated", (data) => {
-        console.log(data);
-        console.log("room generated off");
-      });
+    return () => props.socket.off("room_generated", (data) => {});
   }, []);
 
   return (

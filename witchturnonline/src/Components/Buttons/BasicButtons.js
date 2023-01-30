@@ -127,25 +127,24 @@ function LeftRightButton(props) {
       onClick={() => {
         let startIndex = props.displayIndecies.start;
         let endIndex = props.displayIndecies.end;
+
         startIndex += props.variable;
         endIndex += props.variable;
-        startIndex = startIndex % props.size;
-        endIndex = endIndex % props.size;
 
         if (startIndex < 0) {
-          startIndex = 0;
+          startIndex = props.size + startIndex;
         }
 
         if (endIndex < 0) {
-          endIndex = 0;
-        }
-        if (startIndex === endIndex) {
-          startIndex = props.size + props.variable - 1;
-          endIndex = props.size - 1;
+          endIndex = props.size + endIndex;
         }
 
-        if (Math.abs(endIndex - startIndex) < Math.abs(props.variable)) {
-          endIndex = startIndex + Math.abs(props.variable);
+        if (startIndex >= props.size) {
+          startIndex = startIndex - props.size;
+        }
+
+        if (endIndex > props.size) {
+          endIndex = endIndex - props.size;
         }
         props.setIndecies({ start: startIndex, end: endIndex });
       }}

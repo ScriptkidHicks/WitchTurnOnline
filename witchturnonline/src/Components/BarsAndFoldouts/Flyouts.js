@@ -69,7 +69,6 @@ function FlyoutSection(props) {
         position={props.position}
         currentPosition={props.currentPosition}
         onClick={() => {
-          console.log(props.position);
           props.setPosition(props.position);
         }}
       >

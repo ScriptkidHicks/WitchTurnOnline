@@ -154,6 +154,10 @@ const StyledTTPicture = styled.img`
 const StyledTTPictureOption = styled(StyledTTPicture)`
   margin: 10px;
 
+  @media screen and (max-width: 400px) {
+    margin: 3px;
+  }
+
   :hover {
     box-shadow: 4px 4px 4px black;
   }
@@ -240,6 +244,11 @@ const StyledPictureSelectorRoll = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
+
+  @media screen and (max-width: 400px) {
+    position: fixed;
+    right: 5px;
+  }
 `;
 
 const StyledLeftRightButton = styled.button`

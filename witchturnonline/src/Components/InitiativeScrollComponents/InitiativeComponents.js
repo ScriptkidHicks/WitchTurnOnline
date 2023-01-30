@@ -31,7 +31,6 @@ function InitiativeRoll(props) {
     <StyledTurnContainerWrapper>
       <StyledTurncontainer>
         {props.participants.map((character, index) => {
-          console.log("bonus " + character.bonus);
           if (props.isGM && character.isHidden) {
             let firstThief = isFirst;
             isFirst = false;
@@ -130,7 +129,7 @@ function TurnTaker(props) {
         </StyledTTContentcontainer>
       </StyledMobileOnlyColumn>
       <StyledMobileOnlyColumn>
-        <StyledTTContentcontainer width={"25%"}>
+        <StyledTTContentcontainer>
           <StyledInfoLabel>Reaction Used?</StyledInfoLabel>
           <ReactionTracker
             isGM={props.isGM}
@@ -229,7 +228,6 @@ function AddModal(props) {
             <input
               type={"checkbox"}
               onClick={() => {
-                console.log(!isHidden.current);
                 isHidden.current = !isHidden.current;
               }}
             ></input>
