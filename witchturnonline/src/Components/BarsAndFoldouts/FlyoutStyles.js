@@ -89,14 +89,41 @@ const StyledTabLabel = styled.div`
 const StyledExpandingModal = styled.div`
   background-image: url(${(props) => (!props.open ? props.background : "")});
   background-size: cover;
-  width: ${(props) => (props.open ? "40vw" : "50px")};
+  width: ${(props) => (props.open ? "45vw" : "50px")};
   height: ${(props) => (props.open ? "100vh" : "50px")};
   border-radius: ${(props) => (props.open ? "30px 0px 0px 30px" : "50%")};
   position: fixed;
-  right: ${(props) => (props.open ? "0" : "30px")};
-  top: ${(props) => (props.open ? "0" : "30px")};
+  right: ${(props) => (props.open ? "0" : props.right ? props.right : "30px")};
+  top: ${(props) => (props.open ? "0" : props.top ? props.top : "30px ")};
   background-color: green;
   transition: ease-in-out 0.5s;
+  z-index: 99;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  @media screen and (max-width: 800px) {
+    width: ${(props) => (props.open ? "100vw" : "50px")};
+  }
+`;
+
+const StyledCloseExpandingModal = styled.div`
+  background-color: ${DarkColorStyles.DarkBackgroundGreen};
+  border: 2px solid white;
+  color: white;
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  width: 30px;
+  height: 30px;
+  box-shadow: 2px 2px 2px black;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 `;
 
 export {
@@ -107,4 +134,5 @@ export {
   StyledTabClicker,
   StyledTabLabel,
   StyledExpandingModal,
+  StyledCloseExpandingModal,
 };

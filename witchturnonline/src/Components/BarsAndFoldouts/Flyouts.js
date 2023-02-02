@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {
+  StyledCloseExpandingModal,
   StyledExpandingModal,
   StyledFlyoutTabContent,
   StyledTabbedFlyoutBody,
@@ -84,11 +85,30 @@ function ExpandingButtonModal(props) {
     <StyledExpandingModal
       background={props.background}
       open={props.open}
-      onClick={() => props.setOpen(true)}
+      onClick={() => {
+        props.setOpen(true);
+        console.log(props.setOpen);
+      }}
     >
       {props.open && props.children}
     </StyledExpandingModal>
   );
 }
 
-export { ExpandingButtonModal, FlyoutSection };
+function CloseExpandingModal(props) {
+  return (
+    <StyledCloseExpandingModal
+      onClick={(event) => {
+        console.log("I have been clicked");
+        console.log(props.setOpen);
+        props.setOpen(false);
+        event.stopPropagation();
+      }}
+      open={props.open}
+    >
+      X
+    </StyledCloseExpandingModal>
+  );
+}
+
+export { ExpandingButtonModal, FlyoutSection, CloseExpandingModal };

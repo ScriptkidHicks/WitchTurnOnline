@@ -20,6 +20,7 @@ import {
 import {
   TabbedFlyout,
   ExpandingButtonModal,
+  CloseExpandingModal,
 } from "../Components/BarsAndFoldouts/Flyouts";
 
 import Wizard from "../Assets/Wizard.png";
@@ -266,11 +267,12 @@ function Base20InitiativePage(props) {
           SetVisible={setAddModalVisible}
         />
       )}
-      <ExpandingButtonModal
-        background={Wizard}
-        open={open}
-        setOpen={setOpen}
-      ></ExpandingButtonModal>
+      <ExpandingButtonModal background={Wizard} open={open} setOpen={setOpen}>
+        <CloseExpandingModal
+          setOpen={setOpen}
+          open={props.open}
+        ></CloseExpandingModal>
+      </ExpandingButtonModal>
       <DefaultPageColumn
         flexGrow={2}
         modalOn={addModalVisible}
