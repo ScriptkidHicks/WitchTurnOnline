@@ -17,7 +17,12 @@ import {
   StyledCopyFlyout,
   StyledHiddenInfo,
 } from "../Components/BarsAndFoldouts/FlyoutStyles";
-import TabbedFlyout from "../Components/BarsAndFoldouts/Flyouts";
+import {
+  TabbedFlyout,
+  ExpandingButtonModal,
+} from "../Components/BarsAndFoldouts/Flyouts";
+
+import Wizard from "../Assets/Wizard.png";
 
 import { HamburgerBarButton } from "../Components/Buttons/BasicButtons";
 
@@ -261,6 +266,11 @@ function Base20InitiativePage(props) {
           SetVisible={setAddModalVisible}
         />
       )}
+      <ExpandingButtonModal
+        background={Wizard}
+        open={open}
+        setOpen={setOpen}
+      ></ExpandingButtonModal>
       <DefaultPageColumn
         flexGrow={2}
         modalOn={addModalVisible}

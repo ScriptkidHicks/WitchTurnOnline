@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {
+  StyledExpandingModal,
   StyledFlyoutTabContent,
   StyledTabbedFlyoutBody,
   StyledTabClicker,
@@ -78,4 +79,16 @@ function FlyoutSection(props) {
   );
 }
 
-export default TabbedFlyout;
+function ExpandingButtonModal(props) {
+  return (
+    <StyledExpandingModal
+      background={props.background}
+      open={props.open}
+      onClick={() => props.setOpen(true)}
+    >
+      {props.open && props.children}
+    </StyledExpandingModal>
+  );
+}
+
+export { ExpandingButtonModal, FlyoutSection };

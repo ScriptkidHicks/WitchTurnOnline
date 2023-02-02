@@ -86,6 +86,19 @@ const StyledTabLabel = styled.div`
   overflow-wrap: break-word;
 `;
 
+const StyledExpandingModal = styled.div`
+  background-image: url(${(props) => (!props.open ? props.background : "")});
+  background-size: cover;
+  width: ${(props) => (props.open ? "40vw" : "50px")};
+  height: ${(props) => (props.open ? "100vh" : "50px")};
+  border-radius: ${(props) => (props.open ? "30px 0px 0px 30px" : "50%")};
+  position: fixed;
+  right: ${(props) => (props.open ? "0" : "30px")};
+  top: ${(props) => (props.open ? "0" : "30px")};
+  background-color: green;
+  transition: ease-in-out 0.5s;
+`;
+
 export {
   StyledCopyFlyout,
   StyledHiddenInfo,
@@ -93,4 +106,5 @@ export {
   StyledFlyoutTabContent,
   StyledTabClicker,
   StyledTabLabel,
+  StyledExpandingModal,
 };
