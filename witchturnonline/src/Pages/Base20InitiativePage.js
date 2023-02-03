@@ -21,6 +21,7 @@ import {
   TabbedFlyout,
   ExpandingButtonModal,
   CloseExpandingModal,
+  PremadeMonsterScroll,
 } from "../Components/BarsAndFoldouts/Flyouts";
 
 import Wizard from "../Assets/Wizard.png";
@@ -272,6 +273,7 @@ function Base20InitiativePage(props) {
           setOpen={setOpen}
           open={props.open}
         ></CloseExpandingModal>
+        <PremadeMonsterScroll />
       </ExpandingButtonModal>
       <DefaultPageColumn
         flexGrow={2}

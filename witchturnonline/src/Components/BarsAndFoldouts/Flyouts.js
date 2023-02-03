@@ -1,8 +1,15 @@
 import { useState } from "react";
 import {
+  StyledMobileOnlyColumn,
+  StyledTTContentcontainer,
+  StyledTTPicture,
+} from "../StyledComponents/InitiativeStyles";
+import {
   StyledCloseExpandingModal,
   StyledExpandingModal,
   StyledFlyoutTabContent,
+  StyledPremadeMonster,
+  StyledPremadeMonstersScroll,
   StyledTabbedFlyoutBody,
   StyledTabClicker,
   StyledTabLabel,
@@ -111,4 +118,36 @@ function CloseExpandingModal(props) {
   );
 }
 
-export { ExpandingButtonModal, FlyoutSection, CloseExpandingModal };
+function PremadeMonsterScroll(props) {
+  return (
+    <StyledPremadeMonstersScroll>
+      <StyledPremadeMonster />
+      <StyledPremadeMonster />
+      <StyledPremadeMonster />
+      <StyledPremadeMonster />
+      <StyledPremadeMonster />
+      <StyledPremadeMonster />
+      <StyledPremadeMonster />
+      <StyledPremadeMonster />
+    </StyledPremadeMonstersScroll>
+  );
+}
+
+function PremadeMonster(props) {
+  return (
+    <StyledPremadeMonster>
+      <StyledMobileOnlyColumn>
+        <StyledTTContentcontainer>
+          <StyledTTPicture src={props.src}></StyledTTPicture>
+        </StyledTTContentcontainer>
+      </StyledMobileOnlyColumn>
+    </StyledPremadeMonster>
+  );
+}
+
+export {
+  ExpandingButtonModal,
+  FlyoutSection,
+  CloseExpandingModal,
+  PremadeMonsterScroll,
+};

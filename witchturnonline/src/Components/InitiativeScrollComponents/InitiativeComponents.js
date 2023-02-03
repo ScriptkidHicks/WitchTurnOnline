@@ -112,7 +112,7 @@ function TurnTakerPictureAndSheet(props) {
   return (
     <StyledTTPictureExpanding
       onClick={() => {
-        props.setOpen(true);
+        // props.setOpen(true);
       }}
       imageSource={props.src}
       open={props.open}

@@ -101,7 +101,8 @@ const StyledExpandingModal = styled.div`
 
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  justify-content: flex-end;
+  align-items: center;
 
   @media screen and (max-width: 800px) {
     width: ${(props) => (props.open ? "100vw" : "50px")};
@@ -126,6 +127,32 @@ const StyledCloseExpandingModal = styled.div`
   text-align: center;
 `;
 
+const StyledPremadeMonstersScroll = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.3);
+  height: 80vh;
+  border-radius: 20px;
+  padding: 10px;
+  overflow-y: scroll;
+  margin-bottom: 20px;
+`;
+
+const StyledPremadeMonster = styled.div`
+  background-color: orange;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space evenly;
+  min-height: 100px;
+  width: 90%;
+  border-radius: 20px;
+  margin-bottom: 10px;
+`;
+
 export {
   StyledCopyFlyout,
   StyledHiddenInfo,
@@ -135,4 +162,6 @@ export {
   StyledTabLabel,
   StyledExpandingModal,
   StyledCloseExpandingModal,
+  StyledPremadeMonster,
+  StyledPremadeMonstersScroll,
 };
