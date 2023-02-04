@@ -3,6 +3,7 @@ import {
   StyledMobileOnlyColumn,
   StyledTTContentcontainer,
   StyledTTPicture,
+  StyledInfoLabel,
 } from "../StyledComponents/InitiativeStyles";
 import {
   StyledCloseExpandingModal,
@@ -121,14 +122,7 @@ function CloseExpandingModal(props) {
 function PremadeMonsterScroll(props) {
   return (
     <StyledPremadeMonstersScroll>
-      <StyledPremadeMonster />
-      <StyledPremadeMonster />
-      <StyledPremadeMonster />
-      <StyledPremadeMonster />
-      <StyledPremadeMonster />
-      <StyledPremadeMonster />
-      <StyledPremadeMonster />
-      <StyledPremadeMonster />
+      <PremadeMonster></PremadeMonster>
     </StyledPremadeMonstersScroll>
   );
 }
@@ -140,7 +134,15 @@ function PremadeMonster(props) {
         <StyledTTContentcontainer>
           <StyledTTPicture src={props.src}></StyledTTPicture>
         </StyledTTContentcontainer>
+        <StyledTTContentcontainer>
+          <StyledInfoLabel>
+            {"Bonus: " + (props.bonus >= 0 ? "+" + props.bonus : props.bonus)}
+          </StyledInfoLabel>
+        </StyledTTContentcontainer>
       </StyledMobileOnlyColumn>
+      <StyledTTContentcontainer>
+        <StyledInfoLabel>Hidden?</StyledInfoLabel>
+      </StyledTTContentcontainer>
     </StyledPremadeMonster>
   );
 }
