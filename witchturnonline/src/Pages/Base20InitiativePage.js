@@ -26,6 +26,8 @@ import {
 
 import Wizard from "../Assets/Wizard.png";
 
+import names from "../Assets/Names";
+
 import { HamburgerBarButton } from "../Components/Buttons/BasicButtons";
 
 function Base20InitiativePage(props) {
@@ -158,8 +160,22 @@ function Base20InitiativePage(props) {
 */
   function AddParticipant(picture, name, initiative, bonus, isHidden) {
     let updatedParticipants = [...participants];
+    let tempname = name;
+
+    console.log(names);
+
+    if (names.has(tempname)) {
+      names.set(tempname, names.get(tempname) + 1);
+      tempname = tempname + " (" + names.get(tempname) + ")";
+    } else {
+      names.set(tempname, 1);
+    }
+
+    console.log(names);
+
+    console.log(tempname);
     let newParticipant = {
-      name: name,
+      name: tempname,
       img: picture,
       initiative: initiative,
       bonus: bonus,
