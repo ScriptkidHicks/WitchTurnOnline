@@ -273,7 +273,7 @@ function Base20InitiativePage(props) {
           setOpen={setOpen}
           open={props.open}
         ></CloseExpandingModal>
-        <PremadeMonsterScroll />
+        <PremadeMonsterScroll AddParticipant={AddParticipant} />
       </ExpandingButtonModal>
       <DefaultPageColumn
         flexGrow={2}
@@ -298,7 +298,7 @@ function Base20InitiativePage(props) {
                 setAddModalVisible(true);
               }}
             >
-              Add Participant
+              Add Custom
             </StyledTurnandAddButton>
             <StyledTurnandAddButton onClick={ReduceTurn}>
               reduce turn
@@ -313,7 +313,7 @@ function Base20InitiativePage(props) {
                 setAddModalVisible(true);
               }}
             >
-              Add Participant
+              Add custom
             </StyledTurnandAddButton>
           </StyledButtonRow>
         )}
@@ -331,7 +331,7 @@ function Base20InitiativePage(props) {
             setAddModalVisible(true);
           }}
         >
-          Add Participant
+          Add Custom
         </StyledTurnandAddButton>
       </DefaultPageColumn>
       {/*<TabbedFlyout open={open} />

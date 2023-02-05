@@ -16,6 +16,8 @@ import {
   StyledTabLabel,
 } from "./FlyoutStyles";
 
+import monsters from "../../Assets/MonsterOnlyAssets/Monsters";
+
 function TabbedFlyout(props) {
   const [selectedTab, setSelectedTab] = useState(1);
   return (
@@ -122,17 +124,40 @@ function CloseExpandingModal(props) {
 function PremadeMonsterScroll(props) {
   return (
     <StyledPremadeMonstersScroll>
-      <PremadeMonster></PremadeMonster>
+      {monsters.map((monster, index) => {
+        return (
+          <PremadeMonster
+            src={monster.src}
+            bonus={monster.bonus}
+            key={index}
+            name={monster.name}
+            AddParticipant={props.AddParticipant}
+          />
+        );
+      })}
     </StyledPremadeMonstersScroll>
   );
 }
 
 function PremadeMonster(props) {
   return (
-    <StyledPremadeMonster>
+    <StyledPremadeMonster
+      onClick={() =>
+        props.AddParticipant(
+          props.src,
+          props.name,
+          undefined,
+          props.bonus,
+          false
+        )
+      }
+    >
       <StyledMobileOnlyColumn>
         <StyledTTContentcontainer>
           <StyledTTPicture src={props.src}></StyledTTPicture>
+          <StyledInfoLabel>
+            {props.name ? props.name : "Johnathan"}
+          </StyledInfoLabel>
         </StyledTTContentcontainer>
         <StyledTTContentcontainer>
           <StyledInfoLabel>

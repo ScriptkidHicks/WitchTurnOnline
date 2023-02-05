@@ -296,7 +296,7 @@ function AddModal(props) {
           }
           SetVisible={props.SetVisible}
         >
-          Add Participant
+          Add
         </CompleteModalButton>
       </StyledModalInterfaceDiv>
     </StyledModalBackground>
