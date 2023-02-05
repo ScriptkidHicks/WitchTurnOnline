@@ -17,6 +17,7 @@ import {
 } from "./FlyoutStyles";
 
 import monsters from "../../Assets/MonsterOnlyAssets/Monsters";
+import { StyledMinorfunctionButton } from "../StyledComponents/MainStyles";
 
 function TabbedFlyout(props) {
   const [selectedTab, setSelectedTab] = useState(1);
@@ -109,7 +110,6 @@ function CloseExpandingModal(props) {
   return (
     <StyledCloseExpandingModal
       onClick={(event) => {
-        console.log("I have been clicked");
         console.log(props.setOpen);
         props.setOpen(false);
         event.stopPropagation();
@@ -140,6 +140,7 @@ function PremadeMonsterScroll(props) {
 }
 
 function PremadeMonster(props) {
+  const [hidden, setHidden] = useState(false);
   return (
     <StyledPremadeMonster
       onClick={() =>
@@ -148,7 +149,7 @@ function PremadeMonster(props) {
           props.name,
           undefined,
           props.bonus,
-          false
+          hidden
         )
       }
     >
@@ -167,6 +168,15 @@ function PremadeMonster(props) {
       </StyledMobileOnlyColumn>
       <StyledTTContentcontainer>
         <StyledInfoLabel>Hidden?</StyledInfoLabel>
+        <StyledMinorfunctionButton
+          onClick={(event) => {
+            event.stopPropagation();
+            setHidden(!hidden);
+          }}
+        >
+          {hidden && "Yes"}
+          {!hidden && "No"}
+        </StyledMinorfunctionButton>
       </StyledTTContentcontainer>
     </StyledPremadeMonster>
   );

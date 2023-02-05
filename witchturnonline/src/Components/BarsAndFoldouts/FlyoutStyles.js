@@ -151,6 +151,15 @@ const StyledPremadeMonster = styled.div`
   width: 90%;
   border-radius: 20px;
   margin-bottom: 10px;
+  transition: ease all 0.2s;
+
+  :hover {
+    box-shadow: 3px 3px 3px black;
+  }
+
+  :active {
+    box-shadow: 1px 1px 1px black;
+  }
 `;
 
 export {
