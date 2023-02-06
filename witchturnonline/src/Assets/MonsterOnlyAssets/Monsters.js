@@ -1,4 +1,4 @@
-import Goblin from "./Goblin.jpg";
+import Goblin from "./Goblin.png";
 
 const monsters = [{ src: Goblin, bonus: 1, name: "Goblin" }];
 

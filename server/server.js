@@ -9,7 +9,9 @@ const app = express();
 app.use(cors());
 
 app.get("/", (req, res) => {
-  res.send("<h1>HELLO WORLD</h1>");
+  res.send(
+    "<h1>I am afraid you have severly misunderstood what this server portion is for</h1>"
+  );
 });
 
 const server = http.createServer(app);

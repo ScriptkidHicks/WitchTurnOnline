@@ -22,7 +22,7 @@ import {
   StyledXButton,
 } from "../StyledComponents/MainStyles";
 
-import { picturesList } from "../../Assets/Pictures";
+import { picturesList } from "../../Assets/PlayerAssets/Pictures";
 
 function InitiativeRoll(props) {
   let isFirst = true;

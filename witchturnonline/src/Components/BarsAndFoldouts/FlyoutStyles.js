@@ -95,7 +95,7 @@ const StyledExpandingModal = styled.div`
   position: fixed;
   right: ${(props) => (props.open ? "0" : props.right ? props.right : "30px")};
   top: ${(props) => (props.open ? "0" : props.top ? props.top : "30px ")};
-  background-color: green;
+  background-color: #224d3e;
   transition: ease-in-out 0.5s;
   z-index: 99;
 
@@ -111,20 +111,30 @@ const StyledExpandingModal = styled.div`
 
 const StyledCloseExpandingModal = styled.div`
   background-color: ${DarkColorStyles.DarkBackgroundGreen};
-  border: 2px solid white;
+  border: 2px ${DarkColorStyles.DarkBackgroundGreen} solid;
+  font-weight: bolder;
   color: white;
   position: absolute;
   left: 20px;
   top: 20px;
   width: 30px;
   height: 30px;
-  box-shadow: 2px 2px 2px black;
   border-radius: 50%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
+  cursor: default;
+  transition: ease all 0.3s;
+
+  :hover {
+    border-radius: 10px;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4);
+    border: 2px ${DarkColorStyles.DarkBorderGreen} solid;
+    background-color: ${DarkColorStyles.DarkBackgroundGreen};
+    color: ${DarkColorStyles.DarkTextGreen};
+  }
 `;
 
 const StyledPremadeMonstersScroll = styled.div`
@@ -133,16 +143,23 @@ const StyledPremadeMonstersScroll = styled.div`
   width: 90%;
   justify-content: flex-start;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.3);
   height: 80vh;
   border-radius: 20px;
   padding: 10px;
   overflow-y: scroll;
   margin-bottom: 20px;
+  background-image: linear-gradient(
+    ${DarkColorStyles.LightBackgroundGreen},
+    ${DarkColorStyles.DarkTextGreen}
+  );
+  box-shadow: inset 4px 4px 2px black;
 `;
 
 const StyledPremadeMonster = styled.div`
-  background-color: orange;
+  background-image: linear-gradient(
+    ${DarkColorStyles.LighterGreyPurpleBackground},
+    ${DarkColorStyles.DarkPurpleBackground}
+  );
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -152,10 +169,8 @@ const StyledPremadeMonster = styled.div`
   border-radius: 20px;
   margin-bottom: 10px;
   transition: ease all 0.2s;
-
-  :hover {
-    box-shadow: 3px 3px 3px black;
-  }
+  padding: 5px;
+  box-shadow: 0px 4px 4px black;
 
   :active {
     box-shadow: 1px 1px 1px black;

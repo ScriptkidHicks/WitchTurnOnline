@@ -24,9 +24,9 @@ import {
   PremadeMonsterScroll,
 } from "../Components/BarsAndFoldouts/Flyouts";
 
-import Wizard from "../Assets/Wizard.png";
+import Wizard from "../Assets/PlayerAssets/Wizard.png";
 
-import names from "../Assets/Names";
+import names from "../Assets/PlayerAssets/Names";
 
 import { HamburgerBarButton } from "../Components/Buttons/BasicButtons";
 
@@ -52,6 +52,9 @@ function Base20InitiativePage(props) {
   //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
   useEffect(() => {
+    //clear the names list
+    names.clear();
+
     props.setRoom(room);
     const eventListener = (data) => {};
 
@@ -226,6 +229,10 @@ function Base20InitiativePage(props) {
     if (tempoffset < 0) {
       tempoffset = updatedParticipants.length + tempoffset;
     }
+
+    //reset the reaction used state of the first participant
+    updatedParticipants[0].reactionUsed = false;
+
     SendRoll(updatedParticipants, tempoffset);
     setOffset(tempoffset);
   }
