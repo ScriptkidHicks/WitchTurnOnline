@@ -94,7 +94,7 @@ const StyledExpandingModal = styled.div`
   border-radius: ${(props) => (props.open ? "30px 0px 0px 30px" : "50%")};
   position: fixed;
   right: ${(props) => (props.open ? "0" : props.right ? props.right : "30px")};
-  top: ${(props) => (props.open ? "0" : props.top ? props.top : "30px ")};
+  bottom: ${(props) => (props.open ? "0" : props.top ? props.top : "30px ")};
   background-color: #224d3e;
   transition: ease-in-out 0.5s;
   z-index: 99;
@@ -152,7 +152,7 @@ const StyledPremadeMonstersScroll = styled.div`
     ${DarkColorStyles.LightBackgroundGreen},
     ${DarkColorStyles.DarkTextGreen}
   );
-  box-shadow: inset 4px 4px 2px black;
+  box-shadow: inset 4px 4px 2px rgba(0, 0, 0, 0.6);
 `;
 
 const StyledPremadeMonster = styled.div`
@@ -169,7 +169,7 @@ const StyledPremadeMonster = styled.div`
   border-radius: 20px;
   margin-bottom: 10px;
   transition: ease all 0.2s;
-  padding: 5px;
+  padding: 10px 5px;
   box-shadow: 0px 4px 4px black;
 
   :active {

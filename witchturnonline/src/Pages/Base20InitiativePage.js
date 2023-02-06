@@ -26,6 +26,8 @@ import {
 
 import Wizard from "../Assets/PlayerAssets/Wizard.png";
 
+import Kobold from "../Assets/MonsterOnlyAssets/Kobold.png";
+
 import names from "../Assets/PlayerAssets/Names";
 
 import { HamburgerBarButton } from "../Components/Buttons/BasicButtons";
@@ -291,7 +293,7 @@ function Base20InitiativePage(props) {
           SetVisible={setAddModalVisible}
         />
       )}
-      <ExpandingButtonModal background={Wizard} open={open} setOpen={setOpen}>
+      <ExpandingButtonModal background={Kobold} open={open} setOpen={setOpen}>
         <CloseExpandingModal
           setOpen={setOpen}
           open={props.open}
