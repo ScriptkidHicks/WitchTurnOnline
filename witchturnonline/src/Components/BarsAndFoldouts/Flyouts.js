@@ -18,6 +18,11 @@ import {
 
 import monsters from "../../Assets/MonsterOnlyAssets/Monsters";
 import { StyledMinorfunctionButton } from "../StyledComponents/MainStyles";
+import { useEffect } from "react";
+import {
+  AbstractDualQualitySorter,
+  SortObjectsByName,
+} from "../../Helpers/HelperFunctions";
 
 function TabbedFlyout(props) {
   const [selectedTab, setSelectedTab] = useState(1);
@@ -124,7 +129,7 @@ function CloseExpandingModal(props) {
 function PremadeMonsterScroll(props) {
   return (
     <StyledPremadeMonstersScroll>
-      {monsters.map((monster, index) => {
+      {props.monsters.map((monster, index) => {
         return (
           <PremadeMonster
             src={monster.src}

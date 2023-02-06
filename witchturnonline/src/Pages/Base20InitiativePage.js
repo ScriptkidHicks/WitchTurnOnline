@@ -5,6 +5,7 @@ import {
 import {
   DefaultPageBody,
   DefaultPageColumn,
+  StyledSearchListInput,
 } from "../Components/StyledComponents/MainStyles";
 import { useEffect, useState } from "react";
 import {
@@ -24,13 +25,18 @@ import {
   PremadeMonsterScroll,
 } from "../Components/BarsAndFoldouts/Flyouts";
 
-import Wizard from "../Assets/PlayerAssets/Wizard.png";
+import {
+  AbstractDualQualitySorter,
+  SortObjectsByName,
+} from "../Helpers/HelperFunctions";
 
 import Kobold from "../Assets/MonsterOnlyAssets/Kobold.png";
 
 import names from "../Assets/PlayerAssets/Names";
 
 import { HamburgerBarButton } from "../Components/Buttons/BasicButtons";
+import monsters from "../Assets/MonsterOnlyAssets/Monsters";
+import { SortedListSearcher } from "../Components/SearchBars/GenericInputs";
 
 function Base20InitiativePage(props) {
   // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -47,6 +53,10 @@ function Base20InitiativePage(props) {
   const [offset, setOffset] = useState(0);
 
   const [addModalVisible, setAddModalVisible] = useState(false);
+
+  let AllMonsters = SortObjectsByName(monsters);
+
+  const [monsterList, setMonsterList] = useState(AllMonsters);
 
   /*
     Use Effects
@@ -167,8 +177,6 @@ function Base20InitiativePage(props) {
     let updatedParticipants = [...participants];
     let tempname = name;
 
-    console.log(names);
-
     if (names.has(tempname)) {
       names.set(tempname, names.get(tempname) + 1);
       tempname = tempname + " (" + names.get(tempname) + ")";
@@ -176,9 +184,6 @@ function Base20InitiativePage(props) {
       names.set(tempname, 1);
     }
 
-    console.log(names);
-
-    console.log(tempname);
     let newParticipant = {
       name: tempname,
       img: picture,
@@ -195,7 +200,11 @@ function Base20InitiativePage(props) {
         Math.floor(Math.random() * 19 + 1) + Number(bonus);
     }
     updatedParticipants.push(newParticipant);
-    updatedParticipants = SortParticipantsHelper(updatedParticipants);
+    updatedParticipants = AbstractDualQualitySorter(
+      updatedParticipants,
+      "initiative",
+      "bonus"
+    );
 
     let insertIndex = updatedParticipants.findIndex((obj) => {
       return obj === newParticipant;
@@ -298,7 +307,16 @@ function Base20InitiativePage(props) {
           setOpen={setOpen}
           open={props.open}
         ></CloseExpandingModal>
-        <PremadeMonsterScroll AddParticipant={AddParticipant} />
+        <SortedListSearcher
+          placeholder={"Search for a Monster"}
+          filteredList={monsterList}
+          baseList={AllMonsters}
+          setFilteredList={setMonsterList}
+        ></SortedListSearcher>
+        <PremadeMonsterScroll
+          monsters={monsterList}
+          AddParticipant={AddParticipant}
+        />
       </ExpandingButtonModal>
       <DefaultPageColumn
         flexGrow={2}
