@@ -103,7 +103,6 @@ function ExpandingButtonModal(props) {
       open={props.open}
       onClick={() => {
         props.setOpen(true);
-        console.log(props.setOpen);
       }}
     >
       {props.open && props.children}
@@ -115,7 +114,7 @@ function CloseExpandingModal(props) {
   return (
     <StyledCloseExpandingModal
       onClick={(event) => {
-        console.log(props.setOpen);
+        props.resetFunction(props.listBaseState);
         props.setOpen(false);
         event.stopPropagation();
       }}

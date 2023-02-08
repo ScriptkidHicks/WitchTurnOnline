@@ -304,6 +304,8 @@ function Base20InitiativePage(props) {
       )}
       <ExpandingButtonModal background={Kobold} open={open} setOpen={setOpen}>
         <CloseExpandingModal
+          listBaseState={AllMonsters}
+          resetFunction={setMonsterList}
           setOpen={setOpen}
           open={props.open}
         ></CloseExpandingModal>
