@@ -86,6 +86,97 @@ const StyledTabLabel = styled.div`
   overflow-wrap: break-word;
 `;
 
+const StyledExpandingModal = styled.div`
+  background-image: url(${(props) => (!props.open ? props.background : "")});
+  background-size: cover;
+  width: ${(props) => (props.open ? "45vw" : "50px")};
+  height: ${(props) => (props.open ? "100vh" : "50px")};
+  border-radius: ${(props) => (props.open ? "30px 0px 0px 30px" : "50%")};
+  position: fixed;
+  right: ${(props) => (props.open ? "0" : props.right ? props.right : "30px")};
+  bottom: ${(props) => (props.open ? "0" : props.top ? props.top : "30px ")};
+  background-color: #224d3e;
+  transition: ease-in-out 0.5s;
+  z-index: 99;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+
+  @media screen and (max-width: 800px) {
+    width: ${(props) => (props.open ? "100vw" : "50px")};
+  }
+`;
+
+const StyledCloseExpandingModal = styled.div`
+  background-color: ${DarkColorStyles.DarkBackgroundGreen};
+  border: 2px ${DarkColorStyles.DarkBackgroundGreen} solid;
+  font-weight: bolder;
+  color: white;
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  cursor: default;
+  transition: ease all 0.3s;
+
+  :hover {
+    border-radius: 10px;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4);
+    border: 2px ${DarkColorStyles.DarkBorderGreen} solid;
+    background-color: ${DarkColorStyles.DarkBackgroundGreen};
+    color: ${DarkColorStyles.DarkTextGreen};
+  }
+`;
+
+const StyledPremadeMonstersScroll = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  justify-content: flex-start;
+  align-items: center;
+  height: 80vh;
+  border-radius: 20px;
+  padding: 10px;
+  overflow-y: scroll;
+  margin-bottom: 20px;
+  background-image: linear-gradient(
+    ${DarkColorStyles.LightBackgroundGreen},
+    ${DarkColorStyles.DarkTextGreen}
+  );
+  box-shadow: inset 4px 4px 2px rgba(0, 0, 0, 0.6);
+`;
+
+const StyledPremadeMonster = styled.div`
+  background-image: linear-gradient(
+    ${DarkColorStyles.LighterGreyPurpleBackground},
+    ${DarkColorStyles.DarkPurpleBackground}
+  );
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space evenly;
+  min-height: 100px;
+  width: 90%;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  transition: ease all 0.2s;
+  padding: 10px 5px;
+  box-shadow: 0px 4px 4px black;
+
+  :active {
+    box-shadow: 1px 1px 1px black;
+  }
+`;
+
 export {
   StyledCopyFlyout,
   StyledHiddenInfo,
@@ -93,4 +184,8 @@ export {
   StyledFlyoutTabContent,
   StyledTabClicker,
   StyledTabLabel,
+  StyledExpandingModal,
+  StyledCloseExpandingModal,
+  StyledPremadeMonster,
+  StyledPremadeMonstersScroll,
 };

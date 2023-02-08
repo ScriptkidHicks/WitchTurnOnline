@@ -1,4 +1,9 @@
-import { StyleableLimitedInput } from "../StyledComponents/MainStyles";
+import { useState } from "react";
+import { Debounce } from "../../Helpers/HelperFunctions";
+import {
+  StyleableLimitedInput,
+  StyledSearchListInput,
+} from "../StyledComponents/MainStyles";
 
 function LimitedInputCombo(props) {
   function onInputFunction(event) {
@@ -19,4 +24,19 @@ function LimitedInputCombo(props) {
   );
 }
 
-export { LimitedInputCombo };
+function SortedListSearcher(props) {
+  const updateContents = Debounce((event) => {
+    let tempArray = props.baseList.filter((item) => {
+      return item.name.toLowerCase().includes(event.target.value.toLowerCase());
+    });
+    props.setFilteredList(tempArray);
+  });
+  return (
+    <StyledSearchListInput
+      onInput={(event) => updateContents(event)}
+      placeholder={props.placeholder}
+    ></StyledSearchListInput>
+  );
+}
+
+export { LimitedInputCombo, SortedListSearcher };

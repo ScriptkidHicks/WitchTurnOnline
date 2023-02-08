@@ -144,7 +144,31 @@ const StyledTTReactionCheckbox = styled.input`
   }
 `;
 
+const StyledTTPictureExpanding = styled.div`
+  background-image: url(${(props) =>
+    !props.open ? props.imageSource : "none"});
+  background-size: cover;
+  height: ${(props) => (props.open ? "100vh" : "50px")};
+  width: ${(props) => (props.open ? "50vw" : "50px")};
+  border-radius: 10px;
+  transition: ease all 0.4s;
+  background-color: ${(props) =>
+    props.open ? DarkColorStyles.DarkBackgroundGreen : "none"};
+  position: ${(props) => (props.open ? "fixed" : " ")};
+  z-index: ${(props) => (props.open ? "99" : "")};
+  left: 25vw;
+  top: ${(props) => (props.open ? "0vh" : "25vh")};
+
+  @media screen and (max-width: 800px) {
+    z-index: ${(props) => (props.open ? "99" : "")};
+    left: ${(props) => (props.open ? "0" : "10vw")};
+    height: ${(props) => (props.open ? "100vh" : "50px")};
+    width: ${(props) => (props.open ? "100vw" : "50px")};
+  }
+`;
+
 const StyledTTPicture = styled.img`
+  background-size: cover;
   height: 50px;
   width: 50px;
   border-radius: 10px;
@@ -301,4 +325,5 @@ export {
   StyledButtonRow,
   StyledTTReactionCheckbox,
   StyledMobileOnlyColumn,
+  StyledTTPictureExpanding,
 };

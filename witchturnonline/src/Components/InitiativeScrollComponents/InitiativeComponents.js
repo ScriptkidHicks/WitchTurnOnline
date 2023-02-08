@@ -7,14 +7,13 @@ import {
   StyledModalBackground,
   StyledModalInterfaceDiv,
   StyledTTContentcontainer,
-  StyledTTPicture,
   StyledTurnTaker,
   StyledTTPictureSelectorButton,
   StyledTurnandAddButton,
   StyledTurnContainerWrapper,
   StyledTurncontainer,
-  StyledTTReactionCheckbox,
   StyledMobileOnlyColumn,
+  StyledTTPictureExpanding,
 } from "../StyledComponents/InitiativeStyles";
 import {
   StyledFormInformationRow,
@@ -23,7 +22,7 @@ import {
   StyledXButton,
 } from "../StyledComponents/MainStyles";
 
-import { picturesList } from "../../Assets/Pictures";
+import { picturesList } from "../../Assets/PlayerAssets/Pictures";
 
 function InitiativeRoll(props) {
   let isFirst = true;
@@ -109,12 +108,31 @@ function ReactionTracker(props) {
   }
 }
 
+function TurnTakerPictureAndSheet(props) {
+  return (
+    <StyledTTPictureExpanding
+      onClick={() => {
+        // props.setOpen(true);
+      }}
+      imageSource={props.src}
+      open={props.open}
+    >
+      {props.open && <div>Pepis</div>}
+    </StyledTTPictureExpanding>
+  );
+}
+
 function TurnTaker(props) {
+  const [open, setOpen] = useState(false);
   return (
     <StyledTurnTaker position={props.position} isFirst={props.isFirst}>
       <StyledMobileOnlyColumn>
         <StyledTTContentcontainer>
-          <StyledTTPicture src={props.img} />
+          <TurnTakerPictureAndSheet
+            src={props.img}
+            open={open}
+            setOpen={setOpen}
+          />
           <StyledInfoLabel>
             {props.name ? props.name : "Johnathan"}
           </StyledInfoLabel>
@@ -217,6 +235,7 @@ function AddModal(props) {
             <StyledTTPictureSelectorButton
               src={picture}
               onClick={() => {
+                console.log(picture);
                 setPicScrollVisible(true);
               }}
             />
@@ -277,11 +296,11 @@ function AddModal(props) {
           }
           SetVisible={props.SetVisible}
         >
-          Add Participant
+          Add
         </CompleteModalButton>
       </StyledModalInterfaceDiv>
     </StyledModalBackground>
   );
 }
 
-export { InitiativeRoll, AddModal };
+export { InitiativeRoll, AddModal, TurnTakerPictureAndSheet };

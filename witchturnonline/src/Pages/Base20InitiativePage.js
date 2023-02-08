@@ -5,6 +5,7 @@ import {
 import {
   DefaultPageBody,
   DefaultPageColumn,
+  StyledSearchListInput,
 } from "../Components/StyledComponents/MainStyles";
 import { useEffect, useState } from "react";
 import {
@@ -17,9 +18,25 @@ import {
   StyledCopyFlyout,
   StyledHiddenInfo,
 } from "../Components/BarsAndFoldouts/FlyoutStyles";
-import TabbedFlyout from "../Components/BarsAndFoldouts/Flyouts";
+import {
+  TabbedFlyout,
+  ExpandingButtonModal,
+  CloseExpandingModal,
+  PremadeMonsterScroll,
+} from "../Components/BarsAndFoldouts/Flyouts";
+
+import {
+  AbstractDualQualitySorter,
+  SortObjectsByName,
+} from "../Helpers/HelperFunctions";
+
+import Kobold from "../Assets/MonsterOnlyAssets/Kobold.png";
+
+import names from "../Assets/PlayerAssets/Names";
 
 import { HamburgerBarButton } from "../Components/Buttons/BasicButtons";
+import monsters from "../Assets/MonsterOnlyAssets/Monsters";
+import { SortedListSearcher } from "../Components/SearchBars/GenericInputs";
 
 function Base20InitiativePage(props) {
   // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -37,12 +54,19 @@ function Base20InitiativePage(props) {
 
   const [addModalVisible, setAddModalVisible] = useState(false);
 
+  let AllMonsters = SortObjectsByName(monsters);
+
+  const [monsterList, setMonsterList] = useState(AllMonsters);
+
   /*
     Use Effects
   */
   //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
   useEffect(() => {
+    //clear the names list
+    names.clear();
+
     props.setRoom(room);
     const eventListener = (data) => {};
 
@@ -151,8 +175,17 @@ function Base20InitiativePage(props) {
 */
   function AddParticipant(picture, name, initiative, bonus, isHidden) {
     let updatedParticipants = [...participants];
+    let tempname = name;
+
+    if (names.has(tempname)) {
+      names.set(tempname, names.get(tempname) + 1);
+      tempname = tempname + " (" + names.get(tempname) + ")";
+    } else {
+      names.set(tempname, 1);
+    }
+
     let newParticipant = {
-      name: name,
+      name: tempname,
       img: picture,
       initiative: initiative,
       bonus: bonus,
@@ -167,7 +200,11 @@ function Base20InitiativePage(props) {
         Math.floor(Math.random() * 19 + 1) + Number(bonus);
     }
     updatedParticipants.push(newParticipant);
-    updatedParticipants = SortParticipantsHelper(updatedParticipants);
+    updatedParticipants = AbstractDualQualitySorter(
+      updatedParticipants,
+      "initiative",
+      "bonus"
+    );
 
     let insertIndex = updatedParticipants.findIndex((obj) => {
       return obj === newParticipant;
@@ -203,6 +240,10 @@ function Base20InitiativePage(props) {
     if (tempoffset < 0) {
       tempoffset = updatedParticipants.length + tempoffset;
     }
+
+    //reset the reaction used state of the first participant
+    updatedParticipants[0].reactionUsed = false;
+
     SendRoll(updatedParticipants, tempoffset);
     setOffset(tempoffset);
   }
@@ -261,6 +302,27 @@ function Base20InitiativePage(props) {
           SetVisible={setAddModalVisible}
         />
       )}
+      {props.isGM && (
+        <ExpandingButtonModal background={Kobold} open={open} setOpen={setOpen}>
+          <CloseExpandingModal
+            listBaseState={AllMonsters}
+            resetFunction={setMonsterList}
+            setOpen={setOpen}
+            open={props.open}
+          ></CloseExpandingModal>
+          <SortedListSearcher
+            placeholder={"Search for a Monster"}
+            filteredList={monsterList}
+            baseList={AllMonsters}
+            setFilteredList={setMonsterList}
+          ></SortedListSearcher>
+          <PremadeMonsterScroll
+            monsters={monsterList}
+            AddParticipant={AddParticipant}
+          />
+        </ExpandingButtonModal>
+      )}
+
       <DefaultPageColumn
         flexGrow={2}
         modalOn={addModalVisible}
@@ -284,7 +346,7 @@ function Base20InitiativePage(props) {
                 setAddModalVisible(true);
               }}
             >
-              Add Participant
+              Add Custom
             </StyledTurnandAddButton>
             <StyledTurnandAddButton onClick={ReduceTurn}>
               reduce turn
@@ -299,7 +361,7 @@ function Base20InitiativePage(props) {
                 setAddModalVisible(true);
               }}
             >
-              Add Participant
+              Add custom
             </StyledTurnandAddButton>
           </StyledButtonRow>
         )}
@@ -317,7 +379,7 @@ function Base20InitiativePage(props) {
             setAddModalVisible(true);
           }}
         >
-          Add Participant
+          Add Custom
         </StyledTurnandAddButton>
       </DefaultPageColumn>
       {/*<TabbedFlyout open={open} />

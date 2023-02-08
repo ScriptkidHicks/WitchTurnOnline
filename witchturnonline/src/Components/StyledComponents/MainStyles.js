@@ -87,6 +87,22 @@ const GenericInputDiv = styled.div`
 
 /* Styled Generic Inputs */
 
+const StyledSearchListInput = styled.input`
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  background-image: linear-gradient(
+    ${DarkColorStyles.GreyPurpleBackground},
+    ${DarkColorStyles.DeepBackgroundPurple}
+  );
+  color: white;
+  outline: none;
+  border: none;
+  box-shadow: inset 2px 2px 3px black;
+  text-align: center;
+  font-weight: bold;
+`;
+
 const StyleableLimitedInput = styled.input`
   background-color: ${(props) =>
     props.backgroundColor
@@ -289,4 +305,5 @@ export {
   StyledBottomHamburgerDiv,
   StyledMiddleHamburgerDiv,
   StyledInputRow,
+  StyledSearchListInput,
 };

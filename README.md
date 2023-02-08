@@ -26,25 +26,19 @@ You can find Witch Turn [here](https://witch-turn-l95l.onrender.com)
 - [ ] There should be a way to track clocks in the same simultaneous fashion as we track initiative.
 - [ ] There should be a way to roll dice in the app, and this information should be communicated to other users (The results are important).
 - [ ] There should be a way to chat within the app. This is of low priority. This goal should be reviewed by users.
-- [ ] There should be a way to track whether an entity has used its reaction.
+- [x] There should be a way to track whether an entity has used its reaction.
+  - Currently the Dm is the only person who can modify this
 - [ ] There should be a way to roll dice for an entity on the entity. This should include things like ways for the GM to track invisible saves and rolls.
 - [ ] There should be an ability to track basic information about the entity on the entity (AC, Health, ETC). For this one players should only be able to alter their own.
 
-## Next Sprint
+## Sprint 2
 
-  The next sprint runs from 1/19/23 through 1/29/23.
+  Sprint 2 runs from 2/1/23 to 2/28/23
   This sprint will cover:
-  - Polishing the UI to an attractive, useful state.
-    - This will include creating more pixel art pictures that we have the rights to, and can be freely used in the app.
-  - Eliminating any remaining bugs in the product.
-  - Cleaning the code for readability, as well as smoothness.
+  - The characters will now have pop out character sheets that you can use to look at their information
+  - More pixel art for character choice
+  - A modal to add generic monsters to the turn order
+  - A way to search through available monsters
+  - Cleaning the code for readability, as well as smoothness. (this was missed in sprint 1)
   
-  At the end of this sprint the Alpha of this product will be released, and will represent the bare minimum version of this product for usability.
-  
-  ### Known Bugs
-  - [x] The right button incorrectly indexes, sometimes showing either the whole list, or none.
-  - this is now resolved by fixing with a few error checks. Issue also closed
-  - [x] The mobile UI is not correctly positioned for use on a mobile device
-  - Minor adjustments while leaving the add button at the top.
-  - [ ] The layout of the main intro page needs to be reworked to have a vertical first layout.
-  - [ ] The buttons do not currently have animations when clicked. This is more noticable for buttons that do not navigate or close modals.
+  Sprint 3 will speculatively cover polishing, 4 will likely cover making a login interface.
