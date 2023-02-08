@@ -302,24 +302,27 @@ function Base20InitiativePage(props) {
           SetVisible={setAddModalVisible}
         />
       )}
-      <ExpandingButtonModal background={Kobold} open={open} setOpen={setOpen}>
-        <CloseExpandingModal
-          listBaseState={AllMonsters}
-          resetFunction={setMonsterList}
-          setOpen={setOpen}
-          open={props.open}
-        ></CloseExpandingModal>
-        <SortedListSearcher
-          placeholder={"Search for a Monster"}
-          filteredList={monsterList}
-          baseList={AllMonsters}
-          setFilteredList={setMonsterList}
-        ></SortedListSearcher>
-        <PremadeMonsterScroll
-          monsters={monsterList}
-          AddParticipant={AddParticipant}
-        />
-      </ExpandingButtonModal>
+      {props.isGM && (
+        <ExpandingButtonModal background={Kobold} open={open} setOpen={setOpen}>
+          <CloseExpandingModal
+            listBaseState={AllMonsters}
+            resetFunction={setMonsterList}
+            setOpen={setOpen}
+            open={props.open}
+          ></CloseExpandingModal>
+          <SortedListSearcher
+            placeholder={"Search for a Monster"}
+            filteredList={monsterList}
+            baseList={AllMonsters}
+            setFilteredList={setMonsterList}
+          ></SortedListSearcher>
+          <PremadeMonsterScroll
+            monsters={monsterList}
+            AddParticipant={AddParticipant}
+          />
+        </ExpandingButtonModal>
+      )}
+
       <DefaultPageColumn
         flexGrow={2}
         modalOn={addModalVisible}
