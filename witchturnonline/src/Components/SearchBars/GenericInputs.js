@@ -25,6 +25,7 @@ function LimitedInputCombo(props) {
 }
 
 function SortedListSearcher(props) {
+  
   const updateContents = Debounce((event) => {
     let tempArray = props.baseList.filter((item) => {
       return item.name.toLowerCase().includes(event.target.value.toLowerCase());

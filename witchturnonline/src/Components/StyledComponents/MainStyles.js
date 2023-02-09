@@ -137,6 +137,31 @@ const StyledInputRow = styled.div`
   justify-content: space-between;
 `;
 
+const StlyedCheckDot = styled.div`
+  background-color: ${(props) =>
+    props.backgroundColor
+      ? props.backgroundColor
+      : DarkColorStyles.LightPurpleHighlight};
+  width: ${(props) => (props.active ? "100%" : "0%")};
+  height: ${(props) => (props.active ? "100%" : "0%")};
+  border-radius: 50%;
+  transition: ease all 0.4s;
+`;
+
+const StyledCheckHousing = styled.div`
+  width: 25px;
+  height: 25px;
+  border-radius: 30px;
+  background-color: ${(props) =>
+    props.backgroundColor
+      ? props.backgroundColor
+      : DarkColorStyles.DarkPurpleBackground};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset 2px 2px 2px black;
+`;
+
 /* Styled Generic Buttons */
 
 const StyleableButton = styled.button`
@@ -306,4 +331,6 @@ export {
   StyledMiddleHamburgerDiv,
   StyledInputRow,
   StyledSearchListInput,
+  StyledCheckHousing,
+  StlyedCheckDot,
 };

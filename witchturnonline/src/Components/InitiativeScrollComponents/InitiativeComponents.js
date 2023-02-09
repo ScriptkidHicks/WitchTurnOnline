@@ -23,6 +23,7 @@ import {
 } from "../StyledComponents/MainStyles";
 
 import { picturesList } from "../../Assets/PlayerAssets/Pictures";
+import { GenericToggle } from "../Buttons/Switches";
 
 function InitiativeRoll(props) {
   let isFirst = true;
@@ -214,7 +215,7 @@ function AddModal(props) {
   const initiative = useRef(undefined);
   const [picture, setPicture] = useState(picturesList[0]);
   const [picScrollVisible, setPicScrollVisible] = useState(false);
-  const isHidden = useRef(false);
+  const [isHidden, setIsHidden] = useState(false);
   return (
     <StyledModalBackground>
       <StyledModalInterfaceDiv>
@@ -235,7 +236,6 @@ function AddModal(props) {
             <StyledTTPictureSelectorButton
               src={picture}
               onClick={() => {
-                console.log(picture);
                 setPicScrollVisible(true);
               }}
             />
@@ -244,12 +244,10 @@ function AddModal(props) {
         {props.isGM && (
           <StyledFormInformationRow>
             <StyledInfoLabel>Is this a hidden character?</StyledInfoLabel>
-            <input
-              type={"checkbox"}
-              onClick={() => {
-                isHidden.current = !isHidden.current;
-              }}
-            ></input>
+            <GenericToggle
+              active={isHidden}
+              setActive={setIsHidden}
+            ></GenericToggle>
           </StyledFormInformationRow>
         )}
         <StyledFormInformationRow>
@@ -291,7 +289,7 @@ function AddModal(props) {
               name.current,
               initiative.current,
               bonus.current,
-              isHidden.current
+              isHidden
             )
           }
           SetVisible={props.SetVisible}
