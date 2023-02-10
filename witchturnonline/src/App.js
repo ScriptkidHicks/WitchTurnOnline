@@ -40,6 +40,7 @@ function App() {
                 isGM={isGM}
                 setIsGM={setIsGM}
                 socket={socket}
+                playerName={playerName}
               />
             }
           />

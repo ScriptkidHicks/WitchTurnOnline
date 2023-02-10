@@ -308,6 +308,27 @@ const StyledButtonRow = styled.div`
   }
 `;
 
+const StyledNameSlide = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+  background-color: ${DarkColorStyles.LightBackgroundGreen};
+  border: 2px solid ${DarkColorStyles.DarkTextGreen};
+  box-shadow: inset 2px 2px 2px black;
+  min-height: 100px;
+  border-radius: 20px;
+  padding: 10px;
+`;
+
+const StyledNameTag = styled.label`
+  color: white;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 20px;
+  padding: 5px;
+  font-weight: bold;
+`;
+
 export {
   StyledTurnContainerWrapper,
   StyledTurncontainer,
@@ -326,4 +347,6 @@ export {
   StyledTTReactionCheckbox,
   StyledMobileOnlyColumn,
   StyledTTPictureExpanding,
+  StyledNameSlide,
+  StyledNameTag,
 };

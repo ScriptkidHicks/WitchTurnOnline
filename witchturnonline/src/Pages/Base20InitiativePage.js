@@ -1,6 +1,7 @@
 import {
   AddModal,
   InitiativeRoll,
+  PlayerNameSlide,
 } from "../Components/InitiativeScrollComponents/InitiativeComponents";
 import {
   DefaultPageBody,
@@ -372,7 +373,6 @@ function Base20InitiativePage(props) {
         justifyContent={"space-evenly"}
       >
         <CopyFlyout left={true} room={room} />
-
         <StyledTurnandAddButton
           desktopOnly={true}
           onClick={() => {

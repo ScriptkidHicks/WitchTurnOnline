@@ -14,6 +14,8 @@ import {
   StyledTurncontainer,
   StyledMobileOnlyColumn,
   StyledTTPictureExpanding,
+  StyledNameSlide,
+  StyledNameTag,
 } from "../StyledComponents/InitiativeStyles";
 import {
   StyledFormInformationRow,
@@ -78,6 +80,14 @@ function InitiativeRoll(props) {
         })}
       </StyledTurncontainer>
     </StyledTurnContainerWrapper>
+  );
+}
+
+function PlayerNameSlide(props) {
+  return (
+    <StyledNameSlide>
+      <StyledNameTag>Lillith</StyledNameTag>
+    </StyledNameSlide>
   );
 }
 
@@ -181,18 +191,6 @@ function TurnTaker(props) {
         </StyledXButton>
       </StyledTTContentcontainer>
     </StyledTurnTaker>
-  );
-}
-
-function ChangePositionButton(props) {
-  return (
-    <StyledGenericButton
-      onClick={() => {
-        props.SetPositionFunction(props.position + props.increment);
-      }}
-    >
-      {props.children}
-    </StyledGenericButton>
   );
 }
 
@@ -301,4 +299,4 @@ function AddModal(props) {
   );
 }
 
-export { InitiativeRoll, AddModal, TurnTakerPictureAndSheet };
+export { InitiativeRoll, AddModal, TurnTakerPictureAndSheet, PlayerNameSlide };

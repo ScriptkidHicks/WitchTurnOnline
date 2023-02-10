@@ -15,7 +15,7 @@ const StyledCopyFlyout = styled.div`
   text-align: center;
   position: absolute;
   right: 0;
-  top: 150px;
+  top: 100px;
   transition: ease all 0.4s;
 
   @media screen and (max-width: 800px) {
