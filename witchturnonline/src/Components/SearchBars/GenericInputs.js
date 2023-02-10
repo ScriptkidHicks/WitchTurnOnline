@@ -7,7 +7,12 @@ import {
 
 function LimitedInputCombo(props) {
   function onInputFunction(event) {
-    props.setInputState(event.target.value);
+    let restrictedVar = event.target.value;
+    if (props.numbersOnly) {
+      restrictedVar = restrictedVar.replace(/[^0-9]/g, "");
+    }
+    event.target.value = restrictedVar;
+    props.setInputState(restrictedVar);
   }
   return (
     <StyleableLimitedInput
@@ -25,7 +30,6 @@ function LimitedInputCombo(props) {
 }
 
 function SortedListSearcher(props) {
-  
   const updateContents = Debounce((event) => {
     let tempArray = props.baseList.filter((item) => {
       return item.name.toLowerCase().includes(event.target.value.toLowerCase());

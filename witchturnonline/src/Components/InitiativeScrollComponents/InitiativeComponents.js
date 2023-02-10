@@ -259,7 +259,7 @@ function AddModal(props) {
         <StyledFormInformationRow>
           <StyledInfoLabel>Initiative: </StyledInfoLabel>
           <LimitedInputCombo
-            lettersNotAllowed={true}
+            numbersOnly={true}
             setInputState={(value) => {
               initiative.current = value;
             }}
@@ -271,7 +271,7 @@ function AddModal(props) {
         <StyledFormInformationRow>
           <StyledInfoLabel>Bonus: </StyledInfoLabel>
           <LimitedInputCombo
-            lettersNotAllowed={true}
+            numbersOnly={true}
             setInputState={(value) => {
               bonus.current = value;
             }}
