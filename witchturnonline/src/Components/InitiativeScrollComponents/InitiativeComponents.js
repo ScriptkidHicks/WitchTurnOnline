@@ -211,6 +211,7 @@ function AddModal(props) {
   const name = useRef("");
   const bonus = useRef(0);
   const initiative = useRef(undefined);
+  const armorClass = useRef(0);
   const [picture, setPicture] = useState(picturesList[0]);
   const [picScrollVisible, setPicScrollVisible] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
@@ -261,7 +262,7 @@ function AddModal(props) {
           <LimitedInputCombo
             numbersOnly={true}
             setInputState={(value) => {
-              initiative.current = value;
+              armorClass.current = value;
             }}
             letterSpacing={"0.1em"}
             maxLength={2}
@@ -280,6 +281,18 @@ function AddModal(props) {
             placeholder={"+0"}
           />
         </StyledFormInformationRow>
+        <StyledFormInformationRow>
+          <StyledInfoLabel>Armor Class</StyledInfoLabel>
+          <LimitedInputCombo
+            numbersOnly={true}
+            setInputState={(value) => {
+              bonus.current = value;
+            }}
+            letterSpacing={"0.1em"}
+            maxLength={2}
+            placeholder={"+0"}
+          />
+        </StyledFormInformationRow>
         <CompleteModalButton
           CompleteModalFunction={() =>
             props.AddParticipant(
@@ -287,6 +300,7 @@ function AddModal(props) {
               name.current,
               initiative.current,
               bonus.current,
+              armorClass.current,
               isHidden
             )
           }

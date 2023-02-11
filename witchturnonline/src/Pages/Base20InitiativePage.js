@@ -174,7 +174,14 @@ function Base20InitiativePage(props) {
     bonus: the participant bonus (OPTIONAL: 0)
     isHidden: whether the non-GM players can see this participant.
 */
-  function AddParticipant(picture, name, initiative, bonus, isHidden) {
+  function AddParticipant(
+    picture,
+    name,
+    initiative,
+    bonus,
+    armorClass,
+    isHidden
+  ) {
     let updatedParticipants = [...participants];
     let tempname = name;
 
@@ -190,6 +197,7 @@ function Base20InitiativePage(props) {
       img: picture,
       initiative: initiative,
       bonus: bonus,
+      armorClass: armorClass,
       isHidden: isHidden,
       reactionUsed: false,
     };

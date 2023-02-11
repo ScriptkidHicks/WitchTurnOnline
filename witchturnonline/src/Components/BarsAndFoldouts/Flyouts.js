@@ -135,6 +135,7 @@ function PremadeMonsterScroll(props) {
             bonus={monster.bonus}
             key={index}
             name={monster.name}
+            AC={monster.armorClass}
             AddParticipant={props.AddParticipant}
           />
         );
@@ -153,6 +154,7 @@ function PremadeMonster(props) {
           props.name,
           undefined,
           props.bonus,
+          props.armorClass,
           hidden
         )
       }
