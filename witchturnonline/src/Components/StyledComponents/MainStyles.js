@@ -101,6 +101,15 @@ const StyledSearchListInput = styled.input`
   box-shadow: inset 2px 2px 3px black;
   text-align: center;
   font-weight: bold;
+  transition: ease all 0.4s;
+
+  :focus {
+    background-image: linear-gradient(
+      ${DarkColorStyles.GreyPurpleForeground},
+      ${DarkColorStyles.DeepBackgroundPurple}
+    );
+    box-shadow: none;
+  }
 `;
 
 const StyleableLimitedInput = styled.input`
