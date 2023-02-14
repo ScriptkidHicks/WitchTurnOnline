@@ -321,6 +321,39 @@ const StyledLabelText = styled.div`
   font-size: 1.2em;
 `;
 
+// Styled Background Divs
+
+const StyledInfoDiv = styled.div`
+  width: 60%;
+  background-image: linear-gradient(
+    ${(props) =>
+      props.colorA ? props.colorA : DarkColorStyles.GreyPurpleForeground},
+    ${(props) =>
+      props.colorB ? props.colorB : DarkColorStyles.GreyPurpleBackground}
+  );
+  padding: 10px;
+  border-radius: 10px;
+  text-align: left;
+
+  @media screen and (max-width: 600px) {
+    width: 90%;
+  }
+`;
+
+const StyledTextGradient = styled.text`
+  font-size: ${(props) => (props.fontSize ? props.fontSize : "12px")};
+  background: -webkit-linear-gradient(
+    ${(props) => props.colorA},
+    ${(props) => props.colorB}
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  width: 100%;
+  font-weight: bold;
+  white-space: pre-wrap;
+  text-align: left;
+`;
+
 export {
   DefaultPageBody,
   DefaultPageColumn,
@@ -342,4 +375,6 @@ export {
   StyledSearchListInput,
   StyledCheckHousing,
   StlyedCheckDot,
+  StyledInfoDiv,
+  StyledTextGradient,
 };
