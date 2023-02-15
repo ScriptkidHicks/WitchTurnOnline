@@ -24,7 +24,13 @@ function LimitedInputCombo(props) {
       textAlignment={props.textAlignment}
       backgroundColor={props.backgroundColor}
       letterSpacing={props.letterSpacing}
-      onInput={(event) => onInputFunction(event)}
+      onClick={(event) => {
+        event.stopPropagation();
+      }}
+      width={String(props.maxLength * 25) + "px"}
+      onInput={(event) => {
+        onInputFunction(event);
+      }}
     ></StyleableLimitedInput>
   );
 }

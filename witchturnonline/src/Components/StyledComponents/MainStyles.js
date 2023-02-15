@@ -133,6 +133,10 @@ const StyleableLimitedInput = styled.input`
 
   transition: ease all 0.4s;
 
+  width: ${(props) => props.width};
+  max-width: 200px;
+  min-width: 70px;
+
   :focus {
     box-shadow: inset 1px 1px 1px black;
     outline: none;

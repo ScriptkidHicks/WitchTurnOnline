@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   StyledMobileOnlyColumn,
   StyledTTContentcontainer,
@@ -23,6 +23,7 @@ import {
   AbstractDualQualitySorter,
   SortObjectsByName,
 } from "../../Helpers/HelperFunctions";
+import { LimitedInputCombo } from "../SearchBars/GenericInputs";
 
 function TabbedFlyout(props) {
   const [selectedTab, setSelectedTab] = useState(1);
@@ -146,13 +147,14 @@ function PremadeMonsterScroll(props) {
 
 function PremadeMonster(props) {
   const [hidden, setHidden] = useState(false);
+  const initiative = useRef(undefined);
   return (
     <StyledPremadeMonster
       onClick={() =>
         props.AddParticipant(
           props.src,
           props.name,
-          undefined,
+          initiative.current,
           props.bonus,
           props.armorClass,
           hidden
@@ -167,6 +169,15 @@ function PremadeMonster(props) {
           </StyledInfoLabel>
         </StyledTTContentcontainer>
         <StyledTTContentcontainer>
+          <LimitedInputCombo
+            numbersOnly={true}
+            setInputState={(value) => {
+              initiative.current = value;
+            }}
+            letterSpacing={"0.1em"}
+            maxLength={2}
+            placeholder={"random"}
+          ></LimitedInputCombo>
           <StyledInfoLabel>
             {"Bonus: " + (props.bonus >= 0 ? "+" + props.bonus : props.bonus)}
           </StyledInfoLabel>
