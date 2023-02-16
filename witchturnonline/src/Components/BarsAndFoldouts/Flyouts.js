@@ -100,6 +100,7 @@ function FlyoutSection(props) {
 function ExpandingButtonModal(props) {
   return (
     <StyledExpandingModal
+      bottom={props.bottom}
       background={props.background}
       open={props.open}
       onClick={() => {

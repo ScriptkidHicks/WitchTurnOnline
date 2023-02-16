@@ -94,10 +94,11 @@ const StyledExpandingModal = styled.div`
   border-radius: ${(props) => (props.open ? "30px 0px 0px 30px" : "50%")};
   position: fixed;
   right: ${(props) => (props.open ? "0" : props.right ? props.right : "30px")};
-  bottom: ${(props) => (props.open ? "0" : props.top ? props.top : "30px ")};
+  bottom: ${(props) =>
+    props.open ? "0" : props.bottom ? props.bottom : "30px "};
   background-color: #224d3e;
   transition: ease-in-out 0.5s;
-  z-index: 99;
+  z-index: ${(props) => (props.open ? "90" : "80")};
 
   display: flex;
   flex-direction: column;

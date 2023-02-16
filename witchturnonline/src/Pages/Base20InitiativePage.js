@@ -32,6 +32,7 @@ import {
 } from "../Helpers/HelperFunctions";
 
 import Kobold from "../Assets/MonsterOnlyAssets/Kobold.png";
+import Wizard from "../Assets/PlayerAssets/Wizard.png";
 
 import names from "../Assets/PlayerAssets/Names";
 
@@ -47,7 +48,8 @@ function Base20InitiativePage(props) {
   let participantsParallel = [];
   //we have to keep this around to deal with the render lag from useState
 
-  const [open, setOpen] = useState(false);
+  const [monsterSelectorOpen, setMonsterSelectorOpen] = useState(false);
+  const [playersModalOpen, setPlayersModalOpen] = useState(false);
 
   const { room } = useParams();
 
@@ -312,12 +314,16 @@ function Base20InitiativePage(props) {
         />
       )}
       {props.isGM && (
-        <ExpandingButtonModal background={Kobold} open={open} setOpen={setOpen}>
+        <ExpandingButtonModal
+          background={Kobold}
+          open={monsterSelectorOpen}
+          setOpen={setMonsterSelectorOpen}
+        >
           <CloseExpandingModal
             listBaseState={AllMonsters}
             resetFunction={setMonsterList}
-            setOpen={setOpen}
-            open={props.open}
+            setOpen={setMonsterSelectorOpen}
+            open={monsterSelectorOpen}
           ></CloseExpandingModal>
           <SortedListSearcher
             placeholder={"Search for a Monster"}
@@ -331,6 +337,18 @@ function Base20InitiativePage(props) {
           />
         </ExpandingButtonModal>
       )}
+
+      <ExpandingButtonModal
+        background={Wizard}
+        bottom={"100px"}
+        open={playersModalOpen}
+        setOpen={setPlayersModalOpen}
+      >
+        <CloseExpandingModal
+          setOpen={setPlayersModalOpen}
+          resetFunction={() => {}}
+        ></CloseExpandingModal>
+      </ExpandingButtonModal>
 
       <DefaultPageColumn
         flexGrow={2}
