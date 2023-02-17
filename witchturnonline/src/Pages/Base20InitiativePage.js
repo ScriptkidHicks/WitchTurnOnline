@@ -306,13 +306,6 @@ function Base20InitiativePage(props) {
 
   return (
     <DefaultPageBody>
-      {addModalVisible && (
-        <AddModal
-          isGM={props.isGM}
-          AddParticipant={AddParticipant}
-          SetVisible={setAddModalVisible}
-        />
-      )}
       {props.isGM && (
         <ExpandingButtonModal
           background={Kobold}
@@ -348,12 +341,14 @@ function Base20InitiativePage(props) {
           setOpen={setPlayersModalOpen}
           resetFunction={() => {}}
         ></CloseExpandingModal>
+        <AddModal
+          isGM={props.isGM}
+          AddParticipant={AddParticipant}
+          SetVisible={setAddModalVisible}
+        />
       </ExpandingButtonModal>
 
-      <DefaultPageColumn
-        flexGrow={2}
-        modalOn={addModalVisible}
-      ></DefaultPageColumn>
+      <DefaultPageColumn flexGrow={2}></DefaultPageColumn>
       <DefaultPageColumn modalOn={addModalVisible}>
         <InitiativeRoll
           isGM={props.isGM}
@@ -362,36 +357,14 @@ function Base20InitiativePage(props) {
           UnhideParticipant={UnhideParticipant}
           UpdateParticipantReaction={UpdateParticipantReaction}
         ></InitiativeRoll>
-        {props.isGM && (
-          <StyledButtonRow>
-            <StyledTurnandAddButton onClick={AdvanceTurn}>
-              Advance turn
-            </StyledTurnandAddButton>
-            <StyledTurnandAddButton
-              mobileOnly={true}
-              onClick={() => {
-                setAddModalVisible(true);
-              }}
-            >
-              Add Custom
-            </StyledTurnandAddButton>
-            <StyledTurnandAddButton onClick={ReduceTurn}>
-              reduce turn
-            </StyledTurnandAddButton>
-          </StyledButtonRow>
-        )}
-        {!props.isGM && (
-          <StyledButtonRow>
-            <StyledTurnandAddButton
-              mobileOnly={true}
-              onClick={() => {
-                setAddModalVisible(true);
-              }}
-            >
-              Add custom
-            </StyledTurnandAddButton>
-          </StyledButtonRow>
-        )}
+        <StyledButtonRow>
+          <StyledTurnandAddButton onClick={AdvanceTurn}>
+            Advance turn
+          </StyledTurnandAddButton>
+          <StyledTurnandAddButton onClick={ReduceTurn}>
+            reduce turn
+          </StyledTurnandAddButton>
+        </StyledButtonRow>
       </DefaultPageColumn>
       <DefaultPageColumn
         flexGrow={2}
@@ -399,14 +372,6 @@ function Base20InitiativePage(props) {
         justifyContent={"space-evenly"}
       >
         <CopyFlyout left={true} room={room} />
-        <StyledTurnandAddButton
-          desktopOnly={true}
-          onClick={() => {
-            setAddModalVisible(true);
-          }}
-        >
-          Add Custom
-        </StyledTurnandAddButton>
       </DefaultPageColumn>
       {/*<TabbedFlyout open={open} />
       

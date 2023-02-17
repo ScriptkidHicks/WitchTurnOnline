@@ -248,15 +248,16 @@ const StyledModalBackground = styled.div`
 `;
 
 const StyledModalInterfaceDiv = styled.div`
-  background-color: ${DarkColorStyles.GreyPurpleForeground};
+  background-color: ${DarkColorStyles.GreyPurpleBackground};
+  box-shadow: inset 2px 2px 10px 4px rgba(0, 0, 0, 0.7);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 20px;
-  min-width: max(30vw, 300px);
+  width: 80%;
   border-radius: 20px;
-  box-shadow: -5px 5px 8px rgba(0, 0, 0, 0.7);
+  margin-bottom: 30px;
 `;
 
 const StyledPictureSelectorRoll = styled.div`

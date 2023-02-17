@@ -165,7 +165,6 @@ const StyledPremadeMonster = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space evenly;
-  min-height: 100px;
   width: 90%;
   border-radius: 20px;
   margin-bottom: 10px;

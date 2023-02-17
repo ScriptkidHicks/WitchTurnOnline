@@ -216,100 +216,95 @@ function AddModal(props) {
   const [picScrollVisible, setPicScrollVisible] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
   return (
-    <StyledModalBackground>
-      <StyledModalInterfaceDiv>
-        <StyledFormInformationRow justify={"center"}>
-          <BasicXCloseButton SetVisible={props.SetVisible} />
-        </StyledFormInformationRow>
-        <StyledFormInformationRow>
-          <StyledInfoLabel>Picture: </StyledInfoLabel>
-          {picScrollVisible && (
-            <PictureChooser
-              displaySize={3}
-              pictures={picturesList}
-              selector={setPicture}
-              toggleVisible={setPicScrollVisible}
-            />
-          )}
-          {!picScrollVisible && (
-            <StyledTTPictureSelectorButton
-              src={picture}
-              onClick={() => {
-                setPicScrollVisible(true);
-              }}
-            />
-          )}
-        </StyledFormInformationRow>
-        {props.isGM && (
-          <StyledFormInformationRow>
-            <StyledInfoLabel>Is this a hidden character?</StyledInfoLabel>
-            <GenericToggle
-              active={isHidden}
-              setActive={setIsHidden}
-            ></GenericToggle>
-          </StyledFormInformationRow>
+    <StyledModalInterfaceDiv>
+      <StyledFormInformationRow>
+        <StyledInfoLabel>Picture: </StyledInfoLabel>
+        {picScrollVisible && (
+          <PictureChooser
+            displaySize={3}
+            pictures={picturesList}
+            selector={setPicture}
+            toggleVisible={setPicScrollVisible}
+          />
         )}
-        <StyledFormInformationRow>
-          <StyledInfoLabel>Name: </StyledInfoLabel>
-          <LimitedInputCombo
-            setInputState={(value) => (name.current = value)}
-            letterSpacing={"0.1em"}
-            maxLength={30}
-          />
-        </StyledFormInformationRow>
-        <StyledFormInformationRow>
-          <StyledInfoLabel>Initiative: </StyledInfoLabel>
-          <LimitedInputCombo
-            numbersOnly={true}
-            setInputState={(value) => {
-              armorClass.current = value;
+        {!picScrollVisible && (
+          <StyledTTPictureSelectorButton
+            src={picture}
+            onClick={() => {
+              setPicScrollVisible(true);
             }}
-            letterSpacing={"0.1em"}
-            maxLength={2}
-            placeholder={"random"}
           />
-        </StyledFormInformationRow>
+        )}
+      </StyledFormInformationRow>
+      {props.isGM && (
         <StyledFormInformationRow>
-          <StyledInfoLabel>Bonus: </StyledInfoLabel>
-          <LimitedInputCombo
-            numbersOnly={true}
-            setInputState={(value) => {
-              bonus.current = value;
-            }}
-            letterSpacing={"0.1em"}
-            maxLength={2}
-            placeholder={"+0"}
-          />
+          <StyledInfoLabel>Is this a hidden character?</StyledInfoLabel>
+          <GenericToggle
+            active={isHidden}
+            setActive={setIsHidden}
+          ></GenericToggle>
         </StyledFormInformationRow>
-        <StyledFormInformationRow>
-          <StyledInfoLabel>Armor Class</StyledInfoLabel>
-          <LimitedInputCombo
-            numbersOnly={true}
-            setInputState={(value) => {
-              bonus.current = value;
-            }}
-            letterSpacing={"0.1em"}
-            maxLength={2}
-            placeholder={"+0"}
-          />
-        </StyledFormInformationRow>
-        <CompleteModalButton
-          CompleteModalFunction={() =>
-            props.AddParticipant(
-              picture,
-              name.current,
-              initiative.current,
-              bonus.current,
-              armorClass.current,
-              isHidden
-            )
-          }
-          SetVisible={props.SetVisible}
-        >
-          Add
-        </CompleteModalButton>
-      </StyledModalInterfaceDiv>
-    </StyledModalBackground>
+      )}
+      <StyledFormInformationRow>
+        <StyledInfoLabel>Name: </StyledInfoLabel>
+        <LimitedInputCombo
+          setInputState={(value) => (name.current = value)}
+          letterSpacing={"0.1em"}
+          maxLength={30}
+        />
+      </StyledFormInformationRow>
+      <StyledFormInformationRow>
+        <StyledInfoLabel>Initiative: </StyledInfoLabel>
+        <LimitedInputCombo
+          numbersOnly={true}
+          setInputState={(value) => {
+            armorClass.current = value;
+          }}
+          letterSpacing={"0.1em"}
+          maxLength={2}
+          placeholder={"random"}
+        />
+      </StyledFormInformationRow>
+      <StyledFormInformationRow>
+        <StyledInfoLabel>Bonus: </StyledInfoLabel>
+        <LimitedInputCombo
+          numbersOnly={true}
+          setInputState={(value) => {
+            bonus.current = value;
+          }}
+          letterSpacing={"0.1em"}
+          maxLength={2}
+          placeholder={"+0"}
+        />
+      </StyledFormInformationRow>
+      <StyledFormInformationRow>
+        <StyledInfoLabel>Armor Class</StyledInfoLabel>
+        <LimitedInputCombo
+          numbersOnly={true}
+          setInputState={(value) => {
+            bonus.current = value;
+          }}
+          letterSpacing={"0.1em"}
+          maxLength={2}
+          placeholder={"+0"}
+        />
+      </StyledFormInformationRow>
+      <CompleteModalButton
+        CompleteModalFunction={() =>
+          props.AddParticipant(
+            picture,
+            name.current,
+            initiative.current,
+            bonus.current,
+            armorClass.current,
+            isHidden
+          )
+        }
+        SetVisible={props.SetVisible}
+      >
+        Add
+      </CompleteModalButton>
+    </StyledModalInterfaceDiv>
   );
 }
 
