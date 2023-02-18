@@ -177,6 +177,17 @@ const StyledPremadeMonster = styled.div`
   }
 `;
 
+const StyledOpacityHiderDiv = styled.div`
+  transition: ease all 0.5s;
+  width: ${(props) => (props.open ? "100%" : "0%")};
+  height: ${(props) => (props.open ? "" : "0%")};
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: ${(props) => (props.open ? "1" : "0")};
+`;
+
 export {
   StyledCopyFlyout,
   StyledHiddenInfo,
@@ -188,4 +199,5 @@ export {
   StyledCloseExpandingModal,
   StyledPremadeMonster,
   StyledPremadeMonstersScroll,
+  StyledOpacityHiderDiv,
 };

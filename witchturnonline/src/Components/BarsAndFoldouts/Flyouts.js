@@ -9,6 +9,7 @@ import {
   StyledCloseExpandingModal,
   StyledExpandingModal,
   StyledFlyoutTabContent,
+  StyledOpacityHiderDiv,
   StyledPremadeMonster,
   StyledPremadeMonstersScroll,
   StyledTabbedFlyoutBody,
@@ -107,7 +108,9 @@ function ExpandingButtonModal(props) {
         props.setOpen(true);
       }}
     >
-      {props.open && props.children}
+      <StyledOpacityHiderDiv open={props.open}>
+        {props.open && props.children}
+      </StyledOpacityHiderDiv>
     </StyledExpandingModal>
   );
 }
