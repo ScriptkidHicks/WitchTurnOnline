@@ -9,7 +9,7 @@ import {
   StyledTTContentcontainer,
   StyledTurnTaker,
   StyledTTPictureSelectorButton,
-  StyledTurnandAddButton,
+  StyledInterfaceButton,
   StyledTurnContainerWrapper,
   StyledTurncontainer,
   StyledMobileOnlyColumn,
@@ -196,14 +196,14 @@ function TurnTaker(props) {
 
 function CompleteModalButton(props) {
   return (
-    <StyledTurnandAddButton
+    <StyledInterfaceButton
       onClick={() => {
         props.CompleteModalFunction();
         props.SetVisible(false);
       }}
     >
       {props.children}
-    </StyledTurnandAddButton>
+    </StyledInterfaceButton>
   );
 }
 

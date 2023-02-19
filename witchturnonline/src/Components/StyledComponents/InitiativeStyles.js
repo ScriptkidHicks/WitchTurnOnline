@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { DarkColorStyles } from "./ColorStyles";
 
 const StyledTurnContainerWrapper = styled.div`
-  width: 95%;
-  height: 60vh;
+  width: 60%;
+  height: 70vh;
   max-height: 1000px;
 
   overflow: scroll;
@@ -19,7 +19,7 @@ const StyledTurnContainerWrapper = styled.div`
 
   @media screen and (max-width: 400px) {
     padding: 0px;
-    width: 100%;
+    width: 95%;
   }
 
   min-height: 300px;
@@ -194,7 +194,7 @@ const StyledTTPictureSelectorButton = styled(StyledTTPicture)`
   }
 `;
 
-const StyledTurnandAddButton = styled.button`
+const StyledInterfaceButton = styled.button`
   color: white;
   font-weight: bold;
   border: 4px ${DarkColorStyles.DarkBackgroundGreen} solid;
@@ -224,6 +224,10 @@ const StyledTurnandAddButton = styled.button`
     props.mobileOnly
       ? "@media screen and (min-width: 800px) { display: none }"
       : ""}
+`;
+
+const StyledTurnButton = styled(StyledInterfaceButton)`
+  border-radius: 20px;
 `;
 
 const StyledInfoLabel = styled.label`
@@ -303,10 +307,6 @@ const StyledButtonRow = styled.div`
   align-items: center;
   padding: 20px;
   margin: 20px;
-
-  @media screen and (max-width: 450px) {
-    flex-direction: column;
-  }
 `;
 
 const StyledNameSlide = styled.div`
@@ -343,11 +343,12 @@ export {
   StyledPictureSelectorRoll,
   StyledTTPictureOption,
   StyledLeftRightButton,
-  StyledTurnandAddButton,
+  StyledInterfaceButton,
   StyledButtonRow,
   StyledTTReactionCheckbox,
   StyledMobileOnlyColumn,
   StyledTTPictureExpanding,
   StyledNameSlide,
   StyledNameTag,
+  StyledTurnButton,
 };

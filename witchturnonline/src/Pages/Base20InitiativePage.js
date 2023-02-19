@@ -12,7 +12,8 @@ import { useEffect, useState } from "react";
 import {
   StyledButtonRow,
   StyledInfoLabel,
-  StyledTurnandAddButton,
+  StyledInterfaceButton,
+  StyledTurnButton,
 } from "../Components/StyledComponents/InitiativeStyles";
 import { useParams } from "react-router-dom";
 import {
@@ -289,13 +290,13 @@ function Base20InitiativePage(props) {
       >
         <StyledInfoLabel>Room: </StyledInfoLabel>
         <StyledHiddenInfo open={open}>{props.room}</StyledHiddenInfo>
-        {/* {<StyledTurnandAddButton
+        {/* {<StyledInterfaceButton
           onClick={() => {
             navigator.clipboard.writeText(window.location.href);
           }}
         >
           Copy Link
-        </StyledTurnandAddButton>} */}
+        </StyledInterfaceButton>} */}
       </StyledCopyFlyout>
     );
   }
@@ -348,8 +349,7 @@ function Base20InitiativePage(props) {
         />
       </ExpandingButtonModal>
 
-      <DefaultPageColumn flexGrow={2}></DefaultPageColumn>
-      <DefaultPageColumn modalOn={addModalVisible}>
+      <DefaultPageColumn flexGrow={3} modalOn={addModalVisible}>
         <InitiativeRoll
           isGM={props.isGM}
           participants={participants}
@@ -358,30 +358,17 @@ function Base20InitiativePage(props) {
           UpdateParticipantReaction={UpdateParticipantReaction}
         ></InitiativeRoll>
         <StyledButtonRow>
-          <StyledTurnandAddButton onClick={AdvanceTurn}>
-            Advance turn
-          </StyledTurnandAddButton>
-          <StyledTurnandAddButton onClick={ReduceTurn}>
-            reduce turn
-          </StyledTurnandAddButton>
+          <StyledTurnButton onClick={ReduceTurn}>{"<<"}</StyledTurnButton>
+          <StyledTurnButton onClick={AdvanceTurn}>{">>"}</StyledTurnButton>
         </StyledButtonRow>
       </DefaultPageColumn>
       <DefaultPageColumn
-        flexGrow={2}
+        flexGrow={1}
         modalOn={addModalVisible}
         justifyContent={"space-evenly"}
       >
         <CopyFlyout left={true} room={room} />
       </DefaultPageColumn>
-      {/*<TabbedFlyout open={open} />
-      
-        <HamburgerBarButton
-          open={open}
-          invert={() => {
-            setOpen(!open);
-          }}
-        />
-      */}
     </DefaultPageBody>
   );
 }
