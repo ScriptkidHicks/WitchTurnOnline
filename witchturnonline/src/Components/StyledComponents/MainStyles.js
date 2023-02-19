@@ -101,6 +101,15 @@ const StyledSearchListInput = styled.input`
   box-shadow: inset 2px 2px 3px black;
   text-align: center;
   font-weight: bold;
+  transition: ease all 0.4s;
+
+  :focus {
+    background-image: linear-gradient(
+      ${DarkColorStyles.GreyPurpleForeground},
+      ${DarkColorStyles.DeepBackgroundPurple}
+    );
+    box-shadow: none;
+  }
 `;
 
 const StyleableLimitedInput = styled.input`
@@ -124,6 +133,10 @@ const StyleableLimitedInput = styled.input`
 
   transition: ease all 0.4s;
 
+  width: ${(props) => props.width};
+  max-width: 200px;
+  min-width: 70px;
+
   :focus {
     box-shadow: inset 1px 1px 1px black;
     outline: none;
@@ -135,6 +148,31 @@ const StyledInputRow = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+`;
+
+const StlyedCheckDot = styled.div`
+  background-color: ${(props) =>
+    props.backgroundColor
+      ? props.backgroundColor
+      : DarkColorStyles.LightPurpleHighlight};
+  width: ${(props) => (props.active ? "100%" : "0%")};
+  height: ${(props) => (props.active ? "100%" : "0%")};
+  border-radius: 50%;
+  transition: ease all 0.4s;
+`;
+
+const StyledCheckHousing = styled.div`
+  width: 25px;
+  height: 25px;
+  border-radius: 30px;
+  background-color: ${(props) =>
+    props.backgroundColor
+      ? props.backgroundColor
+      : DarkColorStyles.DarkPurpleBackground};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset 2px 2px 2px black;
 `;
 
 /* Styled Generic Buttons */
@@ -287,6 +325,39 @@ const StyledLabelText = styled.div`
   font-size: 1.2em;
 `;
 
+// Styled Background Divs
+
+const StyledInfoDiv = styled.div`
+  width: 60%;
+  background-image: linear-gradient(
+    ${(props) =>
+      props.colorA ? props.colorA : DarkColorStyles.GreyPurpleForeground},
+    ${(props) =>
+      props.colorB ? props.colorB : DarkColorStyles.GreyPurpleBackground}
+  );
+  padding: 10px;
+  border-radius: 10px;
+  text-align: left;
+
+  @media screen and (max-width: 600px) {
+    width: 90%;
+  }
+`;
+
+const StyledTextGradient = styled.text`
+  font-size: ${(props) => (props.fontSize ? props.fontSize : "12px")};
+  background: -webkit-linear-gradient(
+    ${(props) => props.colorA},
+    ${(props) => props.colorB}
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  width: 100%;
+  font-weight: bold;
+  white-space: pre-wrap;
+  text-align: left;
+`;
+
 export {
   DefaultPageBody,
   DefaultPageColumn,
@@ -306,4 +377,8 @@ export {
   StyledMiddleHamburgerDiv,
   StyledInputRow,
   StyledSearchListInput,
+  StyledCheckHousing,
+  StlyedCheckDot,
+  StyledInfoDiv,
+  StyledTextGradient,
 };

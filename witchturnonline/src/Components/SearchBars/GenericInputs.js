@@ -7,7 +7,12 @@ import {
 
 function LimitedInputCombo(props) {
   function onInputFunction(event) {
-    props.setInputState(event.target.value);
+    let restrictedVar = event.target.value;
+    if (props.numbersOnly) {
+      restrictedVar = restrictedVar.replace(/[^0-9]/g, "");
+    }
+    event.target.value = restrictedVar;
+    props.setInputState(restrictedVar);
   }
   return (
     <StyleableLimitedInput
@@ -19,7 +24,13 @@ function LimitedInputCombo(props) {
       textAlignment={props.textAlignment}
       backgroundColor={props.backgroundColor}
       letterSpacing={props.letterSpacing}
-      onInput={(event) => onInputFunction(event)}
+      onClick={(event) => {
+        event.stopPropagation();
+      }}
+      width={String(props.maxLength * 25) + "px"}
+      onInput={(event) => {
+        onInputFunction(event);
+      }}
     ></StyleableLimitedInput>
   );
 }

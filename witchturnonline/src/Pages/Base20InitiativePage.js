@@ -5,21 +5,21 @@ import {
 import {
   DefaultPageBody,
   DefaultPageColumn,
-  StyledSearchListInput,
 } from "../Components/StyledComponents/MainStyles";
 import { useEffect, useState } from "react";
 import {
   StyledButtonRow,
   StyledInfoLabel,
-  StyledTurnandAddButton,
+  StyledTurnButton,
 } from "../Components/StyledComponents/InitiativeStyles";
 import { useParams } from "react-router-dom";
 import {
   StyledCopyFlyout,
   StyledHiddenInfo,
+  StyledModalHiderCollapserDiv,
+  StyledModalHiderDiv,
 } from "../Components/BarsAndFoldouts/FlyoutStyles";
 import {
-  TabbedFlyout,
   ExpandingButtonModal,
   CloseExpandingModal,
   PremadeMonsterScroll,
@@ -31,10 +31,9 @@ import {
 } from "../Helpers/HelperFunctions";
 
 import Kobold from "../Assets/MonsterOnlyAssets/Kobold.png";
+import Wizard from "../Assets/PlayerAssets/Wizard.png";
 
 import names from "../Assets/PlayerAssets/Names";
-
-import { HamburgerBarButton } from "../Components/Buttons/BasicButtons";
 import monsters from "../Assets/MonsterOnlyAssets/Monsters";
 import { SortedListSearcher } from "../Components/SearchBars/GenericInputs";
 
@@ -46,7 +45,9 @@ function Base20InitiativePage(props) {
   let participantsParallel = [];
   //we have to keep this around to deal with the render lag from useState
 
-  const [open, setOpen] = useState(false);
+  const [monsterSelectorOpen, setMonsterSelectorOpen] = useState(false);
+  const [playersModalOpen, setPlayersModalOpen] = useState(false);
+  const [mobileSliderOpen, setMobileSliderOpen] = useState(false);
 
   const { room } = useParams();
 
@@ -173,7 +174,14 @@ function Base20InitiativePage(props) {
     bonus: the participant bonus (OPTIONAL: 0)
     isHidden: whether the non-GM players can see this participant.
 */
-  function AddParticipant(picture, name, initiative, bonus, isHidden) {
+  function AddParticipant(
+    picture,
+    name,
+    initiative,
+    bonus,
+    armorClass,
+    isHidden
+  ) {
     let updatedParticipants = [...participants];
     let tempname = name;
 
@@ -189,6 +197,7 @@ function Base20InitiativePage(props) {
       img: picture,
       initiative: initiative,
       bonus: bonus,
+      armorClass: armorClass,
       isHidden: isHidden,
       reactionUsed: false,
     };
@@ -278,13 +287,13 @@ function Base20InitiativePage(props) {
       >
         <StyledInfoLabel>Room: </StyledInfoLabel>
         <StyledHiddenInfo open={open}>{props.room}</StyledHiddenInfo>
-        {/* {<StyledTurnandAddButton
+        {/* {<StyledInterfaceButton
           onClick={() => {
             navigator.clipboard.writeText(window.location.href);
           }}
         >
           Copy Link
-        </StyledTurnandAddButton>} */}
+        </StyledInterfaceButton>} */}
       </StyledCopyFlyout>
     );
   }
@@ -295,20 +304,41 @@ function Base20InitiativePage(props) {
 
   return (
     <DefaultPageBody>
-      {addModalVisible && (
-        <AddModal
-          isGM={props.isGM}
-          AddParticipant={AddParticipant}
-          SetVisible={setAddModalVisible}
-        />
-      )}
-      {props.isGM && (
-        <ExpandingButtonModal background={Kobold} open={open} setOpen={setOpen}>
+      <StyledModalHiderDiv
+        childOpen={monsterSelectorOpen || playersModalOpen}
+        slideOpen={mobileSliderOpen}
+        onClick={() => setMobileSliderOpen(!mobileSliderOpen)}
+      >
+        <ExpandingButtonModal
+          slideOpen={mobileSliderOpen}
+          othersOpen={monsterSelectorOpen}
+          background={Wizard}
+          bottom={"100px"}
+          open={playersModalOpen}
+          setOpen={setPlayersModalOpen}
+        >
+          <CloseExpandingModal
+            setOpen={setPlayersModalOpen}
+            resetFunction={() => {}}
+          ></CloseExpandingModal>
+          <AddModal
+            isGM={props.isGM}
+            AddParticipant={AddParticipant}
+            SetVisible={setAddModalVisible}
+          />
+        </ExpandingButtonModal>
+        <ExpandingButtonModal
+          slideOpen={mobileSliderOpen}
+          othersOpen={playersModalOpen}
+          background={Kobold}
+          open={monsterSelectorOpen}
+          setOpen={setMonsterSelectorOpen}
+        >
           <CloseExpandingModal
             listBaseState={AllMonsters}
             resetFunction={setMonsterList}
-            setOpen={setOpen}
-            open={props.open}
+            setOpen={setMonsterSelectorOpen}
+            open={monsterSelectorOpen}
           ></CloseExpandingModal>
           <SortedListSearcher
             placeholder={"Search for a Monster"}
@@ -321,13 +351,9 @@ function Base20InitiativePage(props) {
             AddParticipant={AddParticipant}
           />
         </ExpandingButtonModal>
-      )}
+      </StyledModalHiderDiv>
 
-      <DefaultPageColumn
-        flexGrow={2}
-        modalOn={addModalVisible}
-      ></DefaultPageColumn>
-      <DefaultPageColumn modalOn={addModalVisible}>
+      <DefaultPageColumn flexGrow={3} modalOn={addModalVisible}>
         <InitiativeRoll
           isGM={props.isGM}
           participants={participants}
@@ -335,62 +361,18 @@ function Base20InitiativePage(props) {
           UnhideParticipant={UnhideParticipant}
           UpdateParticipantReaction={UpdateParticipantReaction}
         ></InitiativeRoll>
-        {props.isGM && (
-          <StyledButtonRow>
-            <StyledTurnandAddButton onClick={AdvanceTurn}>
-              Advance turn
-            </StyledTurnandAddButton>
-            <StyledTurnandAddButton
-              mobileOnly={true}
-              onClick={() => {
-                setAddModalVisible(true);
-              }}
-            >
-              Add Custom
-            </StyledTurnandAddButton>
-            <StyledTurnandAddButton onClick={ReduceTurn}>
-              reduce turn
-            </StyledTurnandAddButton>
-          </StyledButtonRow>
-        )}
-        {!props.isGM && (
-          <StyledButtonRow>
-            <StyledTurnandAddButton
-              mobileOnly={true}
-              onClick={() => {
-                setAddModalVisible(true);
-              }}
-            >
-              Add custom
-            </StyledTurnandAddButton>
-          </StyledButtonRow>
-        )}
+        <StyledButtonRow>
+          <StyledTurnButton onClick={ReduceTurn}>{"<<"}</StyledTurnButton>
+          <StyledTurnButton onClick={AdvanceTurn}>{">>"}</StyledTurnButton>
+        </StyledButtonRow>
       </DefaultPageColumn>
       <DefaultPageColumn
-        flexGrow={2}
+        flexGrow={1}
         modalOn={addModalVisible}
         justifyContent={"space-evenly"}
       >
         <CopyFlyout left={true} room={room} />
-
-        <StyledTurnandAddButton
-          desktopOnly={true}
-          onClick={() => {
-            setAddModalVisible(true);
-          }}
-        >
-          Add Custom
-        </StyledTurnandAddButton>
       </DefaultPageColumn>
-      {/*<TabbedFlyout open={open} />
-      
-        <HamburgerBarButton
-          open={open}
-          invert={() => {
-            setOpen(!open);
-          }}
-        />
-      */}
     </DefaultPageBody>
   );
 }

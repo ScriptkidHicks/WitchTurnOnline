@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { DarkColorStyles } from "./ColorStyles";
 
 const StyledTurnContainerWrapper = styled.div`
-  width: 95%;
-  height: 60vh;
+  width: 60%;
+  height: 70vh;
   max-height: 1000px;
 
   overflow: scroll;
@@ -17,9 +17,9 @@ const StyledTurnContainerWrapper = styled.div`
   padding: 0px 12px;
   z-index: 0;
 
-  @media screen and (max-width: 400px) {
+  @media screen and (max-width: 600px) {
     padding: 0px;
-    width: 100%;
+    width: 95%;
   }
 
   min-height: 300px;
@@ -194,7 +194,7 @@ const StyledTTPictureSelectorButton = styled(StyledTTPicture)`
   }
 `;
 
-const StyledTurnandAddButton = styled.button`
+const StyledInterfaceButton = styled.button`
   color: white;
   font-weight: bold;
   border: 4px ${DarkColorStyles.DarkBackgroundGreen} solid;
@@ -226,6 +226,10 @@ const StyledTurnandAddButton = styled.button`
       : ""}
 `;
 
+const StyledTurnButton = styled(StyledInterfaceButton)`
+  border-radius: 20px;
+`;
+
 const StyledInfoLabel = styled.label`
   color: white;
   font-weight: bold;
@@ -248,15 +252,16 @@ const StyledModalBackground = styled.div`
 `;
 
 const StyledModalInterfaceDiv = styled.div`
-  background-color: ${DarkColorStyles.GreyPurpleForeground};
+  background-color: ${DarkColorStyles.GreyPurpleBackground};
+  box-shadow: inset 2px 2px 10px 4px rgba(0, 0, 0, 0.7);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 20px;
-  min-width: max(30vw, 300px);
+  width: 80%;
   border-radius: 20px;
-  box-shadow: -5px 5px 8px rgba(0, 0, 0, 0.7);
+  margin-bottom: 30px;
 `;
 
 const StyledPictureSelectorRoll = styled.div`
@@ -302,10 +307,27 @@ const StyledButtonRow = styled.div`
   align-items: center;
   padding: 20px;
   margin: 20px;
+`;
 
-  @media screen and (max-width: 450px) {
-    flex-direction: column;
-  }
+const StyledNameSlide = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+  background-color: ${DarkColorStyles.LightBackgroundGreen};
+  border: 2px solid ${DarkColorStyles.DarkTextGreen};
+  box-shadow: inset 2px 2px 2px black;
+  min-height: 100px;
+  border-radius: 20px;
+  padding: 10px;
+`;
+
+const StyledNameTag = styled.label`
+  color: white;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 20px;
+  padding: 5px;
+  font-weight: bold;
 `;
 
 export {
@@ -321,9 +343,12 @@ export {
   StyledPictureSelectorRoll,
   StyledTTPictureOption,
   StyledLeftRightButton,
-  StyledTurnandAddButton,
+  StyledInterfaceButton,
   StyledButtonRow,
   StyledTTReactionCheckbox,
   StyledMobileOnlyColumn,
   StyledTTPictureExpanding,
+  StyledNameSlide,
+  StyledNameTag,
+  StyledTurnButton,
 };

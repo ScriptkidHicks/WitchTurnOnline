@@ -15,7 +15,7 @@ const StyledCopyFlyout = styled.div`
   text-align: center;
   position: absolute;
   right: 0;
-  top: 150px;
+  top: 100px;
   transition: ease all 0.4s;
 
   @media screen and (max-width: 800px) {
@@ -90,22 +90,27 @@ const StyledExpandingModal = styled.div`
   background-image: url(${(props) => (!props.open ? props.background : "")});
   background-size: cover;
   width: ${(props) => (props.open ? "45vw" : "50px")};
-  height: ${(props) => (props.open ? "100vh" : "50px")};
+  height: ${(props) =>
+    props.othersOpen ? "0px" : props.open ? "100vh" : "50px"};
   border-radius: ${(props) => (props.open ? "30px 0px 0px 30px" : "50%")};
-  position: fixed;
-  right: ${(props) => (props.open ? "0" : props.right ? props.right : "30px")};
-  bottom: ${(props) => (props.open ? "0" : props.top ? props.top : "30px ")};
   background-color: #224d3e;
   transition: ease-in-out 0.5s;
-  z-index: 99;
+  z-index: ${(props) => (props.open ? "90" : "80")};
 
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
 
-  @media screen and (max-width: 800px) {
-    width: ${(props) => (props.open ? "100vw" : "50px")};
+  margin-bottom: ${(props) =>
+    props.open || props.othersOpen ? "0px" : "20px"};
+
+  margin-right: ${(props) => (props.open || props.othersOpen ? "0px" : "20px")};
+
+  @media screen and (max-width: 600px) {
+    width: ${(props) =>
+      props.open ? "100vw" : props.slideOpen ? "50px" : "0px"};
+    margin-right: 0px;
   }
 `;
 
@@ -164,7 +169,6 @@ const StyledPremadeMonster = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space evenly;
-  min-height: 100px;
   width: 90%;
   border-radius: 20px;
   margin-bottom: 10px;
@@ -174,6 +178,40 @@ const StyledPremadeMonster = styled.div`
 
   :active {
     box-shadow: 1px 1px 1px black;
+  }
+`;
+
+const StyledOpacityHiderDiv = styled.div`
+  transition: ease all 0.5s;
+  width: ${(props) => (props.open ? "100%" : "0%")};
+  height: ${(props) => (props.open ? "" : "0%")};
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: ${(props) => (props.open ? "1" : "0")};
+`;
+
+const StyledModalHiderDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  right: 0;
+  z-index: 90;
+  bottom: 0;
+  transition: ease all 0.4s;
+  height: ${(props) => (props.childOpen ? "100vh" : "150px")};
+
+  @media screen and (max-width: 600px) {
+    background-color: rgba(255, 255, 255, 0.4);
+    overflow: hidden;
+    height: ${(props) =>
+      props.slideOpen ? (props.childOpen ? "100vh" : "200px") : "50px"};
+    width: ${(props) => (props.childOpen ? "100vw" : "50px")};
+    border-radius: 30px;
+    right: ${(props) => (props.childOpen ? "0" : "20px")};
+    bottom: ${(props) => (props.childOpen ? "0" : "20px")};
   }
 `;
 
@@ -188,4 +226,6 @@ export {
   StyledCloseExpandingModal,
   StyledPremadeMonster,
   StyledPremadeMonstersScroll,
+  StyledOpacityHiderDiv,
+  StyledModalHiderDiv,
 };

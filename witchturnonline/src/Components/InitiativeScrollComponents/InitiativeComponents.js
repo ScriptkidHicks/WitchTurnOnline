@@ -9,11 +9,13 @@ import {
   StyledTTContentcontainer,
   StyledTurnTaker,
   StyledTTPictureSelectorButton,
-  StyledTurnandAddButton,
+  StyledInterfaceButton,
   StyledTurnContainerWrapper,
   StyledTurncontainer,
   StyledMobileOnlyColumn,
   StyledTTPictureExpanding,
+  StyledNameSlide,
+  StyledNameTag,
 } from "../StyledComponents/InitiativeStyles";
 import {
   StyledFormInformationRow,
@@ -23,6 +25,7 @@ import {
 } from "../StyledComponents/MainStyles";
 
 import { picturesList } from "../../Assets/PlayerAssets/Pictures";
+import { GenericToggle } from "../Buttons/Switches";
 
 function InitiativeRoll(props) {
   let isFirst = true;
@@ -77,6 +80,14 @@ function InitiativeRoll(props) {
         })}
       </StyledTurncontainer>
     </StyledTurnContainerWrapper>
+  );
+}
+
+function PlayerNameSlide(props) {
+  return (
+    <StyledNameSlide>
+      <StyledNameTag>Lillith</StyledNameTag>
+    </StyledNameSlide>
   );
 }
 
@@ -183,28 +194,16 @@ function TurnTaker(props) {
   );
 }
 
-function ChangePositionButton(props) {
-  return (
-    <StyledGenericButton
-      onClick={() => {
-        props.SetPositionFunction(props.position + props.increment);
-      }}
-    >
-      {props.children}
-    </StyledGenericButton>
-  );
-}
-
 function CompleteModalButton(props) {
   return (
-    <StyledTurnandAddButton
+    <StyledInterfaceButton
       onClick={() => {
         props.CompleteModalFunction();
         props.SetVisible(false);
       }}
     >
       {props.children}
-    </StyledTurnandAddButton>
+    </StyledInterfaceButton>
   );
 }
 
@@ -212,95 +211,101 @@ function AddModal(props) {
   const name = useRef("");
   const bonus = useRef(0);
   const initiative = useRef(undefined);
+  const armorClass = useRef(0);
   const [picture, setPicture] = useState(picturesList[0]);
   const [picScrollVisible, setPicScrollVisible] = useState(false);
-  const isHidden = useRef(false);
+  const [isHidden, setIsHidden] = useState(false);
   return (
-    <StyledModalBackground>
-      <StyledModalInterfaceDiv>
-        <StyledFormInformationRow justify={"center"}>
-          <BasicXCloseButton SetVisible={props.SetVisible} />
-        </StyledFormInformationRow>
-        <StyledFormInformationRow>
-          <StyledInfoLabel>Picture: </StyledInfoLabel>
-          {picScrollVisible && (
-            <PictureChooser
-              displaySize={3}
-              pictures={picturesList}
-              selector={setPicture}
-              toggleVisible={setPicScrollVisible}
-            />
-          )}
-          {!picScrollVisible && (
-            <StyledTTPictureSelectorButton
-              src={picture}
-              onClick={() => {
-                console.log(picture);
-                setPicScrollVisible(true);
-              }}
-            />
-          )}
-        </StyledFormInformationRow>
-        {props.isGM && (
-          <StyledFormInformationRow>
-            <StyledInfoLabel>Is this a hidden character?</StyledInfoLabel>
-            <input
-              type={"checkbox"}
-              onClick={() => {
-                isHidden.current = !isHidden.current;
-              }}
-            ></input>
-          </StyledFormInformationRow>
+    <StyledModalInterfaceDiv>
+      <StyledFormInformationRow>
+        <StyledInfoLabel>Picture: </StyledInfoLabel>
+        {picScrollVisible && (
+          <PictureChooser
+            displaySize={3}
+            pictures={picturesList}
+            selector={setPicture}
+            toggleVisible={setPicScrollVisible}
+          />
         )}
-        <StyledFormInformationRow>
-          <StyledInfoLabel>Name: </StyledInfoLabel>
-          <LimitedInputCombo
-            setInputState={(value) => (name.current = value)}
-            letterSpacing={"0.1em"}
-            maxLength={30}
-          />
-        </StyledFormInformationRow>
-        <StyledFormInformationRow>
-          <StyledInfoLabel>Initiative: </StyledInfoLabel>
-          <LimitedInputCombo
-            lettersNotAllowed={true}
-            setInputState={(value) => {
-              initiative.current = value;
+        {!picScrollVisible && (
+          <StyledTTPictureSelectorButton
+            src={picture}
+            onClick={() => {
+              setPicScrollVisible(true);
             }}
-            letterSpacing={"0.1em"}
-            maxLength={2}
-            placeholder={"random"}
           />
-        </StyledFormInformationRow>
+        )}
+      </StyledFormInformationRow>
+      {props.isGM && (
         <StyledFormInformationRow>
-          <StyledInfoLabel>Bonus: </StyledInfoLabel>
-          <LimitedInputCombo
-            lettersNotAllowed={true}
-            setInputState={(value) => {
-              bonus.current = value;
-            }}
-            letterSpacing={"0.1em"}
-            maxLength={2}
-            placeholder={"+0"}
-          />
+          <StyledInfoLabel>Is this a hidden character?</StyledInfoLabel>
+          <GenericToggle
+            active={isHidden}
+            setActive={setIsHidden}
+          ></GenericToggle>
         </StyledFormInformationRow>
-        <CompleteModalButton
-          CompleteModalFunction={() =>
-            props.AddParticipant(
-              picture,
-              name.current,
-              initiative.current,
-              bonus.current,
-              isHidden.current
-            )
-          }
-          SetVisible={props.SetVisible}
-        >
-          Add
-        </CompleteModalButton>
-      </StyledModalInterfaceDiv>
-    </StyledModalBackground>
+      )}
+      <StyledFormInformationRow>
+        <StyledInfoLabel>Name: </StyledInfoLabel>
+        <LimitedInputCombo
+          setInputState={(value) => (name.current = value)}
+          letterSpacing={"0.1em"}
+          maxLength={30}
+        />
+      </StyledFormInformationRow>
+      <StyledFormInformationRow>
+        <StyledInfoLabel>Initiative: </StyledInfoLabel>
+        <LimitedInputCombo
+          numbersOnly={true}
+          setInputState={(value) => {
+            armorClass.current = value;
+          }}
+          letterSpacing={"0.1em"}
+          maxLength={2}
+          placeholder={"random"}
+        />
+      </StyledFormInformationRow>
+      <StyledFormInformationRow>
+        <StyledInfoLabel>Bonus: </StyledInfoLabel>
+        <LimitedInputCombo
+          numbersOnly={true}
+          setInputState={(value) => {
+            bonus.current = value;
+          }}
+          letterSpacing={"0.1em"}
+          maxLength={2}
+          placeholder={"+0"}
+        />
+      </StyledFormInformationRow>
+      <StyledFormInformationRow>
+        <StyledInfoLabel>Armor Class</StyledInfoLabel>
+        <LimitedInputCombo
+          numbersOnly={true}
+          setInputState={(value) => {
+            bonus.current = value;
+          }}
+          letterSpacing={"0.1em"}
+          maxLength={2}
+          placeholder={"+0"}
+        />
+      </StyledFormInformationRow>
+      <CompleteModalButton
+        CompleteModalFunction={() =>
+          props.AddParticipant(
+            picture,
+            name.current,
+            initiative.current,
+            bonus.current,
+            armorClass.current,
+            isHidden
+          )
+        }
+        SetVisible={props.SetVisible}
+      >
+        Add
+      </CompleteModalButton>
+    </StyledModalInterfaceDiv>
   );
 }
 
-export { InitiativeRoll, AddModal, TurnTakerPictureAndSheet };
+export { InitiativeRoll, AddModal, TurnTakerPictureAndSheet, PlayerNameSlide };

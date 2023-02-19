@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   StyledMobileOnlyColumn,
   StyledTTContentcontainer,
@@ -9,6 +9,8 @@ import {
   StyledCloseExpandingModal,
   StyledExpandingModal,
   StyledFlyoutTabContent,
+  StyledModalHiderDiv,
+  StyledOpacityHiderDiv,
   StyledPremadeMonster,
   StyledPremadeMonstersScroll,
   StyledTabbedFlyoutBody,
@@ -16,13 +18,10 @@ import {
   StyledTabLabel,
 } from "./FlyoutStyles";
 
-import monsters from "../../Assets/MonsterOnlyAssets/Monsters";
+import { AddModal } from "../InitiativeScrollComponents/InitiativeComponents";
+import { SortedListSearcher } from "../SearchBars/GenericInputs";
 import { StyledMinorfunctionButton } from "../StyledComponents/MainStyles";
-import { useEffect } from "react";
-import {
-  AbstractDualQualitySorter,
-  SortObjectsByName,
-} from "../../Helpers/HelperFunctions";
+import { LimitedInputCombo } from "../SearchBars/GenericInputs";
 
 function TabbedFlyout(props) {
   const [selectedTab, setSelectedTab] = useState(1);
@@ -99,13 +98,19 @@ function FlyoutSection(props) {
 function ExpandingButtonModal(props) {
   return (
     <StyledExpandingModal
+      slideOpen={props.slideOpen}
+      othersOpen={props.othersOpen}
+      bottom={props.bottom}
       background={props.background}
       open={props.open}
-      onClick={() => {
+      onClick={(event) => {
+        event.stopPropagation();
         props.setOpen(true);
       }}
     >
-      {props.open && props.children}
+      <StyledOpacityHiderDiv open={props.open}>
+        {props.open && props.children}
+      </StyledOpacityHiderDiv>
     </StyledExpandingModal>
   );
 }
@@ -135,6 +140,7 @@ function PremadeMonsterScroll(props) {
             bonus={monster.bonus}
             key={index}
             name={monster.name}
+            AC={monster.armorClass}
             AddParticipant={props.AddParticipant}
           />
         );
@@ -145,14 +151,16 @@ function PremadeMonsterScroll(props) {
 
 function PremadeMonster(props) {
   const [hidden, setHidden] = useState(false);
+  const initiative = useRef(undefined);
   return (
     <StyledPremadeMonster
       onClick={() =>
         props.AddParticipant(
           props.src,
           props.name,
-          undefined,
+          initiative.current,
           props.bonus,
+          props.armorClass,
           hidden
         )
       }
@@ -165,6 +173,15 @@ function PremadeMonster(props) {
           </StyledInfoLabel>
         </StyledTTContentcontainer>
         <StyledTTContentcontainer>
+          <LimitedInputCombo
+            numbersOnly={true}
+            setInputState={(value) => {
+              initiative.current = value;
+            }}
+            letterSpacing={"0.1em"}
+            maxLength={2}
+            placeholder={"random"}
+          ></LimitedInputCombo>
           <StyledInfoLabel>
             {"Bonus: " + (props.bonus >= 0 ? "+" + props.bonus : props.bonus)}
           </StyledInfoLabel>
