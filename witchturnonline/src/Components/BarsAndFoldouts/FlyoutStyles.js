@@ -200,7 +200,8 @@ const StyledModalHiderDiv = styled.div`
   right: 0;
   z-index: 90;
   bottom: 0;
-  transition: ease all 0.4s;
+  transition: ease all 0.5s;
+
   height: ${(props) => (props.childOpen ? "100vh" : "150px")};
 
   @media screen and (max-width: 600px) {
