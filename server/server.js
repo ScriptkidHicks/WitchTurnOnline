@@ -63,6 +63,7 @@ class Connection {
 }
 
 function SendMessage(socket, data, io) {
+  console.log(`emitting the message to the room: ${data.message}`);
   io.to(data.room).emit("receive_message", {
     message: data.message,
     offset: data.offset,
@@ -100,9 +101,6 @@ function GenerateRoom(socket, data, io) {
       roomViable = true;
     }
   }
-  console.log(roomCode);
-  socket.join(roomCode);
-  console.log(socket.id);
   roomsInUse.set(roomCode, true);
   io.to(socket.id).emit("room_generated", { room: roomCode });
 }
