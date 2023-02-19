@@ -74,6 +74,7 @@ function Base20InitiativePage(props) {
     props.socket.emit("join_room", { room: room });
 
     props.socket.on("receive_message", (data) => {
+      console.log(` a new message has been received: ${data.message}`);
       participantsParallel = data.message;
       setOffset(data.offset);
       setParticipants(data.message);
