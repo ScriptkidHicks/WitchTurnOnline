@@ -17,7 +17,7 @@ const StyledTurnContainerWrapper = styled.div`
   padding: 0px 12px;
   z-index: 0;
 
-  @media screen and (max-width: 400px) {
+  @media screen and (max-width: 600px) {
     padding: 0px;
     width: 95%;
   }

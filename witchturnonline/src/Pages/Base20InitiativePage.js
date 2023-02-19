@@ -1,27 +1,25 @@
 import {
   AddModal,
   InitiativeRoll,
-  PlayerNameSlide,
 } from "../Components/InitiativeScrollComponents/InitiativeComponents";
 import {
   DefaultPageBody,
   DefaultPageColumn,
-  StyledSearchListInput,
 } from "../Components/StyledComponents/MainStyles";
 import { useEffect, useState } from "react";
 import {
   StyledButtonRow,
   StyledInfoLabel,
-  StyledInterfaceButton,
   StyledTurnButton,
 } from "../Components/StyledComponents/InitiativeStyles";
 import { useParams } from "react-router-dom";
 import {
   StyledCopyFlyout,
   StyledHiddenInfo,
+  StyledModalHiderCollapserDiv,
+  StyledModalHiderDiv,
 } from "../Components/BarsAndFoldouts/FlyoutStyles";
 import {
-  TabbedFlyout,
   ExpandingButtonModal,
   CloseExpandingModal,
   PremadeMonsterScroll,
@@ -36,8 +34,6 @@ import Kobold from "../Assets/MonsterOnlyAssets/Kobold.png";
 import Wizard from "../Assets/PlayerAssets/Wizard.png";
 
 import names from "../Assets/PlayerAssets/Names";
-
-import { HamburgerBarButton } from "../Components/Buttons/BasicButtons";
 import monsters from "../Assets/MonsterOnlyAssets/Monsters";
 import { SortedListSearcher } from "../Components/SearchBars/GenericInputs";
 
@@ -51,6 +47,7 @@ function Base20InitiativePage(props) {
 
   const [monsterSelectorOpen, setMonsterSelectorOpen] = useState(false);
   const [playersModalOpen, setPlayersModalOpen] = useState(false);
+  const [mobileSliderOpen, setMobileSliderOpen] = useState(false);
 
   const { room } = useParams();
 
@@ -307,8 +304,32 @@ function Base20InitiativePage(props) {
 
   return (
     <DefaultPageBody>
-      {props.isGM && (
+      <StyledModalHiderDiv
+        childOpen={monsterSelectorOpen || playersModalOpen}
+        slideOpen={mobileSliderOpen}
+        onClick={() => setMobileSliderOpen(!mobileSliderOpen)}
+      >
         <ExpandingButtonModal
+          slideOpen={mobileSliderOpen}
+          othersOpen={monsterSelectorOpen}
+          background={Wizard}
+          bottom={"100px"}
+          open={playersModalOpen}
+          setOpen={setPlayersModalOpen}
+        >
+          <CloseExpandingModal
+            setOpen={setPlayersModalOpen}
+            resetFunction={() => {}}
+          ></CloseExpandingModal>
+          <AddModal
+            isGM={props.isGM}
+            AddParticipant={AddParticipant}
+            SetVisible={setAddModalVisible}
+          />
+        </ExpandingButtonModal>
+        <ExpandingButtonModal
+          slideOpen={mobileSliderOpen}
+          othersOpen={playersModalOpen}
           background={Kobold}
           open={monsterSelectorOpen}
           setOpen={setMonsterSelectorOpen}
@@ -330,24 +351,7 @@ function Base20InitiativePage(props) {
             AddParticipant={AddParticipant}
           />
         </ExpandingButtonModal>
-      )}
-
-      <ExpandingButtonModal
-        background={Wizard}
-        bottom={"100px"}
-        open={playersModalOpen}
-        setOpen={setPlayersModalOpen}
-      >
-        <CloseExpandingModal
-          setOpen={setPlayersModalOpen}
-          resetFunction={() => {}}
-        ></CloseExpandingModal>
-        <AddModal
-          isGM={props.isGM}
-          AddParticipant={AddParticipant}
-          SetVisible={setAddModalVisible}
-        />
-      </ExpandingButtonModal>
+      </StyledModalHiderDiv>
 
       <DefaultPageColumn flexGrow={3} modalOn={addModalVisible}>
         <InitiativeRoll

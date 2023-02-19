@@ -9,6 +9,7 @@ import {
   StyledCloseExpandingModal,
   StyledExpandingModal,
   StyledFlyoutTabContent,
+  StyledModalHiderDiv,
   StyledOpacityHiderDiv,
   StyledPremadeMonster,
   StyledPremadeMonstersScroll,
@@ -17,13 +18,9 @@ import {
   StyledTabLabel,
 } from "./FlyoutStyles";
 
-import monsters from "../../Assets/MonsterOnlyAssets/Monsters";
+import { AddModal } from "../InitiativeScrollComponents/InitiativeComponents";
+import { SortedListSearcher } from "../SearchBars/GenericInputs";
 import { StyledMinorfunctionButton } from "../StyledComponents/MainStyles";
-import { useEffect } from "react";
-import {
-  AbstractDualQualitySorter,
-  SortObjectsByName,
-} from "../../Helpers/HelperFunctions";
 import { LimitedInputCombo } from "../SearchBars/GenericInputs";
 
 function TabbedFlyout(props) {
@@ -101,10 +98,13 @@ function FlyoutSection(props) {
 function ExpandingButtonModal(props) {
   return (
     <StyledExpandingModal
+      slideOpen={props.slideOpen}
+      othersOpen={props.othersOpen}
       bottom={props.bottom}
       background={props.background}
       open={props.open}
-      onClick={() => {
+      onClick={(event) => {
+        event.stopPropagation();
         props.setOpen(true);
       }}
     >
