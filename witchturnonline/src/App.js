@@ -7,6 +7,7 @@ import { useState } from "react";
 
 import socket from "./Socket/Socket";
 import AboutPage from "./Pages/AboutPage";
+import LoginPage from "./Pages/LoginPage";
 
 function App() {
   const [room, setRoom] = useState("");
@@ -30,6 +31,7 @@ function App() {
             />
           }
         />
+        <Route path="/login" exact element={<LoginPage />} />
         <Route path="/initiative" exact>
           <Route
             path=":room"

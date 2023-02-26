@@ -120,6 +120,16 @@ function JoinRoomPage(props) {
               Generate Room
             </StyledInterfaceButton>
           </GenericInputDiv>
+
+          <GenericInputDiv>
+            <StyledInterfaceButton
+              onClick={() => {
+                navigate("/login");
+              }}
+            >
+              Login
+            </StyledInterfaceButton>
+          </GenericInputDiv>
         </DefaultPageColumn>
       )}
       <DefaultPageColumn justifyContent={"flex-start"}>
