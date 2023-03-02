@@ -33,13 +33,15 @@ function JoinRoomPage(props) {
       alert("Please enter a player name");
       return;
     }
-    props.socket.emit("check_room_validity", { room: props.room });
+    props.socket.emit("check_room_validity", {
+      room: props.room.toLowerCase(),
+    });
     setCheckingRoomValidity(true);
   }
 
   useEffect(() => {
     props.socket.on("room_valid", (data) => {
-      props.setRoom(data.room);
+      props.setRoom(data.room.toLowerCase());
       navigate(`/initiative/${data.room}`);
     });
 
