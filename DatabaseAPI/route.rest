@@ -1,1 +1,29 @@
 GET http://localhost:3002/subscribers
+
+###
+
+GET http://localhost:3002/subscribers/Godrick
+
+###
+
+DELETE http://localhost:3002/subscribers/640e203a4ac7bac462b21714
+
+###
+
+PATCH http://localhost:3002/subscribers/640e203a4ac7bac462b21714
+Content-Type: application/json
+
+{
+    "name": "Not Godrick"
+}
+
+###
+
+POST http://localhost:3002/subscribers
+Content-Type: application/json 
+
+{
+    "name": "Godrick",
+    "hashedPassword": "anExample",
+    "email": "tammashicks@gmail.com"
+}
