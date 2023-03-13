@@ -8,6 +8,10 @@ module.exports = router;
 //GETTING ALL
 
 router.get("/", async (req, res) => {
+  console.log("I have been touched");
+  console.log(req.originalUrl);
+  console.log(req.baseUrl);
+  console.log(req.hostname);
   try {
     const subscribers = await Subscriber.find();
     res.json({ subscribers: subscribers });

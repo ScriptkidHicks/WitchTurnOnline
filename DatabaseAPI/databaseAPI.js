@@ -2,6 +2,7 @@ const express = require("express");
 require("dotenv").config();
 const mongoose = require("mongoose");
 const app = express();
+const cors = require("cors");
 
 mongoose.set("strictQuery", false);
 
@@ -17,6 +18,12 @@ db.on("open", () => {
 });
 
 app.use(express.json());
+app.use(
+  cors({
+    /* Allowing all origins because chrome is bad about this */
+    origin: "http://localhost:3000",
+  })
+);
 
 const subscribersRouter = require("./routes/subscribers");
 
