@@ -13,6 +13,7 @@ function App() {
   const [room, setRoom] = useState("");
   const [isGM, setIsGM] = useState(false);
   const [playerName, setPlayerName] = useState("");
+
   return (
     <div className="App">
       <Routes>
@@ -31,7 +32,13 @@ function App() {
             />
           }
         />
-        <Route path="/login" exact element={<LoginPage />} />
+        <Route
+          path="/login"
+          exact
+          element={
+            <LoginPage playerName={playerName} setPlayerName={setPlayerName} />
+          }
+        />
         <Route path="/initiative" exact>
           <Route
             path=":room"

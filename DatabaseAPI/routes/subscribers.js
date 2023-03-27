@@ -1,4 +1,5 @@
 const express = require("express");
+const { generateToken } = require("../helpers/helpers");
 const subscriber = require("../models/subscriber");
 const router = express.Router();
 const Subscriber = require("../models/subscriber");
@@ -12,9 +13,10 @@ router.get("/", async (req, res) => {
   console.log(req.originalUrl);
   console.log(req.baseUrl);
   console.log(req.hostname);
+  console.log(generateToken("timmothy"));
   try {
     const subscribers = await Subscriber.find();
-    res.json({ subscribers: subscribers });
+    res.json({ exToken: generateToken("timmothy") });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

@@ -2,15 +2,17 @@ import {
   DefaultPageBody,
   DefaultPageColumn,
   GenericInputDiv,
-  StyleableLimitedInput,
   StyledInputRow,
   StyledLabelText,
 } from "../Components/StyledComponents/MainStyles";
+import Cookie from "js-cookie";
 
 import Church from "../Assets/BackgroundAssets/Church.png";
 import { StyledInterfaceButton } from "../Components/StyledComponents/InitiativeStyles";
 import { useNavigate } from "react-router-dom";
 import { LimitedInputCombo } from "../Components/SearchBars/GenericInputs";
+
+import { useJwt } from "react-jwt";
 
 function LoginPage(props) {
   const navigate = useNavigate();
@@ -22,7 +24,13 @@ function LoginPage(props) {
       headers: { "Content-Type": "application/JSON" },
     };
     fetch("http://localhost:3002/subscribers", ask).then((response) => {
-      console.log(response);
+      if (response.status === 200) {
+        response.json().then((repJson) => {
+          console.log(repJson);
+          Cookie.set("name", "hopefully this will be obfuscated");
+          console.log(Cookie.get("name"));
+        });
+      }
     });
   }
   return (
