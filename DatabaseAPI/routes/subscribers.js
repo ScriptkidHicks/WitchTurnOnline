@@ -1,10 +1,47 @@
 const express = require("express");
-const { generateToken } = require("../helpers/helpers");
-const subscriber = require("../models/subscriber");
+const { generateToken, verifyToken } = require("../helpers/helpers");
 const router = express.Router();
 const Subscriber = require("../models/subscriber");
 
 module.exports = router;
+
+//VERIFY ONE
+
+router.get("/Verify", async (req, res) => {
+  console.log("verify has been touched");
+  let token;
+  req.headers.authorization;
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith("Bearer")
+  ) {
+    try {
+      // retreive token
+      token = req.headers.authorization.split(" ")[1];
+
+      const decoded = verifyToken(token);
+
+      let subReference = await Subscriber.findById(decoded.userId).select(
+        "-hashedPassword"
+      );
+      if (subReference) {
+        res.status(200);
+      } else {
+        res.status(401);
+        throw new Error("Not authorized");
+      }
+    } catch (error) {
+      console.log(error);
+      res.status(401);
+      throw new Error("not authorized");
+    }
+  } else {
+    res.status(401);
+    throw new Error("not authorized");
+  }
+
+  res.send();
+});
 
 //GETTING ALL
 
@@ -13,10 +50,9 @@ router.get("/", async (req, res) => {
   console.log(req.originalUrl);
   console.log(req.baseUrl);
   console.log(req.hostname);
-  console.log(generateToken("timmothy"));
   try {
     const subscribers = await Subscriber.find();
-    res.json({ exToken: generateToken("timmothy") });
+    res.json({ exToken: generateToken(subscribers[0].id) });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

@@ -12,27 +12,42 @@ import { StyledInterfaceButton } from "../Components/StyledComponents/Initiative
 import { useNavigate } from "react-router-dom";
 import { LimitedInputCombo } from "../Components/SearchBars/GenericInputs";
 
-import { useJwt } from "react-jwt";
+import { decodeToken } from "react-jwt";
 
 function LoginPage(props) {
   const navigate = useNavigate();
-
-  async function loginQuery(name) {
-    console.log("querying the database");
-    const ask = {
-      Method: "GET",
-      headers: { "Content-Type": "application/JSON" },
-    };
-    fetch("http://localhost:3002/subscribers", ask).then((response) => {
-      if (response.status === 200) {
-        response.json().then((repJson) => {
-          console.log(repJson);
-          Cookie.set("name", "hopefully this will be obfuscated");
-          console.log(Cookie.get("name"));
-        });
-      }
-    });
-  }
+  // async function loginQuery(name) {
+  //   console.log("querying the database");
+  //   const ask = {
+  //     Method: "GET",
+  //     headers: { "Content-Type": "application/JSON" },
+  //   };
+  //   fetch("http://localhost:3002/subscribers", ask).then((response) => {
+  //     if (response.status === 200) {
+  //       response.json().then((repJson) => {
+  //         console.log(repJson);
+  //         let tmptoken = decodeToken(repJson["exToken"]);
+  //         console.log(tmptoken);
+  //         fetch("http://localhost:3002/subscribers/Verify", {
+  //           Method: "GET",
+  //           headers: {
+  //             "Content-Type": "application/JSON",
+  //             authorization: `Bearer ${repJson["exToken"]}`,
+  //           },
+  //         }).then((response) => {
+  //           if (response.status == 200) {
+  //             console.log("That's a valiid user");
+  //             response.json().then((reperooni) => {
+  //               console.log(reperooni);
+  //             });
+  //           } else {
+  //             console.log("not valid");
+  //           }
+  //         });
+  //       });
+  //     }
+  //   });
+  // }
   return (
     <DefaultPageBody backgroundImage={Church}>
       <DefaultPageColumn>
