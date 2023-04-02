@@ -101,6 +101,15 @@ router.get("/:id", getSubscriberByName, (req, res) => {
 
 router.post("/", async (req, res) => {
   console.log("I am creating a new one");
+
+  let nameUser = Subscriber.find({name: req.body.name})
+  let emailUser = Subscriber.find({email: req.body.email})
+
+  if (nameUser || emailUser){
+    res.status(409);
+    res.send("User already exists");
+    return;
+  }
   const subscriber = new Subscriber({
     name: req.body.name,
     hashedPassword: req.body.hashedPassword,

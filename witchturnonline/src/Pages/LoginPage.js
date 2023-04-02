@@ -13,9 +13,13 @@ import { useNavigate } from "react-router-dom";
 import { LimitedInputCombo } from "../Components/SearchBars/GenericInputs";
 
 import bcrypt from "bcryptjs";
+import { useState } from "react";
+import { validateString } from "../Helpers/HelperFunctions";
 
 function LoginPage(props) {
   const navigate = useNavigate();
+
+  const [password, setPassword] = useState();
   // async function loginQuery(name) {
   //   console.log("querying the database");
   //   const ask = {
@@ -49,6 +53,40 @@ function LoginPage(props) {
   //   });
   // }
 
+  function validatePasswordAndName() {
+    if (!props.playerName) {
+      alert("No player name entered");
+      return;
+    }
+    if (!password) {
+      alert("No password entered");
+      return;
+    }
+
+    let nameResponse = validateString(
+      props.playerName,
+      5,
+      50,
+      [" "],
+      false,
+      false
+    );
+
+    if (nameResponse != "") {
+      nameResponse = "Player name in error\n" + nameResponse;
+    }
+
+    let passwordResponse = validateString(password, 5, 40, [" "], true, true);
+    if (passwordResponse != "") {
+      passwordResponse = "Password in error\n" + passwordResponse;
+    }
+
+    if (nameResponse != "" || passwordResponse != "") {
+      alert(nameResponse + "\n" + passwordResponse);
+      return;
+    }
+  }
+
   async function createQuery() {
     const salt = bcrypt.genSaltSync(10);
     console.log(salt);
@@ -60,7 +98,7 @@ function LoginPage(props) {
       headers: {
         Accept: "application/JSON",
         "content-type": "application/JSON",
-        origin: "http://localhost:3000"
+        origin: "http://localhost:3000",
       },
       body: JSON.stringify({
         name: "tammas",
@@ -76,7 +114,6 @@ function LoginPage(props) {
 
   async function loginQuery() {
     const hashedPassword = bcrypt.hashSync("oingo");
-    console.log(hashedPassword);
     console.log(hashedPassword);
     const ask = {
       method: "POST",
@@ -110,9 +147,19 @@ function LoginPage(props) {
             ></LimitedInputCombo>
           </StyledInputRow>
           <StyledInputRow>
+            <StyledLabelText>Password:</StyledLabelText>
+            <LimitedInputCombo
+              type={"password"}
+              maxLength={40}
+              letterSpacing={"0em"}
+              inputState={password}
+              setInputState={setPassword}
+            ></LimitedInputCombo>
+          </StyledInputRow>
+          <StyledInputRow>
             <StyledInterfaceButton
               onClick={() => {
-                loginQuery();
+                validatePasswordAndName();
               }}
             >
               Login

@@ -36,9 +36,51 @@ function SortObjectsByName(toBeSorted) {
   return toBeSorted;
 }
 
+function validateString(
+  examinedString,
+  minLength,
+  maxLength,
+  disallowedSubstrings,
+  needsNumeric,
+  needsSymbol
+) {
+  let validationResponse = "";
+
+  if (minLength != 0 && examinedString.length < minLength) {
+    validationResponse += "- Not long enough\n";
+  }
+
+  if (maxLength && examinedString.length > maxLength) {
+    validationResponse += "- Too long\n";
+  }
+
+  if (disallowedSubstrings != []) {
+    disallowedSubstrings.forEach((substring) => {
+      if (examinedString.includes(substring)) {
+        if (substring === " ") {
+          validationResponse += "- Contains a space\n";
+        } else {
+          validationResponse += `- Contains ${substring}\n`;
+        }
+      }
+    });
+  }
+
+  if (needsNumeric && !/\d/.test(examinedString)) {
+    validationResponse += "- Does not contain a number\n";
+  }
+
+  if (needsSymbol && /^[a-zA-Z0-9]+$/.test(examinedString)) {
+    validationResponse += "- Does not contain a non-alphanumberic symbol\n";
+  }
+
+  return validationResponse;
+}
+
 export {
   RotatingSlice,
   Debounce,
   AbstractDualQualitySorter,
   SortObjectsByName,
+  validateString,
 };
