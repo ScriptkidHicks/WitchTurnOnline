@@ -13,13 +13,14 @@ import { StyledInterfaceButton } from "../Components/StyledComponents/Initiative
 import { useNavigate } from "react-router-dom";
 import { LimitedInputCombo } from "../Components/SearchBars/GenericInputs";
 import { useState } from "react";
-import { validateString } from "../Helpers/HelperFunctions";
+import { emailvalidate, validateString } from "../Helpers/HelperFunctions";
 
 function LoginPage(props) {
   const navigate = useNavigate();
 
   const [password, setPassword] = useState();
   const [hasAccount, sethasAccount] = useState(true);
+  const [email, setEmail] = useState();
 
   function LoginValidate() {
     if (!props.playerName) {
@@ -56,7 +57,12 @@ function LoginPage(props) {
     return true;
   }
 
-  function createAccount() {}
+  function createAccount() {
+    if (!emailvalidate(email)) {
+      alert("Please enter a valid email.");
+      return;
+    }
+  }
 
   function login() {
     if (!LoginValidate()) {
@@ -162,11 +168,42 @@ function LoginPage(props) {
         )}
         {!hasAccount && (
           <GenericInputDiv>
-            <StyledInputRow></StyledInputRow>
-            <StyledInputRow></StyledInputRow>
-            <StyledInputRow></StyledInputRow>
             <StyledInputRow>
-              <StyledInterfaceButton>Create Account</StyledInterfaceButton>
+              <StyledLabelText>Email:</StyledLabelText>
+              <LimitedInputCombo
+                type={"email"}
+                maxLength={100}
+                letterSpacing={"0em"}
+                inputState={email}
+                setInputState={setEmail}
+              ></LimitedInputCombo>
+            </StyledInputRow>
+            <StyledInputRow>
+              <StyledLabelText>User Name:</StyledLabelText>
+              <LimitedInputCombo
+                maxLength={40}
+                letterSpacing={"0em"}
+                inputState={props.playerName}
+                setInputState={props.setPlayerName}
+              ></LimitedInputCombo>
+            </StyledInputRow>
+            <StyledInputRow>
+              <StyledLabelText>Password:</StyledLabelText>
+              <LimitedInputCombo
+                maxLength={40}
+                letterSpacing={"0em"}
+                inputState={password}
+                setInputState={setPassword}
+              ></LimitedInputCombo>
+            </StyledInputRow>
+            <StyledInputRow>
+              <StyledInterfaceButton
+                onClick={() => {
+                  createAccount();
+                }}
+              >
+                Create Account
+              </StyledInterfaceButton>
               <StyledInterfaceButton
                 onClick={() => {
                   sethasAccount(true);
