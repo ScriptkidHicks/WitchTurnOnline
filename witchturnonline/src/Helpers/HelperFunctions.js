@@ -77,10 +77,17 @@ function validateString(
   return validationResponse;
 }
 
+function emailvalidate(emailString) {
+  return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+    emailString
+  );
+}
+
 export {
   RotatingSlice,
   Debounce,
   AbstractDualQualitySorter,
   SortObjectsByName,
   validateString,
+  emailvalidate,
 };

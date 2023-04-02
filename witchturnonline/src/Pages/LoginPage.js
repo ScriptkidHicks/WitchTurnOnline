@@ -6,13 +6,12 @@ import {
   StyledLabelText,
 } from "../Components/StyledComponents/MainStyles";
 import Cookie from "js-cookie";
+import { decodeToken } from "react-jwt";
 
 import Church from "../Assets/BackgroundAssets/Church.png";
 import { StyledInterfaceButton } from "../Components/StyledComponents/InitiativeStyles";
 import { useNavigate } from "react-router-dom";
 import { LimitedInputCombo } from "../Components/SearchBars/GenericInputs";
-
-import bcrypt from "bcryptjs";
 import { useState } from "react";
 import { validateString } from "../Helpers/HelperFunctions";
 
@@ -20,40 +19,9 @@ function LoginPage(props) {
   const navigate = useNavigate();
 
   const [password, setPassword] = useState();
-  // async function loginQuery(name) {
-  //   console.log("querying the database");
-  //   const ask = {
-  //     Method: "GET",
-  //     headers: { "Content-Type": "application/JSON" },
-  //   };
-  //   fetch("http://localhost:3002/subscribers", ask).then((response) => {
-  //     if (response.status === 200) {
-  //       response.json().then((repJson) => {
-  //         console.log(repJson);
-  //         let tmptoken = decodeToken(repJson["exToken"]);
-  //         console.log(tmptoken);
-  //         fetch("http://localhost:3002/subscribers/Verify", {
-  //           Method: "GET",
-  //           headers: {
-  //             "Content-Type": "application/JSON",
-  //             authorization: `Bearer ${repJson["exToken"]}`,
-  //           },
-  //         }).then((response) => {
-  //           if (response.status == 200) {
-  //             console.log("That's a valiid user");
-  //             response.json().then((reperooni) => {
-  //               console.log(reperooni);
-  //             });
-  //           } else {
-  //             console.log("not valid");
-  //           }
-  //         });
-  //       });
-  //     }
-  //   });
-  // }
+  const [hasAccount, sethasAccount] = useState(true);
 
-  function validatePasswordAndName() {
+  function LoginValidate() {
     if (!props.playerName) {
       alert("No player name entered");
       return;
@@ -72,27 +40,33 @@ function LoginPage(props) {
       false
     );
 
-    if (nameResponse != "") {
+    if (nameResponse !== "") {
       nameResponse = "Player name in error\n" + nameResponse;
     }
 
     let passwordResponse = validateString(password, 5, 40, [" "], true, true);
-    if (passwordResponse != "") {
+    if (passwordResponse !== "") {
       passwordResponse = "Password in error\n" + passwordResponse;
     }
 
-    if (nameResponse != "" || passwordResponse != "") {
+    if (nameResponse !== "" || passwordResponse !== "") {
       alert(nameResponse + "\n" + passwordResponse);
+      return false;
+    }
+    return true;
+  }
+
+  function createAccount() {}
+
+  function login() {
+    if (!LoginValidate()) {
       return;
     }
+
+    loginQuery();
   }
 
   async function createQuery() {
-    const salt = bcrypt.genSaltSync(10);
-    console.log(salt);
-    const hashedPassword = bcrypt.hashSync("oingo", salt);
-    console.log(hashedPassword);
-
     const newInfo = {
       method: "POST",
       headers: {
@@ -102,7 +76,7 @@ function LoginPage(props) {
       },
       body: JSON.stringify({
         name: "tammas",
-        hashedPassword: hashedPassword,
+        password: password,
         email: "lololol",
       }),
     };
@@ -113,66 +87,96 @@ function LoginPage(props) {
   }
 
   async function loginQuery() {
-    const hashedPassword = bcrypt.hashSync("oingo");
-    console.log(hashedPassword);
-    const ask = {
+    const loginAsk = {
       method: "POST",
       headers: {
         Accept: "application/JSON",
         "Content-Type": "application/JSON",
       },
       body: JSON.stringify({
-        name: "tammas",
-        hashedPassword: "oingo",
+        name: props.playerName,
+        password: password,
       }),
     };
 
-    fetch("http://localhost:3002/subscribers/login", ask).then((response) => {
-      console.log(response);
-      console.log(response.status);
-    });
+    fetch("http://localhost:3002/subscribers/login", loginAsk).then(
+      (response) => {
+        if (response.status === 200) {
+          response.json().then((jwtPackage) => {
+            // current max tollerance  for login is 30 days
+            Cookie.set("witchTurnUserLogin", jwtPackage.jwt, { expires: 30 });
+            navigate("/");
+          });
+        } else if (response.status === 401) {
+          alert("Name or Password not Valid");
+        } else if (response.status < 500) {
+          alert(
+            "There appears to be an error with our servers. Please try again later"
+          );
+        }
+      }
+    );
   }
 
   return (
     <DefaultPageBody backgroundImage={Church}>
       <DefaultPageColumn>
-        <GenericInputDiv>
-          <StyledInputRow>
-            <StyledLabelText>Name:</StyledLabelText>
-            <LimitedInputCombo
-              maxLength={40}
-              letterSpacing={"0em"}
-              inputState={props.playerName}
-              setInputState={props.setPlayerName}
-            ></LimitedInputCombo>
-          </StyledInputRow>
-          <StyledInputRow>
-            <StyledLabelText>Password:</StyledLabelText>
-            <LimitedInputCombo
-              type={"password"}
-              maxLength={40}
-              letterSpacing={"0em"}
-              inputState={password}
-              setInputState={setPassword}
-            ></LimitedInputCombo>
-          </StyledInputRow>
-          <StyledInputRow>
-            <StyledInterfaceButton
-              onClick={() => {
-                validatePasswordAndName();
-              }}
-            >
-              Login
-            </StyledInterfaceButton>
-            <StyledInterfaceButton
-              onClick={() => {
-                navigate("/");
-              }}
-            >
-              Go Back
-            </StyledInterfaceButton>
-          </StyledInputRow>
-        </GenericInputDiv>
+        {hasAccount && (
+          <GenericInputDiv>
+            <StyledInputRow>
+              <StyledLabelText>Name:</StyledLabelText>
+              <LimitedInputCombo
+                maxLength={40}
+                letterSpacing={"0em"}
+                inputState={props.playerName}
+                setInputState={props.setPlayerName}
+              ></LimitedInputCombo>
+            </StyledInputRow>
+            <StyledInputRow>
+              <StyledLabelText>Password:</StyledLabelText>
+              <LimitedInputCombo
+                type={"password"}
+                maxLength={40}
+                letterSpacing={"0em"}
+                inputState={password}
+                setInputState={setPassword}
+              ></LimitedInputCombo>
+            </StyledInputRow>
+            <StyledInputRow>
+              <StyledInterfaceButton
+                onClick={() => {
+                  login();
+                }}
+              >
+                Login
+              </StyledInterfaceButton>
+              <StyledInterfaceButton
+                onClick={() => {
+                  sethasAccount(false);
+                }}
+              >
+                Not A Member?
+              </StyledInterfaceButton>
+            </StyledInputRow>
+          </GenericInputDiv>
+        )}
+        {!hasAccount && (
+          <GenericInputDiv>
+            <StyledInputRow></StyledInputRow>
+            <StyledInputRow></StyledInputRow>
+            <StyledInputRow></StyledInputRow>
+            <StyledInputRow>
+              <StyledInterfaceButton>Create Account</StyledInterfaceButton>
+              <StyledInterfaceButton
+                onClick={() => {
+                  sethasAccount(true);
+                }}
+              >
+                Already A Member?
+              </StyledInterfaceButton>
+            </StyledInputRow>
+          </GenericInputDiv>
+        )}
       </DefaultPageColumn>
     </DefaultPageBody>
   );

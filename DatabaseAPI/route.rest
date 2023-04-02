@@ -27,3 +27,8 @@ Content-Type: application/json
     "hashedPassword": "anExample",
     "email": "tammashicks@gmail.com"
 }
+
+//Validcation check
+###
+
+POST  

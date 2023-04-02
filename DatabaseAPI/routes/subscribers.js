@@ -4,11 +4,13 @@ const router = express.Router();
 const Subscriber = require("../models/subscriber");
 const bcrypt = require("bcrypt");
 
+const jwt = require("jsonwebtoken");
+
 module.exports = router;
 
 router.post("/login", async (req, res) => {
   console.log("login has been touched");
-  if (req.body.name && req.body.hashedPassword) {
+  if (req.body.name && req.body.password) {
     console.log("both are present");
     console.log("name " + req.body.name);
     let user = await Subscriber.findOne({ name: req.body.name }).exec();
@@ -17,7 +19,7 @@ router.post("/login", async (req, res) => {
       console.log(user);
       console.log("PASSSSSSSSSSSSSSSSSSSSS " + user.hashedPassword);
       const match = await bcrypt.compare(
-        req.body.hashedPassword,
+        req.body.password,
         user.hashedPassword
       );
       console.log(match);
@@ -25,7 +27,9 @@ router.post("/login", async (req, res) => {
       console.log(user.hashedPassword);
       if (match) {
         res.status(200);
-        res.send("gtg");
+        res.send({
+          jwt: jwt.sign({ userName: req.body.name }, process.env.JWT_SECRET),
+        });
         return;
       } else {
         res.status(401);
@@ -37,7 +41,7 @@ router.post("/login", async (req, res) => {
     res.status(401);
   }
 
-  res.send("Password or username do not match");
+  res.send();
 });
 
 //VERIFY ONE
@@ -84,8 +88,8 @@ router.get("/", async (req, res) => {
   console.log("I have been touched (all subs)");
   try {
     const subscribers = await Subscriber.find();
-    console.log(subscribers)
-    res.json({ subscribers:subscribers });
+    console.log(subscribers);
+    res.json({ subscribers: subscribers });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -102,10 +106,10 @@ router.get("/:id", getSubscriberByName, (req, res) => {
 router.post("/", async (req, res) => {
   console.log("I am creating a new one");
 
-  let nameUser = Subscriber.find({name: req.body.name})
-  let emailUser = Subscriber.find({email: req.body.email})
+  let nameUser = Subscriber.find({ name: req.body.name });
+  let emailUser = Subscriber.find({ email: req.body.email });
 
-  if (nameUser || emailUser){
+  if (nameUser || emailUser) {
     res.status(409);
     res.send("User already exists");
     return;
