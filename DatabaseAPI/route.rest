@@ -14,7 +14,7 @@ PATCH http://localhost:3002/subscribers/640e203a4ac7bac462b21714
 Content-Type: application/json
 
 {
-    "name": "Not Godrick"
+    "name": "Godrick"
 }
 
 ###

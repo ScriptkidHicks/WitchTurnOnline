@@ -2,8 +2,43 @@ const express = require("express");
 const { generateToken, verifyToken } = require("../helpers/helpers");
 const router = express.Router();
 const Subscriber = require("../models/subscriber");
+const bcrypt = require("bcrypt");
 
 module.exports = router;
+
+router.post("/login", async (req, res) => {
+  console.log("login has been touched");
+  if (req.body.name && req.body.hashedPassword) {
+    console.log("both are present");
+    console.log("name " + req.body.name);
+    let user = await Subscriber.findOne({ name: req.body.name }).exec();
+    console.log("user " + user);
+    if (user) {
+      console.log(user);
+      console.log("PASSSSSSSSSSSSSSSSSSSSS " + user.hashedPassword);
+      const match = await bcrypt.compare(
+        req.body.hashedPassword,
+        user.hashedPassword
+      );
+      console.log(match);
+      console.log(req.body.hashedPassword);
+      console.log(user.hashedPassword);
+      if (match) {
+        res.status(200);
+        res.send("gtg");
+        return;
+      } else {
+        res.status(401);
+      }
+    } else {
+      res.status(401);
+    }
+  } else {
+    res.status(401);
+  }
+
+  res.send("Password or username do not match");
+});
 
 //VERIFY ONE
 
@@ -46,13 +81,11 @@ router.get("/Verify", async (req, res) => {
 //GETTING ALL
 
 router.get("/", async (req, res) => {
-  console.log("I have been touched");
-  console.log(req.originalUrl);
-  console.log(req.baseUrl);
-  console.log(req.hostname);
+  console.log("I have been touched (all subs)");
   try {
     const subscribers = await Subscriber.find();
-    res.json({ exToken: generateToken(subscribers[0].id) });
+    console.log(subscribers)
+    res.json({ subscribers:subscribers });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -67,6 +100,7 @@ router.get("/:id", getSubscriberByName, (req, res) => {
 //CREATING ONE
 
 router.post("/", async (req, res) => {
+  console.log("I am creating a new one");
   const subscriber = new Subscriber({
     name: req.body.name,
     hashedPassword: req.body.hashedPassword,
@@ -126,6 +160,8 @@ async function getSubscriberById(req, res, next) {
 
 async function getSubscriberByName(req, res, next) {
   let subscriber;
+  console.log("getting by name");
+  console.log(req.params.id);
   try {
     subscriber = await Subscriber.findOne({ name: req.params.id });
     if (subscriber == null) {

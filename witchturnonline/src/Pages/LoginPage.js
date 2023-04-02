@@ -12,7 +12,7 @@ import { StyledInterfaceButton } from "../Components/StyledComponents/Initiative
 import { useNavigate } from "react-router-dom";
 import { LimitedInputCombo } from "../Components/SearchBars/GenericInputs";
 
-import { decodeToken } from "react-jwt";
+import bcrypt from "bcryptjs";
 
 function LoginPage(props) {
   const navigate = useNavigate();
@@ -48,6 +48,54 @@ function LoginPage(props) {
   //     }
   //   });
   // }
+
+  async function createQuery() {
+    const salt = bcrypt.genSaltSync(10);
+    console.log(salt);
+    const hashedPassword = bcrypt.hashSync("oingo", salt);
+    console.log(hashedPassword);
+
+    const newInfo = {
+      method: "POST",
+      headers: {
+        Accept: "application/JSON",
+        "content-type": "application/JSON",
+        origin: "http://localhost:3000"
+      },
+      body: JSON.stringify({
+        name: "tammas",
+        hashedPassword: hashedPassword,
+        email: "lololol",
+      }),
+    };
+
+    fetch("http://localhost:3002/subscribers", newInfo).then((response) => {
+      console.log(response);
+    });
+  }
+
+  async function loginQuery() {
+    const hashedPassword = bcrypt.hashSync("oingo");
+    console.log(hashedPassword);
+    console.log(hashedPassword);
+    const ask = {
+      method: "POST",
+      headers: {
+        Accept: "application/JSON",
+        "Content-Type": "application/JSON",
+      },
+      body: JSON.stringify({
+        name: "tammas",
+        hashedPassword: "oingo",
+      }),
+    };
+
+    fetch("http://localhost:3002/subscribers/login", ask).then((response) => {
+      console.log(response);
+      console.log(response.status);
+    });
+  }
+
   return (
     <DefaultPageBody backgroundImage={Church}>
       <DefaultPageColumn>
@@ -64,7 +112,7 @@ function LoginPage(props) {
           <StyledInputRow>
             <StyledInterfaceButton
               onClick={() => {
-                loginQuery("Tammas");
+                loginQuery();
               }}
             >
               Login

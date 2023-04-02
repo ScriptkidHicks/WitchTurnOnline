@@ -20,7 +20,6 @@ db.on("open", () => {
 app.use(express.json());
 app.use(
   cors({
-    /* Allowing all origins because chrome is bad about this */
     origin: "http://localhost:3000",
   })
 );
