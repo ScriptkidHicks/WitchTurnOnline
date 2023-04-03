@@ -13,6 +13,7 @@ function App() {
   const [room, setRoom] = useState("");
   const [isGM, setIsGM] = useState(false);
   const [playerName, setPlayerName] = useState("");
+  const [playerLoggedIn, setPlayerLoggedIn] = useState(false);
 
   return (
     <div className="App">
@@ -29,6 +30,8 @@ function App() {
               socket={socket}
               playerName={playerName}
               setPlayerName={setPlayerName}
+              playerLoggedIn={playerLoggedIn}
+              setPlayerLoggedIn={setPlayerLoggedIn}
             />
           }
         />
@@ -36,7 +39,12 @@ function App() {
           path="/login"
           exact
           element={
-            <LoginPage playerName={playerName} setPlayerName={setPlayerName} />
+            <LoginPage
+              playerName={playerName}
+              setPlayerName={setPlayerName}
+              playerLoggedIn={playerLoggedIn}
+              setPlayerLoggedIn={setPlayerLoggedIn}
+            />
           }
         />
         <Route path="/initiative" exact>
@@ -50,6 +58,8 @@ function App() {
                 setIsGM={setIsGM}
                 socket={socket}
                 playerName={playerName}
+                playerLoggedIn={playerLoggedIn}
+                setPlayerLoggedIn={setPlayerLoggedIn}
               />
             }
           />

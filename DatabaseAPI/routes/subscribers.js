@@ -11,10 +11,7 @@ module.exports = router;
 router.post("/login", async (req, res) => {
   console.log("login has been touched");
   if (req.body.name && req.body.password) {
-    console.log("both are present");
-    console.log("name " + req.body.name);
     let user = await Subscriber.findOne({ name: req.body.name }).exec();
-    console.log("user " + user);
     if (user) {
       console.log(user);
       console.log("PASSSSSSSSSSSSSSSSSSSSS " + user.hashedPassword);
@@ -22,9 +19,6 @@ router.post("/login", async (req, res) => {
         req.body.password,
         user.hashedPassword
       );
-      console.log(match);
-      console.log(req.body.hashedPassword);
-      console.log(user.hashedPassword);
       if (match) {
         res.status(200);
         res.send({
@@ -59,15 +53,23 @@ router.get("/Verify", async (req, res) => {
       token = req.headers.authorization.split(" ")[1];
 
       const decoded = verifyToken(token);
+      console.log(decoded);
+      if (!decoded) {
+        res.status(401);
+        res.send("Invalid token");
+        return;
+      }
 
-      let subReference = await Subscriber.findById(decoded.userId).select(
-        "-hashedPassword"
-      );
+      let subReference = await Subscriber.findOne({
+        name: decoded.userName,
+      }).select("-hashedPassword");
       if (subReference) {
         res.status(200);
+        res.send();
+        return;
       } else {
         res.status(401);
-        throw new Error("Not authorized");
+        throw new Error("User Does Not Exist");
       }
     } catch (error) {
       console.log(error);
@@ -78,8 +80,6 @@ router.get("/Verify", async (req, res) => {
     res.status(401);
     throw new Error("not authorized");
   }
-
-  res.send();
 });
 
 //GETTING ALL
@@ -106,26 +106,37 @@ router.get("/:id", getSubscriberByName, (req, res) => {
 router.post("/", async (req, res) => {
   console.log("I am creating a new one");
 
-  let nameUser = Subscriber.find({ name: req.body.name });
-  let emailUser = Subscriber.find({ email: req.body.email });
+  let nameUser = await Subscriber.findOne({ name: req.body.name }).exec();
+  let emailUser = await Subscriber.findOne({ email: req.body.email }).exec();
 
   if (nameUser || emailUser) {
+    console.log(nameUser);
+    console.log(emailUser);
     res.status(409);
     res.send("User already exists");
     return;
   }
+  const salt = bcrypt.genSaltSync(10);
+  const hashedPassword = bcrypt.hashSync(req.body.password, salt);
   const subscriber = new Subscriber({
     name: req.body.name,
-    hashedPassword: req.body.hashedPassword,
+    hashedPassword: hashedPassword,
     email: req.body.email,
   });
 
   try {
     const newSubscriber = await subscriber.save();
-    res.status(201).json(newSubscriber);
+    console.log(newSubscriber);
+    res.status(201);
+    res.send({
+      jwt: jwt.sign({ userName: req.body.name }, process.env.JWT_SECRET),
+    });
+    return;
   } catch (error) {
+    console.log(error);
     res.status(400).json({ message: error.message });
   }
+  res.send();
 });
 
 //UPDATING ONE

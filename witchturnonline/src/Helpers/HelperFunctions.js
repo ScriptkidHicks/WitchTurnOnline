@@ -1,3 +1,5 @@
+import Cookie from "js-cookie";
+
 function RotatingSlice(list, start, end) {
   if (end < start) {
     return [...list.slice(start), ...list.slice(0, end)];
@@ -83,6 +85,51 @@ function emailvalidate(emailString) {
   );
 }
 
+async function checkLoginState(
+  successCallback,
+  failureCallback,
+  noCookieCallback,
+  serverErrorCallback,
+  setLoginStatus
+) {
+  let loginCookie = Cookie.get("witchTurnUserLogin");
+
+  if (!loginCookie) {
+    noCookieCallback();
+    return false;
+  }
+
+  const validationRequest = {
+    method: "GET",
+    headers: {
+      Accept: "application/JSON",
+      "content-type": "application/JSON",
+      origin: "http://localhost:3000",
+      authorization: `Bearer ${loginCookie}`,
+    },
+  };
+
+  fetch("http://localhost:3002/subscribers/Verify", validationRequest).then(
+    (response) => {
+      if (response.status >= 500) {
+        alert(
+          "There is currently something wonky with the server. Sorry friend. Try again later."
+        );
+        serverErrorCallback();
+      } else if (response.status === 401) {
+        Cookie.remove("witchTurnUserLogin");
+        setLoginStatus(false);
+        failureCallback();
+        return false;
+      } else if (response.status === 200) {
+        setLoginStatus(true);
+        successCallback();
+        return true;
+      }
+    }
+  );
+}
+
 export {
   RotatingSlice,
   Debounce,
@@ -90,4 +137,5 @@ export {
   SortObjectsByName,
   validateString,
   emailvalidate,
+  checkLoginState,
 };

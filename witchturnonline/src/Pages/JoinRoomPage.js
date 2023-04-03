@@ -10,6 +10,8 @@ import {
 } from "../Components/StyledComponents/MainStyles";
 import { LimitedInputCombo } from "../Components/SearchBars/GenericInputs";
 
+import Cookie from "js-cookie";
+
 import { useNavigate } from "react-router-dom";
 import { StyledInterfaceButton } from "../Components/StyledComponents/InitiativeStyles";
 
@@ -142,6 +144,27 @@ function JoinRoomPage(props) {
           )}
           {generateRoomPressed && "Loading your room"}
         </MainTitleLabel>
+        <GenericInputDiv>
+          {props.playerLoggedIn && (
+            <StyledInterfaceButton
+              onClick={() => {
+                props.setPlayerLoggedIn(false);
+                Cookie.remove("witchTurnUserLogin");
+              }}
+            >
+              Log Out
+            </StyledInterfaceButton>
+          )}
+          {!props.playerLoggedIn && (
+            <StyledInterfaceButton
+              onClick={() => {
+                navigate("/login");
+              }}
+            >
+              Login or Create Account
+            </StyledInterfaceButton>
+          )}
+        </GenericInputDiv>
       </DefaultPageColumn>
     </DefaultPageBody>
   );

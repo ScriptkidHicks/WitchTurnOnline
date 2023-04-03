@@ -6,14 +6,18 @@ import {
   StyledLabelText,
 } from "../Components/StyledComponents/MainStyles";
 import Cookie from "js-cookie";
-import { decodeToken } from "react-jwt";
 
 import Church from "../Assets/BackgroundAssets/Church.png";
 import { StyledInterfaceButton } from "../Components/StyledComponents/InitiativeStyles";
 import { useNavigate } from "react-router-dom";
 import { LimitedInputCombo } from "../Components/SearchBars/GenericInputs";
 import { useState } from "react";
-import { emailvalidate, validateString } from "../Helpers/HelperFunctions";
+import {
+  checkLoginState,
+  emailvalidate,
+  validateString,
+} from "../Helpers/HelperFunctions";
+import { useEffect } from "react";
 
 function LoginPage(props) {
   const navigate = useNavigate();
@@ -22,7 +26,21 @@ function LoginPage(props) {
   const [hasAccount, sethasAccount] = useState(true);
   const [email, setEmail] = useState();
 
-  function LoginValidate() {
+  useEffect(() => {
+    checkLoginState(
+      () => {
+        navigate("/");
+      },
+      () => {},
+      () => {},
+      () => {
+        navigate("/");
+      },
+      props.setPlayerLoggedIn
+    );
+  }, []);
+
+  function infoValidate() {
     if (!props.playerName) {
       alert("No player name entered");
       return;
@@ -62,10 +80,16 @@ function LoginPage(props) {
       alert("Please enter a valid email.");
       return;
     }
+
+    if (!infoValidate()) {
+      return;
+    }
+
+    createQuery();
   }
 
   function login() {
-    if (!LoginValidate()) {
+    if (!infoValidate()) {
       return;
     }
 
@@ -81,14 +105,27 @@ function LoginPage(props) {
         origin: "http://localhost:3000",
       },
       body: JSON.stringify({
-        name: "tammas",
+        name: props.playerName,
         password: password,
-        email: "lololol",
+        email: email,
       }),
     };
 
     fetch("http://localhost:3002/subscribers", newInfo).then((response) => {
-      console.log(response);
+      if (response.status === 409) {
+        alert("An account with that name or email already exists.");
+        return;
+      } else if (response.status >= 500) {
+        alert(
+          "There appears to be a problem with the server. Please try again later"
+        );
+      } else if (response.status === 201) {
+        response.json().then((jwtPackage) => {
+          // current max tollerance  for login is 30 days
+          Cookie.set("witchTurnUserLogin", jwtPackage.jwt, { expires: 30 });
+          navigate("/");
+        });
+      }
     });
   }
 
@@ -115,7 +152,7 @@ function LoginPage(props) {
           });
         } else if (response.status === 401) {
           alert("Name or Password not Valid");
-        } else if (response.status < 500) {
+        } else if (response.status > -500) {
           alert(
             "There appears to be an error with our servers. Please try again later"
           );
