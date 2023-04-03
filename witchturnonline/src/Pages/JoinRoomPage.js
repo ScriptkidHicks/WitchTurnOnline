@@ -10,6 +10,8 @@ import {
 } from "../Components/StyledComponents/MainStyles";
 import { LimitedInputCombo } from "../Components/SearchBars/GenericInputs";
 
+import { checkLoginState } from "../Helpers/HelperFunctions";
+
 import Cookie from "js-cookie";
 
 import { useNavigate } from "react-router-dom";
@@ -20,6 +22,20 @@ function JoinRoomPage(props) {
   const [checkingRoomValidity, setCheckingRoomValidity] = useState(false);
 
   const navigate = useNavigate();
+
+  /*
+>>>>>>>>>>>> USE EFFECTS >>>>>>>>>>>>>>>>>>>>>>>
+*/
+
+  useEffect(() => {
+    checkLoginState(
+      () => {},
+      () => {},
+      () => {},
+      () => {},
+      props.setPlayerLoggedIn
+    );
+  }, []);
 
   function GenerateRoom() {
     if (props.playerName === undefined || props.playerName === "") {

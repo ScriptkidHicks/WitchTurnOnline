@@ -28,6 +28,7 @@ import {
 import {
   AbstractDualQualitySorter,
   SortObjectsByName,
+  checkLoginState,
 } from "../Helpers/HelperFunctions";
 
 import Kobold from "../Assets/MonsterOnlyAssets/Kobold.png";
@@ -63,6 +64,16 @@ function Base20InitiativePage(props) {
     Use Effects
   */
   //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+  useEffect(() => {
+    checkLoginState(
+      () => {},
+      () => {},
+      () => {},
+      () => {},
+      props.setPlayerLoggedIn
+    );
+  }, []);
 
   useEffect(() => {
     //clear the names list
