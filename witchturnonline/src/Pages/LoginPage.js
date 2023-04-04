@@ -97,12 +97,13 @@ function LoginPage(props) {
   }
 
   async function createQuery() {
+    console.log("create query form " + process.env.REACT_APP_QUERY_SOURCE);
     const newInfo = {
       method: "POST",
       headers: {
         Accept: "application/JSON",
         "content-type": "application/JSON",
-        origin: "http://localhost:3000",
+        origin: process.env.REACT_APP_QUERY_SOURCE,
       },
       body: JSON.stringify({
         name: props.playerName,
@@ -111,7 +112,7 @@ function LoginPage(props) {
       }),
     };
 
-    fetch("http://localhost:3002/subscribers", newInfo).then((response) => {
+    fetch(process.env.REACT_APP_SUBSCRIBERS_GET, newInfo).then((response) => {
       if (response.status === 409) {
         alert("An account with that name or email already exists.");
         return;
@@ -142,7 +143,7 @@ function LoginPage(props) {
       }),
     };
 
-    fetch("http://localhost:3002/subscribers/login", loginAsk).then(
+    fetch(process.env.REACT_APP_SUBSCRIBERS_ENDPOINT, loginAsk).then(
       (response) => {
         if (response.status === 200) {
           response.json().then((jwtPackage) => {
@@ -152,7 +153,7 @@ function LoginPage(props) {
           });
         } else if (response.status === 401) {
           alert("Name or Password not Valid");
-        } else if (response.status > -500) {
+        } else if (response.status > 500) {
           alert(
             "There appears to be an error with our servers. Please try again later"
           );

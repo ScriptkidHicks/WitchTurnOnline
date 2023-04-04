@@ -104,7 +104,7 @@ async function checkLoginState(
     headers: {
       Accept: "application/JSON",
       "content-type": "application/JSON",
-      origin: "http://localhost:3000",
+      origin: `${process.env.REACT_APP_QUERY_SOURCE}`,
       authorization: `Bearer ${loginCookie}`,
     },
   };
