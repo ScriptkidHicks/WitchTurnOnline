@@ -2,6 +2,10 @@ GET http://localhost:3002/subscribers
 
 ###
 
+GET http://localhost:3002/saveSessions
+
+###
+
 GET http://localhost:3002/subscribers/Godrick
 
 ###

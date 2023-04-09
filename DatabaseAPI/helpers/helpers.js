@@ -1,6 +1,8 @@
 jwt = require("jsonwebtoken");
 const Subscriber = require("../models/subscriber");
 const asyncHandler = require("express-async-handler");
+const Participant = require("../models/participant");
+const SavedIndividualSession = require("../models/savedIndividualSession");
 
 function generateToken(userId) {
   return jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: "30d" });
@@ -38,4 +40,29 @@ const protect = asyncHandler(async (req, res, next) => {
   next();
 });
 
-module.exports = { generateToken, protect, verifyToken };
+function constructParticipantSchema(participant) {
+  return {
+    characterName: participant.name,
+    imageSource: participant.img,
+    initiative: participant.initiative,
+    bonus: participant.bonus,
+    armorClass: participant.armorClass,
+    isHidden: participant.isHidden,
+    reactionUsed: participant.reactionUsed,
+  };
+}
+
+function constructSessionSchema(name, participants) {
+  return Participant({
+    sessionName: name,
+    individualSession: participants,
+  });
+}
+
+module.exports = {
+  generateToken,
+  protect,
+  verifyToken,
+  constructParticipantSchema,
+  constructSessionSchema,
+};

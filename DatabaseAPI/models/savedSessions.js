@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
-const IndividualSavedSession = require("./savedIndividualSession");
+const IndividualSavedSessionSchema = require("./savedIndividualSession");
 
 const savedSessionsSchema = new mongoose.Schema({
   playerName: String,
-  savedSessions: [IndividualSavedSession],
+  savedSessions: [IndividualSavedSessionSchema],
 });
 
 module.exports = mongoose.model("SavedSessionsSchema", savedSessionsSchema);

@@ -1,12 +1,9 @@
 const mongoose = require("mongoose");
-const Participant = require("./Participant");
+const ParticipantSchema = require("./participant");
 
-const IndividualSavedSession = new mongoose.Schema({
+const IndividualSavedSessionSchema = new mongoose.Schema({
   sessionName: String,
-  individualSession: [Participant],
+  individualSession: [ParticipantSchema],
 });
 
-module.exports = mongoose.model(
-  "IndividualSavedSession",
-  IndividualSavedSession
-);
+module.exports = IndividualSavedSessionSchema;

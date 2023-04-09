@@ -24,7 +24,7 @@ function AbstractDualQualitySorter(
   secondaryQuality
 ) {
   toBeSorted.sort((a, b) => {
-    return a[primaryQuality] == b[primaryQuality]
+    return a[primaryQuality] === b[primaryQuality]
       ? b[secondaryQuality] - a[secondaryQuality]
       : b[primaryQuality] - a[primaryQuality];
   });
@@ -48,7 +48,7 @@ function validateString(
 ) {
   let validationResponse = "";
 
-  if (minLength != 0 && examinedString.length < minLength) {
+  if (minLength !== 0 && examinedString.length < minLength) {
     validationResponse += "- Not long enough\n";
   }
 
@@ -56,7 +56,7 @@ function validateString(
     validationResponse += "- Too long\n";
   }
 
-  if (disallowedSubstrings != []) {
+  if (disallowedSubstrings !== []) {
     disallowedSubstrings.forEach((substring) => {
       if (examinedString.includes(substring)) {
         if (substring === " ") {
@@ -109,7 +109,7 @@ async function checkLoginState(
     },
   };
 
-  fetch("http://localhost:3002/subscribers/Verify", validationRequest).then(
+  fetch(process.env.REACT_APP_VERIFY_ENDPOINT, validationRequest).then(
     (response) => {
       if (response.status >= 500) {
         alert(

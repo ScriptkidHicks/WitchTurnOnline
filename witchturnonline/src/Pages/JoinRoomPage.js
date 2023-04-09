@@ -35,7 +35,7 @@ function JoinRoomPage(props) {
       () => {},
       props.setPlayerLoggedIn
     );
-  }, []);
+  });
 
   function GenerateRoom() {
     if (props.playerName === undefined || props.playerName === "") {
@@ -66,7 +66,7 @@ function JoinRoomPage(props) {
     return () => {
       props.socket.off("room_valid", (data) => {});
     };
-  }, []);
+  });
 
   useEffect(() => {
     props.socket.on("room_not_valid", (data) => {
@@ -78,7 +78,7 @@ function JoinRoomPage(props) {
     return () => {
       props.socket.off("room_not_valid", (data) => {});
     };
-  }, []);
+  });
 
   useEffect(() => {
     props.socket.on("room_generated", (data) => {
@@ -88,7 +88,7 @@ function JoinRoomPage(props) {
     });
 
     return () => props.socket.off("room_generated", (data) => {});
-  }, []);
+  });
 
   return (
     <DefaultPageBody>

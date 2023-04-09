@@ -16,7 +16,6 @@ import { useParams } from "react-router-dom";
 import {
   StyledCopyFlyout,
   StyledHiddenInfo,
-  StyledModalHiderCollapserDiv,
   StyledModalHiderDiv,
 } from "../Components/BarsAndFoldouts/FlyoutStyles";
 import {
@@ -73,7 +72,7 @@ function Base20InitiativePage(props) {
       () => {},
       props.setPlayerLoggedIn
     );
-  }, []);
+  });
 
   useEffect(() => {
     //clear the names list
@@ -85,7 +84,6 @@ function Base20InitiativePage(props) {
     props.socket.emit("join_room", { room: room });
 
     props.socket.on("receive_message", (data) => {
-      console.log(` a new message has been received: ${data.message}`);
       participantsParallel = data.message;
       setOffset(data.offset);
       setParticipants(data.message);
@@ -104,6 +102,28 @@ function Base20InitiativePage(props) {
     Assistant Functions
   */
   //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+  function saveSession() {
+    const ask = {
+      method: "POST",
+      headers: {
+        Accept: "application/JSON",
+        "content-type": "application/JSON",
+        origin: process.env.REACT_APP_QUERY_SOURCE,
+      },
+      body: JSON.stringify({
+        playerName: "Tammas",
+        sessionName: "Test Name",
+        session: participants,
+      }),
+    };
+
+    console.log(process.env.REACT_APP_SAVE_SESSION);
+
+    fetch(process.env.REACT_APP_SAVE_SESSION, ask).then((response) => {
+      console.log(response);
+    });
+  }
 
   function UnhideParticipant(participantIndex) {
     let updatedParticipants = [...participants];
@@ -375,6 +395,7 @@ function Base20InitiativePage(props) {
         ></InitiativeRoll>
         <StyledButtonRow>
           <StyledTurnButton onClick={ReduceTurn}>{"<<"}</StyledTurnButton>
+          <StyledTurnButton onClick={saveSession}>Save</StyledTurnButton>
           <StyledTurnButton onClick={AdvanceTurn}>{">>"}</StyledTurnButton>
         </StyledButtonRow>
       </DefaultPageColumn>

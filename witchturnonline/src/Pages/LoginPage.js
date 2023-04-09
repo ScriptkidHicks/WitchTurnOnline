@@ -38,7 +38,7 @@ function LoginPage(props) {
       },
       props.setPlayerLoggedIn
     );
-  }, []);
+  }, [navigate, props.setPlayerLoggedIn]);
 
   function infoValidate() {
     if (!props.playerName) {
@@ -97,7 +97,6 @@ function LoginPage(props) {
   }
 
   async function createQuery() {
-    console.log("create query form " + process.env.REACT_APP_QUERY_SOURCE);
     const newInfo = {
       method: "POST",
       headers: {

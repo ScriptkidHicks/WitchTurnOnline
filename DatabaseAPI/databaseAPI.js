@@ -25,8 +25,10 @@ app.use(
 );
 
 const subscribersRouter = require("./routes/subscribers");
-
 app.use("/subscribers", subscribersRouter);
+
+const saveSessionsRouter = require("./routes/savedSessions");
+app.use("/saveSessions", saveSessionsRouter);
 
 app.listen(process.env.PORT, () => {
   console.log("The server has started");

@@ -41,7 +41,6 @@ router.post("/login", async (req, res) => {
 //VERIFY ONE
 
 router.get("/Verify", async (req, res) => {
-  console.log("verify has been touched");
   let token;
   req.headers.authorization;
   if (
@@ -53,7 +52,6 @@ router.get("/Verify", async (req, res) => {
       token = req.headers.authorization.split(" ")[1];
 
       const decoded = verifyToken(token);
-      console.log(decoded);
       if (!decoded) {
         res.status(401);
         res.send("Invalid token");
@@ -68,11 +66,11 @@ router.get("/Verify", async (req, res) => {
         res.send();
         return;
       } else {
+        //this isn't an error state. They might be allowed to access a page without
+        //having a token
         res.status(401);
-        throw new Error("User Does Not Exist");
       }
     } catch (error) {
-      console.log(error);
       res.status(401);
       throw new Error("not authorized");
     }

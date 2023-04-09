@@ -9,7 +9,6 @@ import {
   StyledCloseExpandingModal,
   StyledExpandingModal,
   StyledFlyoutTabContent,
-  StyledModalHiderDiv,
   StyledOpacityHiderDiv,
   StyledPremadeMonster,
   StyledPremadeMonstersScroll,
@@ -17,9 +16,6 @@ import {
   StyledTabClicker,
   StyledTabLabel,
 } from "./FlyoutStyles";
-
-import { AddModal } from "../InitiativeScrollComponents/InitiativeComponents";
-import { SortedListSearcher } from "../SearchBars/GenericInputs";
 import { StyledMinorfunctionButton } from "../StyledComponents/MainStyles";
 import { LimitedInputCombo } from "../SearchBars/GenericInputs";
 
@@ -208,4 +204,5 @@ export {
   FlyoutSection,
   CloseExpandingModal,
   PremadeMonsterScroll,
+  TabbedFlyout,
 };

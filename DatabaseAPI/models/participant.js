@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const Participant = new mongoose.Schema({
+const ParticipantSchema = new mongoose.Schema({
   characterName: String,
   imageSource: String,
   initiative: Number,
@@ -10,4 +10,4 @@ const Participant = new mongoose.Schema({
   reactionUsed: Boolean,
 });
 
-module.exports = mongoose.model("Participant", Participant);
+module.exports = ParticipantSchema;

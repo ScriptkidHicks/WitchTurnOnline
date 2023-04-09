@@ -1,10 +1,8 @@
 import { useRef, useState } from "react";
-import { BasicXCloseButton } from "../Buttons/BasicButtons";
 import { LimitedInputCombo } from "../SearchBars/GenericInputs";
 import { PictureChooser } from "./Scrolls";
 import {
   StyledInfoLabel,
-  StyledModalBackground,
   StyledModalInterfaceDiv,
   StyledTTContentcontainer,
   StyledTurnTaker,
@@ -19,7 +17,6 @@ import {
 } from "../StyledComponents/InitiativeStyles";
 import {
   StyledFormInformationRow,
-  StyledGenericButton,
   StyledMinorfunctionButton,
   StyledXButton,
 } from "../StyledComponents/MainStyles";
