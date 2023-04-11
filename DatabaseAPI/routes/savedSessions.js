@@ -12,7 +12,6 @@ const SavedSessions = require("../models/savedSessions");
 
 const jwt = require("jsonwebtoken");
 const { model } = require("mongoose");
-const savedSessions = require("../models/savedSessions");
 
 //GET ALL
 
@@ -31,24 +30,44 @@ router.get("/:name", async (req, res) => {});
 //CREATING ONE
 
 router.post("/", async (req, res) => {
-  console.log(req.body.session);
   let convertedParticipantList = [];
   req.body.session.forEach((member) => {
     convertedParticipantList.push(constructParticipantSchema(member));
   });
-  let p1 = new savedSessions({
+
+  let existingUserSaves = await SavedSessions.findOne({
     playerName: req.body.playerName,
-    savedSessions: [
-      {
-        sessionName: req.body.sessionName,
-        individualSession: convertedParticipantList,
-      },
-    ],
-  });
-  console.log(p1);
-  console.log(convertedParticipantList);
-  const isDone = await p1.save();
-  console.log(isDone);
+  }).exec();
+
+  if (!existingUserSaves) {
+    //the user hasn't made any saves yet, so we create a new save for them.
+    let newSaveModel = new SavedSessions({
+      playerName: req.body.playerName,
+      savedSessions: [
+        {
+          sessionName: req.body.sessionName,
+          individualSession: convertedParticipantList,
+        },
+      ],
+    });
+    const saveSuccess = await newSaveModel.save();
+    if (saveSuccess) {
+      res.status(201);
+      res.send();
+      return;
+    } else {
+      res.status(500);
+      res.send();
+      return;
+    }
+  } else {
+    //ok, so this user already has saves, which means that we need to match a session name, or save a new one.
+  }
+  //const isDone = await p1.save();
+  //console.log(isDone);
+
+  res.status(200);
+  res.send();
 });
 
 //UPDATING ONE

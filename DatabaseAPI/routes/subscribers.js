@@ -108,8 +108,6 @@ router.post("/", async (req, res) => {
   let emailUser = await Subscriber.findOne({ email: req.body.email }).exec();
 
   if (nameUser || emailUser) {
-    console.log(nameUser);
-    console.log(emailUser);
     res.status(409);
     res.send("User already exists");
     return;
