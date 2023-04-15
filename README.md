@@ -3,6 +3,9 @@
    
 You can find Witch Turn [here](https://witch-turn-l95l.onrender.com)
 
+### A note on cloning this repo
+\t You will need to create your own .env files. I have not included them in this git repo.
+
 
 ## Rooms
   Using the websockets io tool, combined with react, this app has been set up to provide users with shared rooms, much in the style of the jackbox games. Eventually we would like to add the functionality which allows the user to save the contents of rooms out, so that they can quick load them again if they need to pause a session.
