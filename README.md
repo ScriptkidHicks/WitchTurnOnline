@@ -31,14 +31,10 @@ You can find Witch Turn [here](https://witch-turn-l95l.onrender.com)
 - [ ] There should be a way to roll dice for an entity on the entity. This should include things like ways for the GM to track invisible saves and rolls.
 - [ ] There should be an ability to track basic information about the entity on the entity (AC, Health, ETC). For this one players should only be able to alter their own.
 
-## Sprint 2
+## Sprint 3
 
-  Sprint 2 runs from 2/1/23 to 2/28/23
+  Sprint 3 runs from 4/15/23 to 5/30/23
   This sprint will cover:
-  - The characters will now have pop out character sheets that you can use to look at their information
-  - More pixel art for character choice
-  - A modal to add generic monsters to the turn order
-  - A way to search through available monsters
-  - Cleaning the code for readability, as well as smoothness. (this was missed in sprint 1)
-  
-  Sprint 3 will speculatively cover polishing, 4 will likely cover making a login interface.
+  - Users will now be able to log in
+  - Users will be able to save sessions
+  - Users will be able to recover password
