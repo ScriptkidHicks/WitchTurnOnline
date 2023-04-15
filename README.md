@@ -4,7 +4,7 @@
 You can find Witch Turn [here](https://witch-turn-l95l.onrender.com)
 
 ### A note on cloning this repo
-\t You will need to create your own .env files. I have not included them in this git repo.
+You will need to create your own .env files. I have not included them in this git repo.
 
 
 ## Rooms
