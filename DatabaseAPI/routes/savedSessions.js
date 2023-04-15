@@ -61,10 +61,24 @@ router.post("/", async (req, res) => {
       return;
     }
   } else {
-    //ok, so this user already has saves, which means that we need to match a session name, or save a new one.
+    let replace = false;
+    let retreivedSessions = existingUserSaves.savedSessions;
+    retreivedSessions.forEach((session, index) => {
+      if (session.sessionName === req.body.sessionName) {
+        retreivedSessions[index] = req.body.individualSession;
+        replace = true;
+      }
+    });
+    if (!replace && retreivedSessions.length <= 3) {
+      retreivedSessions.push({
+        sessionName: req.body.sessionName,
+        individualSession: convertedParticipantList,
+      });
+    }
+    existingUserSaves.savedSessions = retreivedSessions;
+    //update in place
+    existingUserSaves.save();
   }
-  //const isDone = await p1.save();
-  //console.log(isDone);
 
   res.status(200);
   res.send();
