@@ -1,6 +1,7 @@
 import {
   AddModal,
   InitiativeRoll,
+  SaveModal,
 } from "../Components/InitiativeScrollComponents/InitiativeComponents";
 import {
   DefaultPageBody,
@@ -32,6 +33,7 @@ import {
 
 import Kobold from "../Assets/MonsterOnlyAssets/Kobold.png";
 import Wizard from "../Assets/PlayerAssets/Wizard.png";
+import Hag from "../Assets/MonsterOnlyAssets/GreenHag.png";
 
 import names from "../Assets/PlayerAssets/Names";
 import monsters from "../Assets/MonsterOnlyAssets/Monsters";
@@ -47,6 +49,7 @@ function Base20InitiativePage(props) {
 
   const [monsterSelectorOpen, setMonsterSelectorOpen] = useState(false);
   const [playersModalOpen, setPlayersModalOpen] = useState(false);
+  const [saveModalOpen, setSaveModalOpen] = useState(false);
   const [mobileSliderOpen, setMobileSliderOpen] = useState(false);
 
   const { room } = useParams();
@@ -103,7 +106,13 @@ function Base20InitiativePage(props) {
   */
   //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-  function saveSession() {
+  function saveSession(sessionName) {
+    console.log(sessionName);
+    if (sessionName === "" || !sessionName) {
+      alert("Please enter a valid session name");
+      return;
+    }
+
     const ask = {
       method: "POST",
       headers: {
@@ -310,17 +319,10 @@ function Base20InitiativePage(props) {
   }
 
   function CopyFlyout(props) {
-    const [open, setOpen] = useState(true);
-
     return (
-      <StyledCopyFlyout
-        left={props.left}
-        onClick={() => {
-          setOpen(!open);
-        }}
-      >
+      <StyledCopyFlyout left={props.left}>
         <StyledInfoLabel>Room: </StyledInfoLabel>
-        <StyledHiddenInfo open={open}>{props.room}</StyledHiddenInfo>
+        <StyledHiddenInfo open={true}>{props.room}</StyledHiddenInfo>
         {/* {<StyledInterfaceButton
           onClick={() => {
             navigator.clipboard.writeText(window.location.href);
@@ -345,7 +347,20 @@ function Base20InitiativePage(props) {
       >
         <ExpandingButtonModal
           slideOpen={mobileSliderOpen}
-          othersOpen={monsterSelectorOpen}
+          othersOpen={monsterSelectorOpen || playersModalOpen}
+          background={Hag}
+          open={saveModalOpen}
+          setOpen={setSaveModalOpen}
+        >
+          <CloseExpandingModal
+            setOpen={setSaveModalOpen}
+            resetFunction={() => {}}
+          ></CloseExpandingModal>
+          <SaveModal saveSession={saveSession}></SaveModal>
+        </ExpandingButtonModal>
+        <ExpandingButtonModal
+          slideOpen={mobileSliderOpen}
+          othersOpen={monsterSelectorOpen || saveModalOpen}
           background={Wizard}
           bottom={"100px"}
           open={playersModalOpen}
@@ -363,7 +378,7 @@ function Base20InitiativePage(props) {
         </ExpandingButtonModal>
         <ExpandingButtonModal
           slideOpen={mobileSliderOpen}
-          othersOpen={playersModalOpen}
+          othersOpen={playersModalOpen || saveModalOpen}
           background={Kobold}
           open={monsterSelectorOpen}
           setOpen={setMonsterSelectorOpen}
@@ -397,7 +412,6 @@ function Base20InitiativePage(props) {
         ></InitiativeRoll>
         <StyledButtonRow>
           <StyledTurnButton onClick={ReduceTurn}>{"<<"}</StyledTurnButton>
-          <StyledTurnButton onClick={saveSession}>Save</StyledTurnButton>
           <StyledTurnButton onClick={AdvanceTurn}>{">>"}</StyledTurnButton>
         </StyledButtonRow>
       </DefaultPageColumn>

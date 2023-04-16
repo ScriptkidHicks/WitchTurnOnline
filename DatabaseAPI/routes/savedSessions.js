@@ -32,7 +32,6 @@ router.get("/:name", async (req, res) => {});
 //CREATING ONE
 
 router.post("/", async (req, res) => {
-  console.log("touching the save button");
   let convertedParticipantList = [];
   req.body.session.forEach((member) => {
     convertedParticipantList.push(constructParticipantSchema(member));
@@ -65,7 +64,6 @@ router.post("/", async (req, res) => {
       return;
     }
   } else {
-    console.log("We have found an existing one");
     let found = false;
     let retreivedSessions = existingUserSaves.savedSessions;
     let saveOutSessions = [];

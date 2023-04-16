@@ -305,4 +305,33 @@ function AddModal(props) {
   );
 }
 
-export { InitiativeRoll, AddModal, TurnTakerPictureAndSheet, PlayerNameSlide };
+function SaveModal(props) {
+  const name = useRef(props.sessionName ? props.sessionName : "");
+  return (
+    <StyledModalInterfaceDiv>
+      <StyledFormInformationRow>
+        <StyledInfoLabel>Session Name:</StyledInfoLabel>
+        <LimitedInputCombo
+          setInputState={(value) => (name.current = value)}
+          letterSpacing={"0.0em"}
+          maxLength={20}
+        />
+      </StyledFormInformationRow>
+      <StyledInterfaceButton
+        onClick={() => {
+          props.saveSession(name.current);
+        }}
+      >
+        Save
+      </StyledInterfaceButton>
+    </StyledModalInterfaceDiv>
+  );
+}
+
+export {
+  InitiativeRoll,
+  AddModal,
+  TurnTakerPictureAndSheet,
+  PlayerNameSlide,
+  SaveModal,
+};
