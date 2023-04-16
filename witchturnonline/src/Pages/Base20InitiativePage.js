@@ -118,6 +118,8 @@ function Base20InitiativePage(props) {
       }),
     };
 
+    console.log("query: " + ask);
+
     console.log(process.env.REACT_APP_SAVE_SESSION);
 
     fetch(process.env.REACT_APP_SAVE_SESSION, ask).then((response) => {

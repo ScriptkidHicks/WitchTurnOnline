@@ -17,6 +17,8 @@ const { model } = require("mongoose");
 
 router.get("/", async (req, res) => {
   console.log("this is an appropriate endpoint");
+  const ses = await SavedSessions.find();
+  console.log(ses);
 });
 
 //GET ONE
@@ -30,6 +32,7 @@ router.get("/:name", async (req, res) => {});
 //CREATING ONE
 
 router.post("/", async (req, res) => {
+  console.log("touching the save button");
   let convertedParticipantList = [];
   req.body.session.forEach((member) => {
     convertedParticipantList.push(constructParticipantSchema(member));
@@ -90,6 +93,10 @@ router.patch("/", async (req, res) => {});
 
 //DELETING ONE
 
-router.delete("/", async (req, res) => {});
+router.delete("/", async (req, res) => {
+  console.log("deleting all");
+  let success = await SavedSessions.collection.deleteMany({});
+  console.log(success);
+});
 
 module.exports = router;
