@@ -20,7 +20,7 @@ db.on("open", () => {
 app.use(express.json());
 app.use(
   cors({
-    origin: process.env.ORIGIN_CAPS,
+    origin: process.env.ORIGIN,
   })
 );
 
@@ -32,5 +32,5 @@ app.use("/saveSessions", saveSessionsRouter);
 
 app.listen(process.env.PORT, () => {
   console.log("The server has started");
-  console.log(process.env.ORIGIN_CAPS);
+  console.log(process.env.ORIGIN);
 });

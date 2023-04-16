@@ -37,6 +37,7 @@ router.post("/", async (req, res) => {
   req.body.session.forEach((member) => {
     convertedParticipantList.push(constructParticipantSchema(member));
   });
+  console.log(convertedParticipantList);
 
   let existingUserSaves = await SavedSessions.findOne({
     playerName: req.body.playerName,
@@ -64,23 +65,36 @@ router.post("/", async (req, res) => {
       return;
     }
   } else {
-    let replace = false;
+    console.log("We have found an existing one");
+    let found = false;
     let retreivedSessions = existingUserSaves.savedSessions;
+    let saveOutSessions = [];
     retreivedSessions.forEach((session, index) => {
       if (session.sessionName === req.body.sessionName) {
-        retreivedSessions[index] = req.body.individualSession;
-        replace = true;
+        //If we find a copy, then replace one;
+        saveOutSessions.push({
+          sessionName: req.body.sessionName,
+          individualSession: convertedParticipantList,
+        });
+      } else {
+        saveOutSessions.push(session);
+      }
+      if (!found) {
+        saveOutSessions.push({
+          sessionName: req.body.sessionName,
+          individualSession: convertedParticipantList,
+        });
       }
     });
-    if (!replace && retreivedSessions.length <= 3) {
-      retreivedSessions.push({
-        sessionName: req.body.sessionName,
-        individualSession: convertedParticipantList,
-      });
+    // update the value and save out. NOTE THAT THE MONGOOSE UPDATE FUNCTION DOES NOT WORK HERE!!
+    console.log(saveOutSessions);
+    existingUserSaves.savedSessions = saveOutSessions;
+    let elm = await existingUserSaves.save();
+    if (!elm) {
+      res.status(500);
+      res.send();
+      return;
     }
-    existingUserSaves.savedSessions = retreivedSessions;
-    //update in place
-    existingUserSaves.save();
   }
 
   res.status(200);
