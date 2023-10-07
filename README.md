@@ -1,7 +1,9 @@
+# SERVICE DEPRECATED
+Hey folks, Witch Turn is now a discontinued prjoect. It was deleted on 10/7/23. I'm currently in the process of developing an organizational website for fun. If you're looking for a similar service, Roll20 does a decent job of the same thing. This was a fun project to work on.
+
 # WitchTurnOnline
    *The Witch Turn app is a tool for tabletop players and their gms to manage initiative in games, provide the Gm a way to manage clocks, and the players a way to view some / all of those clocks. The dev(s) of this app found that there were a lot of tools online for managing tabletop simulators, or shared dice rolling, but none for visualizing shared clocks, or viewing initiative.*
-   
-You can find Witch Turn [here](https://witch-turn-l95l.onrender.com)
+  
 
 ### A note on cloning this repo
 You will need to create your own .env files. I have not included them in this git repo.
